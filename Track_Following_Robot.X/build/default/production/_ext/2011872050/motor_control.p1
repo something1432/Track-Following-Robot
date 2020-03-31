@@ -1,0 +1,271 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"4 ../Robot Files/motor_control.c
+[v _follow_simple_curves `(v ~T0 @X0 0 ef ]
+"105 ../Robot Files/sumovore.h
+[v _motors_brake_all `(v ~T0 @X0 0 ef ]
+"88
+[s S3 :5 `uc 1 :3 `uc 1 ]
+[n S3 . B . ]
+"75
+[s S1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 ]
+[n S1 sensors Right CntRight Center CntLeft Left . ]
+"85
+[u S2 `S3 1 `S1 1 ]
+[n S2 sensor_union . b ]
+"110
+[v _SeeLine `S2 ~T0 @X0 0 e ]
+"7 ../Robot Files/motor_control.c
+[v _straight_fwd `(v ~T0 @X0 0 ef ]
+"5
+[v _spin_left `(v ~T0 @X0 0 ef ]
+"6
+[v _turn_left `(v ~T0 @X0 0 ef ]
+"8
+[v _turn_right `(v ~T0 @X0 0 ef ]
+"9
+[v _spin_right `(v ~T0 @X0 0 ef ]
+"42
+[c E27 0 1 .. ]
+[n E27 motor_selection left right  ]
+[c E19 0 1 2 3 4 5 6 .. ]
+[n E19 motor_speed_setting rev_fast rev_medium rev_slow stop slow medium fast  ]
+"103 ../Robot Files/sumovore.h
+[v _set_motor_speed `(v ~T0 @X0 0 ef3`E27`E19`i ]
+[; ;sumovore.h: 65: extern unsigned int threshold;
+[; ;sumovore.h: 75: struct sensors
+[; ;sumovore.h: 76: {
+[; ;sumovore.h: 77: unsigned Right:1;
+[; ;sumovore.h: 78: unsigned CntRight:1;
+[; ;sumovore.h: 79: unsigned Center:1;
+[; ;sumovore.h: 80: unsigned CntLeft:1;
+[; ;sumovore.h: 81: unsigned Left:1;
+[; ;sumovore.h: 82: unsigned :3;
+[; ;sumovore.h: 83: };
+[; ;sumovore.h: 85: union sensor_union
+[; ;sumovore.h: 86: {
+[; ;sumovore.h: 87: struct
+[; ;sumovore.h: 88: {
+[; ;sumovore.h: 89: unsigned B:5;
+[; ;sumovore.h: 90: unsigned :3;
+[; ;sumovore.h: 91: };
+[; ;sumovore.h: 92: struct sensors b;
+[; ;sumovore.h: 93: };
+[; ;sumovore.h: 95: void initialization(void);
+[; ;sumovore.h: 97: unsigned int adc(unsigned char channel);
+[; ;sumovore.h: 99: enum motor_speed_setting { rev_fast, rev_medium, rev_slow, stop, slow, medium, fast };
+[; ;sumovore.h: 101: enum motor_selection { left, right };
+[; ;sumovore.h: 103: void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier);
+[; ;sumovore.h: 105: void motors_brake_all( void );
+[; ;sumovore.h: 106: void set_leds(void);
+[; ;sumovore.h: 107: void check_sensors(void);
+[; ;sumovore.h: 108: void LVtrap(void);
+[; ;sumovore.h: 110: extern union sensor_union SeeLine;
+[; ;motor_control.h: 1: void motor_control(void);
+[; ;motor_control.c: 4: void follow_simple_curves(void);
+[; ;motor_control.c: 5: void spin_left(void);
+[; ;motor_control.c: 6: void turn_left(void);
+[; ;motor_control.c: 7: void straight_fwd(void);
+[; ;motor_control.c: 8: void turn_right(void);
+[; ;motor_control.c: 9: void spin_right(void);
+"11 ../Robot Files/motor_control.c
+[v _motor_control `(v ~T0 @X0 1 ef ]
+"12
+{
+[; ;motor_control.c: 11: void motor_control(void)
+[; ;motor_control.c: 12: {
+[e :U _motor_control ]
+[f ]
+[; ;motor_control.c: 14: switch(SeeLine.B)
+"14
+[e $U 6  ]
+[; ;motor_control.c: 15: {
+"15
+{
+[; ;motor_control.c: 16: case 0b00100u:
+"16
+[e :U 7 ]
+"17
+[e :U 8 ]
+"18
+[e :U 9 ]
+"19
+[e :U 10 ]
+"20
+[e :U 11 ]
+[; ;motor_control.c: 17: case 0b00010u:
+[; ;motor_control.c: 18: case 0b01000u:
+[; ;motor_control.c: 19: case 0b00001u:
+[; ;motor_control.c: 20: case 0b10000u:
+[; ;motor_control.c: 22: follow_simple_curves();
+"22
+[e ( _follow_simple_curves ..  ]
+[; ;motor_control.c: 23: break;
+"23
+[e $U 5  ]
+[; ;motor_control.c: 24: case 0b00000u:
+"24
+[e :U 12 ]
+[; ;motor_control.c: 25: motors_brake_all();
+"25
+[e ( _motors_brake_all ..  ]
+[; ;motor_control.c: 26: break;
+"26
+[e $U 5  ]
+[; ;motor_control.c: 27: default: break;
+"27
+[e :U 13 ]
+[e $U 5  ]
+"28
+}
+[; ;motor_control.c: 28: }
+[e $U 5  ]
+"14
+[e :U 6 ]
+[e [\ . . _SeeLine 0 0 , $ -> -> 4 `ui `uc 7
+ , $ -> -> 2 `ui `uc 8
+ , $ -> -> 8 `ui `uc 9
+ , $ -> -> 1 `ui `uc 10
+ , $ -> -> 16 `ui `uc 11
+ , $ -> -> 0 `ui `uc 12
+ 13 ]
+"28
+[e :U 5 ]
+[; ;motor_control.c: 29: }
+"29
+[e :UE 4 ]
+}
+"31
+[v _follow_simple_curves `(v ~T0 @X0 1 ef ]
+"32
+{
+[; ;motor_control.c: 31: void follow_simple_curves(void)
+[; ;motor_control.c: 32: {
+[e :U _follow_simple_curves ]
+[f ]
+[; ;motor_control.c: 33: if ( SeeLine.b.Center ) straight_fwd();
+"33
+[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 15  ]
+[e ( _straight_fwd ..  ]
+[e $U 16  ]
+"34
+[e :U 15 ]
+[; ;motor_control.c: 34: else if (SeeLine.b.Left) spin_left();
+[e $ ! != -> . . _SeeLine 1 4 `i -> -> -> 0 `i `uc `i 17  ]
+[e ( _spin_left ..  ]
+[e $U 18  ]
+"35
+[e :U 17 ]
+[; ;motor_control.c: 35: else if (SeeLine.b.CntLeft) turn_left();
+[e $ ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i 19  ]
+[e ( _turn_left ..  ]
+[e $U 20  ]
+"36
+[e :U 19 ]
+[; ;motor_control.c: 36: else if (SeeLine.b.CntRight) turn_right();
+[e $ ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i 21  ]
+[e ( _turn_right ..  ]
+[e $U 22  ]
+"37
+[e :U 21 ]
+[; ;motor_control.c: 37: else if (SeeLine.b.Right) spin_right();
+[e $ ! != -> . . _SeeLine 1 0 `i -> -> -> 0 `i `uc `i 23  ]
+[e ( _spin_right ..  ]
+[e :U 23 ]
+"38
+[e :U 22 ]
+[e :U 20 ]
+[e :U 18 ]
+[e :U 16 ]
+[; ;motor_control.c: 38: }
+[e :UE 14 ]
+}
+"40
+[v _spin_left `(v ~T0 @X0 1 ef ]
+"41
+{
+[; ;motor_control.c: 40: void spin_left(void)
+[; ;motor_control.c: 41: {
+[e :U _spin_left ]
+[f ]
+[; ;motor_control.c: 42: set_motor_speed(left, rev_fast, 0);
+"42
+[e ( _set_motor_speed (3 , , . `E27 0 . `E19 0 -> 0 `i ]
+[; ;motor_control.c: 43: set_motor_speed(right, fast, 0);
+"43
+[e ( _set_motor_speed (3 , , . `E27 1 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 44: }
+"44
+[e :UE 24 ]
+}
+"46
+[v _turn_left `(v ~T0 @X0 1 ef ]
+"47
+{
+[; ;motor_control.c: 46: void turn_left(void)
+[; ;motor_control.c: 47: {
+[e :U _turn_left ]
+[f ]
+[; ;motor_control.c: 48: set_motor_speed(left, stop, 0);
+"48
+[e ( _set_motor_speed (3 , , . `E27 0 . `E19 3 -> 0 `i ]
+[; ;motor_control.c: 49: set_motor_speed(right, fast, 0);
+"49
+[e ( _set_motor_speed (3 , , . `E27 1 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 50: }
+"50
+[e :UE 25 ]
+}
+"51
+[v _straight_fwd `(v ~T0 @X0 1 ef ]
+"52
+{
+[; ;motor_control.c: 51: void straight_fwd(void)
+[; ;motor_control.c: 52: {
+[e :U _straight_fwd ]
+[f ]
+[; ;motor_control.c: 53: set_motor_speed(left, fast, 0);
+"53
+[e ( _set_motor_speed (3 , , . `E27 0 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 54: set_motor_speed(right, fast, 0);
+"54
+[e ( _set_motor_speed (3 , , . `E27 1 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 55: }
+"55
+[e :UE 26 ]
+}
+"56
+[v _spin_right `(v ~T0 @X0 1 ef ]
+"57
+{
+[; ;motor_control.c: 56: void spin_right(void)
+[; ;motor_control.c: 57: {
+[e :U _spin_right ]
+[f ]
+[; ;motor_control.c: 58: set_motor_speed(left, fast, 0);
+"58
+[e ( _set_motor_speed (3 , , . `E27 0 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 59: set_motor_speed(right, rev_fast, 0);
+"59
+[e ( _set_motor_speed (3 , , . `E27 1 . `E19 0 -> 0 `i ]
+[; ;motor_control.c: 60: }
+"60
+[e :UE 27 ]
+}
+"61
+[v _turn_right `(v ~T0 @X0 1 ef ]
+"62
+{
+[; ;motor_control.c: 61: void turn_right(void)
+[; ;motor_control.c: 62: {
+[e :U _turn_right ]
+[f ]
+[; ;motor_control.c: 63: set_motor_speed(left, fast, 0);
+"63
+[e ( _set_motor_speed (3 , , . `E27 0 . `E19 6 -> 0 `i ]
+[; ;motor_control.c: 64: set_motor_speed(right, stop, 0);
+"64
+[e ( _set_motor_speed (3 , , . `E27 1 . `E19 3 -> 0 `i ]
+[; ;motor_control.c: 65: }
+"65
+[e :UE 28 ]
+}

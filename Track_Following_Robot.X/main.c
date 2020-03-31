@@ -98,7 +98,7 @@ void PID_LineFollowing(char error[])
     //Calculate Delta Velocity
     delta_velocity = P_CONSTANT*P + I_CONSTANT*I + D_CONSTANT*D;
     
-    PID_SetMotorSpeed(delta_velocity);
+    PID_SetMotorSpeed(int delta_velocity);
 }
 
 //Function to set motor speed based on a delta velocity
@@ -149,4 +149,3 @@ void PID_SetMotorSpeed(int delta_velocity)
     else RmotorGoFwd = YES;
     RmotorGoFwdCmp = !RmotorGoFwd;
 }
- 

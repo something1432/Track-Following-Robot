@@ -10,21 +10,31 @@ void spin_right(void);
 
 void motor_control(void)
 {
+    char error;
      // very simple motor control
      switch(SeeLine.B)
      {
-        case 0b00100u:
+        case 0b00110u:
+            error=1;    break;
         case 0b00010u:
-        case 0b01000u:
+            error=2;    break;
+        case 0b00011u:
+            error=3;    break;
         case 0b00001u:
+            error=4;    break;
+        case 0b01100u:
+            error=-1;   break;
+        case 0b01000u:
+            error=-2;   break;
+        case 0b11000u:
+            error=-3;   break;
         case 0b10000u:
-                       //no breaks all above readings end up here
-                       follow_simple_curves();
-                       break;
-        case 0b00000u:
-                        motors_brake_all();
-                       break;
-        default:       break;
+            error=-4;   break;
+        case 0b11100u:
+        case 0b10100u:
+            SharpLeftTurn(e
+        default:
+            error=0;    break;
       } 
 }
 

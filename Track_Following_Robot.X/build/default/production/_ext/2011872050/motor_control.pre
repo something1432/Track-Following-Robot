@@ -1,0 +1,110 @@
+
+# 1 "../Robot Files/motor_control.c"
+
+# 65 "../Robot Files/sumovore.h"
+extern unsigned int threshold;
+
+# 75
+struct sensors
+{
+unsigned Right:1;
+unsigned CntRight:1;
+unsigned Center:1;
+unsigned CntLeft:1;
+unsigned Left:1;
+unsigned :3;
+};
+
+union sensor_union
+{
+struct
+{
+unsigned B:5;
+unsigned :3;
+};
+struct sensors b;
+};
+
+void initialization(void);
+
+unsigned int adc(unsigned char channel);
+
+enum motor_speed_setting { rev_fast, rev_medium, rev_slow, stop, slow, medium, fast };
+
+enum motor_selection { left, right };
+
+void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier);
+
+void motors_brake_all( void );
+void set_leds(void);
+void check_sensors(void);
+void LVtrap(void);
+
+extern union sensor_union SeeLine;
+
+# 1 "../Robot Files/motor_control.h"
+void motor_control(void);
+
+# 4 "../Robot Files/motor_control.c"
+void follow_simple_curves(void);
+void spin_left(void);
+void turn_left(void);
+void straight_fwd(void);
+void turn_right(void);
+void spin_right(void);
+
+void motor_control(void)
+{
+
+switch(SeeLine.B)
+{
+case 0b00100u:
+case 0b00010u:
+case 0b01000u:
+case 0b00001u:
+case 0b10000u:
+
+follow_simple_curves();
+break;
+case 0b00000u:
+motors_brake_all();
+break;
+default: break;
+}
+}
+
+void follow_simple_curves(void)
+{
+if ( SeeLine.b.Center ) straight_fwd();
+else if (SeeLine.b.Left) spin_left();
+else if (SeeLine.b.CntLeft) turn_left();
+else if (SeeLine.b.CntRight) turn_right();
+else if (SeeLine.b.Right) spin_right();
+}
+
+void spin_left(void)
+{
+set_motor_speed(left, rev_fast, 0);
+set_motor_speed(right, fast, 0);
+}
+
+void turn_left(void)
+{
+set_motor_speed(left, stop, 0);
+set_motor_speed(right, fast, 0);
+}
+void straight_fwd(void)
+{
+set_motor_speed(left, fast, 0);
+set_motor_speed(right, fast, 0);
+}
+void spin_right(void)
+{
+set_motor_speed(left, fast, 0);
+set_motor_speed(right, rev_fast, 0);
+}
+void turn_right(void)
+{
+set_motor_speed(left, fast, 0);
+set_motor_speed(right, stop, 0);
+}
