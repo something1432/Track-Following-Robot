@@ -13,10 +13,10 @@ const char D_CONSTANT = 0;  //inversly proportional constant
 unsigned int flag_count = 0;    //Timer0 flag counter
 int I = 0;  //Integral
 
-void PID_LineFollowing(char error[]);
+void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity);
 void SharpTurn(char direction);
-void GetBackonTrack();
+void GetBackonTrack(signed char last_error);
 
 void main(void)
 {
@@ -67,7 +67,7 @@ void main(void)
            case 0b10100u:
                SharpTurn(0);    //Left turn
            case 0b00000u:
-               //GetBackonTrack();
+               GetBackonTrack(error[1]);
            default:
                error[1]=0;    break;
          }
@@ -80,7 +80,7 @@ void main(void)
 }
 
 //Function to calculate delta velocity using PID
-void PID_LineFollowing(char error[])
+void PID_LineFollowing(signed char error[])
 {
     static int delta_velocity;
     static char P = 0;  //Proportional
@@ -171,7 +171,7 @@ void SharpTurn(char direction)
     int delta_velocity;
     
     flag_count = 0; //Reset counter
-    while (SeeLine.B && flag_count<7813) //While any sensor triggered and less than 1 sec elapsed
+    while (SeeLine.B && flag_count!=7813) //While any sensor triggered and less than 1 sec elapsed
     {
         MotorControl(I*I_CONSTANT);        //Continue on line
         if (TMR0IF)                             //increment counter
@@ -182,11 +182,10 @@ void SharpTurn(char direction)
         
     }
     
-    if(flag_count<7813) //If 1 second pass exit sharp turn function
-        return;
-    else
+    if(!SeeLine.B) //If no sensor triggered
     {
-        if(direction)   //If right side sensors triggered
+        motors_brake_all(); //Stop
+        if(direction)   //If right side sensors triggered last
         {
             delta_velocity = 1600;      //Turn CW
           while (!SeeLine.b.CntLeft && delta_velocity)    //Start going more and more forward if center triggered
@@ -196,7 +195,7 @@ void SharpTurn(char direction)
                   delta_velocity--;
           }
         }
-        else            //If left side sensors triggered
+        else            //If left side sensors triggered last
         {
             delta_velocity = -1600;     //Turn CCW
           while (!SeeLine.b.CntRight && delta_velocity)   //Start going more and more forward if center triggered
@@ -206,6 +205,42 @@ void SharpTurn(char direction)
                   delta_velocity++;
           }
         }
+        I = 0;          //Reset Integral term
     }
-    I = 0;   //Reset Integral term
+    
+    flag_count = 0; //Reset counter
+}
+
+//Function to get robot on track if it is off
+void GetBackonTrack(signed char last_error)
+{
+    if(last_error>1)        //If lost track on a right turn
+        SharpTurn(1);
+    else if(last_error<-1)  //If lost track on a left turn
+        SharpTurn(0);
+    else
+    {
+        flag_count = 0; //Reset counter
+        while (!SeeLine.B && flag_count!=7813) //While no sensor triggered and less than 1 sec elapsed
+        {
+            MotorControl(0);        //go straight
+            if (TMR0IF)             //increment counter
+            {
+                flag_count++;
+                TMR0IF = 0;
+            }
+        }
+
+        if(!SeeLine.B)    //If no sensor is triggered
+        {
+            motors_brake_all(); //Stop
+            MotorControl(1600); //Start turning CW
+            for(char i=0; i < 80; i++)   //Keep spinning until a full rotation
+                _delay(100000);
+
+            while (!SeeLine.B)      //While no sensor triggered
+                MotorControl(0);    //Go forward 
+        }
+        flag_count = 0; //Reset counter
+    }
 }

@@ -16,6 +16,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _check_sensors `(v ~T0 @X0 0 ef ]
 "18 ../Robot Files/main.c
 [v _SharpTurn `(v ~T0 @X0 0 ef1`uc ]
+"19
+[v _GetBackonTrack `(v ~T0 @X0 0 ef1`c ]
 "88 ../Robot Files/sumovore.h
 [s S398 :5 `uc 1 :3 `uc 1 ]
 [n S398 . B . ]
@@ -30,7 +32,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "106
 [v _set_leds `(v ~T0 @X0 0 ef ]
 "16 ../Robot Files/main.c
-[v _PID_LineFollowing `(v ~T0 @X0 0 ef1`*uc ]
+[v _PID_LineFollowing `(v ~T0 @X0 0 ef1`*c ]
 "1 ../Robot Files/interrupts.h
 [v _lvd_flag_set `(uc ~T0 @X0 0 ef ]
 "108 ../Robot Files/sumovore.h
@@ -153,6 +155,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTEbits `VS29 ~T0 @X0 0 e@3972 ]
 "468 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\pwm.h
 [v _SetDCPWM1 `(v ~T0 @X0 0 ef1`ui ]
+"105 ../Robot Files/sumovore.h
+[v _motors_brake_all `(v ~T0 @X0 0 ef ]
+[v F4117 `(v ~T0 @X0 1 tf1`ul ]
+"161 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18.h
+[v __delay `JF4117 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;stdio.h: 8: typedef int ptrdiff_t;
 [; ;stdio.h: 9: typedef unsigned size_t;
 [; ;stdio.h: 10: typedef unsigned short wchar_t;
@@ -3936,10 +3944,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> 0 `i
 ]
 [; ;main.c: 14: int I = 0;
-[; ;main.c: 16: void PID_LineFollowing(char error[]);
+[; ;main.c: 16: void PID_LineFollowing(signed char error[]);
 [; ;main.c: 17: void MotorControl(int delta_velocity);
 [; ;main.c: 18: void SharpTurn(char direction);
-[; ;main.c: 19: void GetBackonTrack();
+[; ;main.c: 19: void GetBackonTrack(signed char last_error);
 "21
 [v _main `(v ~T0 @X0 1 ef ]
 "22
@@ -3948,8 +3956,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 22: {
 [e :U _main ]
 [f ]
-[v F4185 `c ~T0 @X0 -> 2 `i s ]
-[i F4185
+[v F4186 `c ~T0 @X0 -> 2 `i s ]
+[i F4186
 :U ..
 "23
 -> -> 0 `i `c
@@ -3957,7 +3965,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _error `c ~T0 @X0 -> 2 `i a ]
 [; ;main.c: 23: signed char error[2]={0};
-[e = _error F4185 ]
+[e = _error F4186 ]
 [; ;main.c: 24: initialization();
 "24
 [e ( _initialization ..  ]
@@ -4071,6 +4079,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 69: case 0b00000u:
 "69
 [e :U 417 ]
+[; ;main.c: 70: GetBackonTrack(error[1]);
+"70
+[e ( _GetBackonTrack (1 *U + &U _error * -> -> -> 1 `i `ui `ux -> -> # *U &U _error `ui `ux ]
 [; ;main.c: 71: default:
 "71
 [e :U 418 ]
@@ -4105,7 +4116,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _set_leds ..  ]
 [; ;main.c: 75: PID_LineFollowing(error);
 "75
-[e ( _PID_LineFollowing (1 -> &U _error `*uc ]
+[e ( _PID_LineFollowing (1 &U _error ]
 [; ;main.c: 77: asm(" clrwdt");
 "77
 [; <"  clrwdt ;# ">
@@ -4126,26 +4137,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 399 ]
 }
 "83
-[v _PID_LineFollowing `(v ~T0 @X0 1 ef1`*uc ]
+[v _PID_LineFollowing `(v ~T0 @X0 1 ef1`*c ]
 "84
 {
-[; ;main.c: 83: void PID_LineFollowing(char error[])
+[; ;main.c: 83: void PID_LineFollowing(signed char error[])
 [; ;main.c: 84: {
 [e :U _PID_LineFollowing ]
 "83
-[v _error `*uc ~T0 @X0 1 r1 ]
+[v _error `*c ~T0 @X0 1 r1 ]
 "84
 [f ]
 "85
-[v F4187 `i ~T0 @X0 1 s delta_velocity ]
+[v F4188 `i ~T0 @X0 1 s delta_velocity ]
 "86
-[v F4188 `uc ~T0 @X0 1 s P ]
-[i F4188
+[v F4189 `uc ~T0 @X0 1 s P ]
+[i F4189
 -> -> 0 `i `uc
 ]
 "88
-[v F4189 `i ~T0 @X0 1 s D ]
-[i F4189
+[v F4190 `i ~T0 @X0 1 s D ]
+[i F4190
 -> 0 `i
 ]
 [; ;main.c: 85: static int delta_velocity;
@@ -4153,7 +4164,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 88: static int D = 0;
 [; ;main.c: 91: P = error[1];
 "91
-[e = F4188 *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x ]
+[e = F4189 -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `uc ]
 [; ;main.c: 94: if (TMR0IF)
 "94
 [e $ ! _TMR0IF 421  ]
@@ -4168,7 +4179,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TMR0IF -> -> 0 `i `b ]
 [; ;main.c: 98: if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[1]<0) || (delta_velocity<=-1600 && error[1]>0))
 "98
-[e $ ! || || ! || >= F4187 -> 1600 `i <= F4187 -> 1600 `i && >= F4187 -> 1600 `i < -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i && <= F4187 -U -> 1600 `i > -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i 422  ]
+[e $ ! || || ! || >= F4188 -> 1600 `i <= F4188 -> 1600 `i && >= F4188 -> 1600 `i < -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i && <= F4188 -U -> 1600 `i > -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i 422  ]
 [; ;main.c: 100: if( !(I>=3273 || I<=-3274) || (I>=3273 && error[1]<0) || (I<=-3274 && error[1]>0))
 "100
 [e $ ! || || ! || >= _I -> 3273 `i <= _I -U -> 3274 `i && >= _I -> 3273 `i < -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i && <= _I -U -> 3274 `i > -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> 0 `i 423  ]
@@ -4189,7 +4200,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;main.c: 108: D = (error[1]-error[0])*32767/flag_count;
 "108
-[e = F4189 -> / -> * - -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> *U + _error * -> -> 0 `i `x -> -> # *U _error `i `x `i -> 32767 `i `ui _flag_count `i ]
+[e = F4190 -> / -> * - -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> *U + _error * -> -> 0 `i `x -> -> # *U _error `i `x `i -> 32767 `i `ui _flag_count `i ]
 [; ;main.c: 109: flag_count = 0;
 "109
 [e = _flag_count -> -> 0 `i `ui ]
@@ -4202,10 +4213,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 111: }
 [; ;main.c: 114: delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;
 "114
-[e = F4187 + + * -> _P_CONSTANT `i -> F4188 `i / _I -> _I_CONSTANT `i / F4189 -> _D_CONSTANT `i ]
+[e = F4188 + + * -> _P_CONSTANT `i -> F4189 `i / _I -> _I_CONSTANT `i / F4190 -> _D_CONSTANT `i ]
 [; ;main.c: 116: MotorControl(delta_velocity);
 "116
-[e ( _MotorControl (1 F4187 ]
+[e ( _MotorControl (1 F4188 ]
 [; ;main.c: 117: }
 "117
 [e :UE 420 ]
@@ -4228,13 +4239,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _right_duty_cycle `i ~T0 @X0 1 a ]
 [e = _right_duty_cycle -> 700 `i ]
 "123
-[c E4193 0 1 .. ]
-[n E4193 e_direction reverse forward  ]
-[v _left_dir_modifier `E4193 ~T0 @X0 1 a ]
+[c E4194 0 1 .. ]
+[n E4194 e_direction reverse forward  ]
+[v _left_dir_modifier `E4194 ~T0 @X0 1 a ]
 [; ;main.c: 123: enum e_direction {reverse,forward} left_dir_modifier= forward, right_dir_modifier= forward;
-[e = _left_dir_modifier . `E4193 1 ]
-[v _right_dir_modifier `E4193 ~T0 @X0 1 a ]
-[e = _right_dir_modifier . `E4193 1 ]
+[e = _left_dir_modifier . `E4194 1 ]
+[v _right_dir_modifier `E4194 ~T0 @X0 1 a ]
+[e = _right_dir_modifier . `E4194 1 ]
 [; ;main.c: 126: if ( delta_velocity < 0 )
 "126
 [e $ ! < _delta_velocity -> 0 `i 426  ]
@@ -4275,7 +4286,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;main.c: 144: left_dir_modifier = reverse;
 "144
-[e = _left_dir_modifier . `E4193 0 ]
+[e = _left_dir_modifier . `E4194 0 ]
 [; ;main.c: 145: left_duty_cycle *= -1;
 "145
 [e =* _left_duty_cycle -U -> 1 `i ]
@@ -4293,7 +4304,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _SetDCPWM2 (1 -> _left_duty_cycle `ui ]
 [; ;main.c: 150: if ( left_dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
 "150
-[e $ ! == -> _left_dir_modifier `i -> . `E4193 0 `i 430  ]
+[e $ ! == -> _left_dir_modifier `i -> . `E4194 0 `i 430  ]
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
 [e $U 431  ]
 "151
@@ -4312,7 +4323,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;main.c: 157: right_dir_modifier = reverse;
 "157
-[e = _right_dir_modifier . `E4193 0 ]
+[e = _right_dir_modifier . `E4194 0 ]
 [; ;main.c: 158: right_duty_cycle *= -1;
 "158
 [e =* _right_duty_cycle -U -> 1 `i ]
@@ -4330,7 +4341,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _SetDCPWM1 (1 -> _right_duty_cycle `ui ]
 [; ;main.c: 163: if ( right_dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
 "163
-[e $ ! == -> _right_dir_modifier `i -> . `E4193 0 `i 434  ]
+[e $ ! == -> _right_dir_modifier `i -> . `E4194 0 `i 434  ]
 [e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
 [e $U 435  ]
 "164
@@ -4362,7 +4373,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 173: flag_count = 0;
 "173
 [e = _flag_count -> -> 0 `i `ui ]
-[; ;main.c: 174: while (SeeLine.B && flag_count<7813)
+[; ;main.c: 174: while (SeeLine.B && flag_count!=7813)
 "174
 [e $U 437  ]
 [e :U 438 ]
@@ -4391,107 +4402,230 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 437 ]
 "174
-[e $ && != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i < _flag_count -> -> 7813 `i `ui 438  ]
+[e $ && != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i != _flag_count -> -> 7813 `i `ui 438  ]
 [e :U 439 ]
 [; ;main.c: 181: }
 [; ;main.c: 183: }
-[; ;main.c: 185: if(flag_count<7813)
+[; ;main.c: 185: if(!SeeLine.B)
 "185
-[e $ ! < _flag_count -> -> 7813 `i `ui 441  ]
-[; ;main.c: 186: return;
+[e $ ! ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 441  ]
+[; ;main.c: 186: {
 "186
-[e $UE 436  ]
-[e $U 442  ]
+{
+[; ;main.c: 187: motors_brake_all();
 "187
-[e :U 441 ]
-[; ;main.c: 187: else
-[; ;main.c: 188: {
+[e ( _motors_brake_all ..  ]
+[; ;main.c: 188: if(direction)
 "188
-{
-[; ;main.c: 189: if(direction)
+[e $ ! != -> _direction `i -> -> -> 0 `i `uc `i 442  ]
+[; ;main.c: 189: {
 "189
-[e $ ! != -> _direction `i -> -> -> 0 `i `uc `i 443  ]
-[; ;main.c: 190: {
+{
+[; ;main.c: 190: delta_velocity = 1600;
 "190
-{
-[; ;main.c: 191: delta_velocity = 1600;
-"191
 [e = _delta_velocity -> 1600 `i ]
-[; ;main.c: 192: while (!SeeLine.b.CntLeft && delta_velocity)
+[; ;main.c: 191: while (!SeeLine.b.CntLeft && delta_velocity)
+"191
+[e $U 443  ]
+[e :U 444 ]
+[; ;main.c: 192: {
 "192
-[e $U 444  ]
-[e :U 445 ]
-[; ;main.c: 193: {
-"193
 {
-[; ;main.c: 194: MotorControl(delta_velocity);
-"194
+[; ;main.c: 193: MotorControl(delta_velocity);
+"193
 [e ( _MotorControl (1 _delta_velocity ]
-[; ;main.c: 195: if (SeeLine.b.Center)
+[; ;main.c: 194: if (SeeLine.b.Center)
+"194
+[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 446  ]
+[; ;main.c: 195: delta_velocity--;
 "195
-[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 447  ]
-[; ;main.c: 196: delta_velocity--;
-"196
 [e -- _delta_velocity -> 1 `i ]
-[e :U 447 ]
+[e :U 446 ]
+"196
+}
+[e :U 443 ]
+"191
+[e $ && ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 444  ]
+[e :U 445 ]
 "197
 }
-[e :U 444 ]
-"192
-[e $ && ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 445  ]
-[e :U 446 ]
-"198
-}
+[; ;main.c: 196: }
 [; ;main.c: 197: }
-[; ;main.c: 198: }
-[e $U 448  ]
+[e $U 447  ]
+"198
+[e :U 442 ]
+[; ;main.c: 198: else
+[; ;main.c: 199: {
 "199
-[e :U 443 ]
-[; ;main.c: 199: else
-[; ;main.c: 200: {
+{
+[; ;main.c: 200: delta_velocity = -1600;
 "200
-{
-[; ;main.c: 201: delta_velocity = -1600;
-"201
 [e = _delta_velocity -U -> 1600 `i ]
-[; ;main.c: 202: while (!SeeLine.b.CntRight && delta_velocity)
-"202
-[e $U 449  ]
-[e :U 450 ]
-[; ;main.c: 203: {
-"203
-{
-[; ;main.c: 204: MotorControl(delta_velocity);
-"204
-[e ( _MotorControl (1 _delta_velocity ]
-[; ;main.c: 205: if (SeeLine.b.Center)
-"205
-[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 452  ]
-[; ;main.c: 206: delta_velocity++;
-"206
-[e ++ _delta_velocity -> 1 `i ]
-[e :U 452 ]
-"207
-}
+[; ;main.c: 201: while (!SeeLine.b.CntRight && delta_velocity)
+"201
+[e $U 448  ]
 [e :U 449 ]
+[; ;main.c: 202: {
 "202
-[e $ && ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 450  ]
+{
+[; ;main.c: 203: MotorControl(delta_velocity);
+"203
+[e ( _MotorControl (1 _delta_velocity ]
+[; ;main.c: 204: if (SeeLine.b.Center)
+"204
+[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 451  ]
+[; ;main.c: 205: delta_velocity++;
+"205
+[e ++ _delta_velocity -> 1 `i ]
 [e :U 451 ]
-"208
+"206
 }
 [e :U 448 ]
+"201
+[e $ && ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 449  ]
+[e :U 450 ]
+"207
+}
+[e :U 447 ]
+[; ;main.c: 206: }
+[; ;main.c: 207: }
+[; ;main.c: 208: I = 0;
+"208
+[e = _I -> 0 `i ]
 "209
 }
-[e :U 442 ]
-[; ;main.c: 207: }
-[; ;main.c: 208: }
+[e :U 441 ]
 [; ;main.c: 209: }
-[; ;main.c: 210: I = 0;
-"210
-[e = _I -> 0 `i ]
-[; ;main.c: 211: }
+[; ;main.c: 211: flag_count = 0;
 "211
+[e = _flag_count -> -> 0 `i `ui ]
+[; ;main.c: 212: }
+"212
 [e :UE 436 ]
+}
+"215
+[v _GetBackonTrack `(v ~T0 @X0 1 ef1`c ]
+"216
+{
+[; ;main.c: 215: void GetBackonTrack(signed char last_error)
+[; ;main.c: 216: {
+[e :U _GetBackonTrack ]
+"215
+[v _last_error `c ~T0 @X0 1 r1 ]
+"216
+[f ]
+[; ;main.c: 217: if(last_error>1)
+"217
+[e $ ! > -> _last_error `i -> 1 `i 453  ]
+[; ;main.c: 218: SharpTurn(1);
+"218
+[e ( _SharpTurn (1 -> -> 1 `i `uc ]
+[e $U 454  ]
+"219
+[e :U 453 ]
+[; ;main.c: 219: else if(last_error<-1)
+[e $ ! < -> _last_error `i -U -> 1 `i 455  ]
+[; ;main.c: 220: SharpTurn(0);
+"220
+[e ( _SharpTurn (1 -> -> 0 `i `uc ]
+[e $U 456  ]
+"221
+[e :U 455 ]
+[; ;main.c: 221: else
+[; ;main.c: 222: {
+"222
+{
+[; ;main.c: 223: flag_count = 0;
+"223
+[e = _flag_count -> -> 0 `i `ui ]
+[; ;main.c: 224: while (!SeeLine.B && flag_count!=7813)
+"224
+[e $U 457  ]
+[e :U 458 ]
+[; ;main.c: 225: {
+"225
+{
+[; ;main.c: 226: MotorControl(0);
+"226
+[e ( _MotorControl (1 -> 0 `i ]
+[; ;main.c: 227: if (TMR0IF)
+"227
+[e $ ! _TMR0IF 460  ]
+[; ;main.c: 228: {
+"228
+{
+[; ;main.c: 229: flag_count++;
+"229
+[e ++ _flag_count -> -> 1 `i `ui ]
+[; ;main.c: 230: TMR0IF = 0;
+"230
+[e = _TMR0IF -> -> 0 `i `b ]
+"231
+}
+[e :U 460 ]
+"232
+}
+[e :U 457 ]
+"224
+[e $ && ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i != _flag_count -> -> 7813 `i `ui 458  ]
+[e :U 459 ]
+[; ;main.c: 231: }
+[; ;main.c: 232: }
+[; ;main.c: 234: if(!SeeLine.B)
+"234
+[e $ ! ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 461  ]
+[; ;main.c: 235: {
+"235
+{
+[; ;main.c: 236: motors_brake_all();
+"236
+[e ( _motors_brake_all ..  ]
+[; ;main.c: 237: MotorControl(1600);
+"237
+[e ( _MotorControl (1 -> 1600 `i ]
+[; ;main.c: 238: for(char i=0; i < 80; i++)
+"238
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 80 `i 462  ]
+[e $U 463  ]
+"239
+[e :U 462 ]
+[; ;main.c: 239: _delay(100000);
+[e ( __delay (1 -> -> 100000 `l `ul ]
+"238
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 80 `i 462  ]
+[e :U 463 ]
+"239
+}
+[; ;main.c: 241: while (!SeeLine.B)
+"241
+[e $U 465  ]
+[e :U 466 ]
+[; ;main.c: 242: MotorControl(0);
+"242
+[e ( _MotorControl (1 -> 0 `i ]
+[e :U 465 ]
+"241
+[e $ ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 466  ]
+[e :U 467 ]
+"243
+}
+[e :U 461 ]
+[; ;main.c: 243: }
+[; ;main.c: 244: flag_count = 0;
+"244
+[e = _flag_count -> -> 0 `i `ui ]
+"245
+}
+[e :U 456 ]
+[e :U 454 ]
+[; ;main.c: 245: }
+[; ;main.c: 246: }
+"246
+[e :UE 452 ]
 }
 [p f _printf 8388608 ]
 [a 1C 10 13 75 119 97 110 116 108 101 110 32 65 80 83 67 49 50 57 57 32 115 105 109 112 108 101 32 99 117 114 118 101 32 102 111 108 108 111 119 101 114 32 45 45 32 119 105 116 104 32 101 114 114 111 114 32 99 111 100 101 115 10 13 0 ]

@@ -5037,10 +5037,10 @@ const char D_CONSTANT = 0;
 unsigned int flag_count = 0;
 int I = 0;
 
-void PID_LineFollowing(char error[]);
+void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity);
 void SharpTurn(char direction);
-void GetBackonTrack();
+void GetBackonTrack(signed char last_error);
 
 void main(void)
 {
@@ -5091,7 +5091,7 @@ case 0b11100u:
 case 0b10100u:
 SharpTurn(0);
 case 0b00000u:
-
+GetBackonTrack(error[1]);
 default:
 error[1]=0; break;
 }
@@ -5104,7 +5104,7 @@ if(lvd_flag_set()) LVtrap();
 }
 
 
-void PID_LineFollowing(char error[])
+void PID_LineFollowing(signed char error[])
 {
 static int delta_velocity;
 static char P = 0;
@@ -5192,7 +5192,7 @@ void SharpTurn(char direction)
 int delta_velocity;
 
 flag_count = 0;
-while (SeeLine.B && flag_count<7813)
+while (SeeLine.B && flag_count!=7813)
 {
 MotorControl(I*I_CONSTANT);
 if (TMR0IF)
@@ -5203,10 +5203,9 @@ TMR0IF = 0;
 
 }
 
-if(flag_count<7813)
-return;
-else
+if(!SeeLine.B)
 {
+motors_brake_all();
 if(direction)
 {
 delta_velocity = 1600;
@@ -5227,6 +5226,42 @@ if (SeeLine.b.Center)
 delta_velocity++;
 }
 }
-}
 I = 0;
+}
+
+flag_count = 0;
+}
+
+
+void GetBackonTrack(signed char last_error)
+{
+if(last_error>1)
+SharpTurn(1);
+else if(last_error<-1)
+SharpTurn(0);
+else
+{
+flag_count = 0;
+while (!SeeLine.B && flag_count!=7813)
+{
+MotorControl(0);
+if (TMR0IF)
+{
+flag_count++;
+TMR0IF = 0;
+}
+}
+
+if(!SeeLine.B)
+{
+motors_brake_all();
+MotorControl(1600);
+for(char i=0; i < 80; i++)
+_delay(100000);
+
+while (!SeeLine.B)
+MotorControl(0);
+}
+flag_count = 0;
+}
 }
