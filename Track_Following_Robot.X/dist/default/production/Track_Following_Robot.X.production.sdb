@@ -3,7 +3,7 @@
 [d edition pro ]
 [d chip 18F4525 ]
 [d frameptr 4065 ]
-"108 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"111 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [e E4190 e_direction `uc
 reverse 0
 forward 1
@@ -37,7 +37,7 @@ forward 1
 [v _main main `(v  1 e 0 0 ]
 "70
 [v _PID_LineFollowing PID_LineFollowing `(v  1 e 0 0 ]
-"105
+"108
 [v _PID_SetMotorSpeed PID_SetMotorSpeed `(v  1 e 0 0 ]
 "65 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
 [v _initialization initialization `(v  1 e 0 0 ]
@@ -1003,37 +1003,40 @@ forward 1
 [v PID_LineFollowing@error error `*.39uc  1 p 2 37 ]
 "72
 [v PID_LineFollowing@delta_velocity delta_velocity `i  1 s 2 delta_velocity ]
-[v PID_LineFollowing@P P `i  1 s 2 P ]
-[v PID_LineFollowing@I I `i  1 s 2 I ]
-[v PID_LineFollowing@D D `i  1 s 2 D ]
 "73
+[v PID_LineFollowing@P P `uc  1 s 1 P ]
+"74
+[v PID_LineFollowing@I I `i  1 s 2 I ]
+"75
+[v PID_LineFollowing@D D `i  1 s 2 D ]
+"76
 [v PID_LineFollowing@flag_count flag_count `ui  1 s 2 flag_count ]
-"102
+"105
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwdiv.c
 [v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
 {
 "11
-[v ___lwdiv@quotient quotient `ui  1 a 2 18 ]
+[v ___lwdiv@quotient quotient `ui  1 a 2 24 ]
 "12
-[v ___lwdiv@counter counter `uc  1 a 1 20 ]
+[v ___lwdiv@counter counter `uc  1 a 1 26 ]
 "8
-[v ___lwdiv@dividend dividend `ui  1 p 2 14 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 16 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 20 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 22 ]
 "31
 } 0
-"105 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"108 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _PID_SetMotorSpeed PID_SetMotorSpeed `(v  1 e 0 0 ]
 {
-"107
+"110
 [v PID_SetMotorSpeed@right_duty_cycle right_duty_cycle `i  1 a 2 35 ]
 [v PID_SetMotorSpeed@left_duty_cycle left_duty_cycle `i  1 a 2 33 ]
-"108
+"111
 [v PID_SetMotorSpeed@right_dir_modifier right_dir_modifier `E4190  1 a 1 32 ]
 [v PID_SetMotorSpeed@left_dir_modifier left_dir_modifier `E4190  1 a 1 31 ]
-"105
+"108
 [v PID_SetMotorSpeed@delta_velocity delta_velocity `i  1 p 2 28 ]
-"151
+"154
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]

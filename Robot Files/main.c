@@ -6,9 +6,9 @@
 #include <xc.h>
 
 //PID controller constants
-const char P_CONSTANT = 0;
-const char I_CONSTANT = 0;
-const char D_CONSTANT = 0;
+const char P_CONSTANT = 0;  //proportional constant
+const char I_CONSTANT = 0;  //inversly proportional constant
+const char D_CONSTANT = 0;  //inversly proportional constant
 
 void PID_LineFollowing(char error[]);
 void PID_SetMotorSpeed(int delta_velocity);
@@ -69,7 +69,10 @@ void main(void)
 //Function to calculate delta velocity using PID
 void PID_LineFollowing(char error[])
 {
-    static int delta_velocity, P = 0, I = 0, D = 0;
+    static int delta_velocity;
+    static char P = 0;
+    static int I = 0;
+    static int D = 0; 
     static unsigned int flag_count = 0;
     
     //Calculate P
@@ -88,15 +91,15 @@ void PID_LineFollowing(char error[])
     }
     
     //Calculate D
-    if((error[1]!=error[2]) || flag_count >= 16384) //If there is a delta error or ~2s have passed
+    if((error[1]!=error[2]) || flag_count >= 7813) //If there is a delta error or ~1s have passed
     {
-        D = (error[2]-error[1])/flag_count;
+        D = (error[2]-error[1])*32767/flag_count; //Multiplied answer by max int value to keep significance
         flag_count = 0;
         error[1]=error[2];
     }
     
     //Calculate Delta Velocity
-    delta_velocity = P_CONSTANT*P + I_CONSTANT*I + D_CONSTANT*D;
+    delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;
     
     PID_SetMotorSpeed(delta_velocity);
 }

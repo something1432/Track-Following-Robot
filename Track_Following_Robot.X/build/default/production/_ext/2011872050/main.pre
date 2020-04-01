@@ -5093,7 +5093,10 @@ if(lvd_flag_set()) LVtrap();
 
 void PID_LineFollowing(char error[])
 {
-static int delta_velocity, P = 0, I = 0, D = 0;
+static int delta_velocity;
+static char P = 0;
+static int I = 0;
+static int D = 0;
 static unsigned int flag_count = 0;
 
 
@@ -5112,15 +5115,15 @@ I += error[2];
 }
 
 
-if((error[1]!=error[2]) || flag_count >= 16384)
+if((error[1]!=error[2]) || flag_count >= 7813)
 {
-D = (error[2]-error[1])/flag_count;
+D = (error[2]-error[1])*32767/flag_count;
 flag_count = 0;
 error[1]=error[2];
 }
 
 
-delta_velocity = P_CONSTANT*P + I_CONSTANT*I + D_CONSTANT*D;
+delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;
 
 PID_SetMotorSpeed(delta_velocity);
 }
@@ -5144,7 +5147,7 @@ left_duty_cycle += delta_velocity/16;
 right_duty_cycle -= delta_velocity*15/16;
 }
 
-# 127
+# 130
 if ( left_duty_cycle < 0 )
 {
 left_dir_modifier = reverse;
