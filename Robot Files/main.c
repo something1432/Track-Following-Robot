@@ -10,12 +10,17 @@ const char P_CONSTANT = 0;  //proportional constant
 const char I_CONSTANT = 0;  //inversly proportional constant
 const char D_CONSTANT = 0;  //inversly proportional constant
 
+unsigned int flag_count = 0;    //Timer0 flag counter
+int I = 0;  //Integral
+
 void PID_LineFollowing(char error[]);
-void PID_SetMotorSpeed(int delta_velocity);
+void MotorControl(int delta_velocity);
+void SharpTurn(char direction);
+void GetBackonTrack();
 
 void main(void)
 {
-    char error[2]={0};
+    signed char error[2]={0};
     initialization(); // function from sumovore.c
                       // it sets up pwm (using timer2),
                       // IO pins, the ADC, the 
@@ -40,23 +45,31 @@ void main(void)
         switch(SeeLine.B)
         {
            case 0b00110u:
-               error[2]=1;    break;
+               error[1]=1;    break;
            case 0b00010u:
-               error[2]=2;    break;
+               error[1]=2;    break;
            case 0b00011u:
-               error[2]=3;    break;
+               error[1]=3;    break;
            case 0b00001u:
-               error[2]=4;    break;
+               error[1]=4;    break;
            case 0b01100u:
-               error[2]=-1;   break;
+               error[1]=-1;   break;
            case 0b01000u:
-               error[2]=-2;   break;
+               error[1]=-2;   break;
            case 0b11000u:
-               error[2]=-3;   break;
+               error[1]=-3;   break;
            case 0b10000u:
-               error[2]=-4;   break;
+               error[1]=-4;   break;
+           case 0b00111u:
+           case 0b00101u:
+               SharpTurn(1);    //Right turn
+           case 0b11100u:
+           case 0b10100u:
+               SharpTurn(0);    //Left turn
+           case 0b00000u:
+               //GetBackonTrack();
            default:
-               error[2]=0;    break;
+               error[1]=0;    break;
          }
         set_leds();         // function from sumovore.c
         PID_LineFollowing(error);
@@ -70,42 +83,41 @@ void main(void)
 void PID_LineFollowing(char error[])
 {
     static int delta_velocity;
-    static char P = 0;
-    static int I = 0;
-    static int D = 0; 
-    static unsigned int flag_count = 0;
+    static char P = 0;  //Proportional
+    //Integral defined as global variable
+    static int D = 0;   //Derivative
     
     //Calculate P
-    P = error[2];
+    P = error[1];
     
     //Calculate I & increment flag counter
     if (TMR0IF)
     {
         flag_count++;
         TMR0IF = 0;
-        if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
-            //This is to prevent integral windup
-        if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error[2]>0))
+        if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[1]<0) || (delta_velocity<=-1600 && error[1]>0))
+            //If motor is saturated Integral will not wind up
+        if( !(I>=3273 || I<=-3274) || (I>=3273 && error[1]<0) || (I<=-3274 && error[1]>0))
             //If I is not near max magnitude, or if I is near max magnitude but will decrease 
-            I += error[2]; //Integral value, maximum magnitude reached when held at max error for 1s
+            I += error[1]; //Integral value, maximum magnitude reached when held at max error for 1s
     }
     
     //Calculate D
-    if((error[1]!=error[2]) || flag_count >= 7813) //If there is a delta error or ~1s have passed
+    if((error[0]!=error[1]) || flag_count >= 7813) //If there is a delta error or ~1s have passed
     {
-        D = (error[2]-error[1])*32767/flag_count; //Multiplied answer by max int value to keep significance
+        D = (error[1]-error[0])*32767/flag_count; //Multiplied answer by max int value to keep significance
         flag_count = 0;
-        error[1]=error[2];
+        error[0]=error[1];
     }
     
     //Calculate Delta Velocity
-    delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;
+    delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;    //Motor saturates at a delta velocity of |1600|
     
-    PID_SetMotorSpeed(delta_velocity);
+    MotorControl(delta_velocity);  //Send Delta velocity to Motor control function
 }
 
 //Function to set motor speed based on a delta velocity
-void PID_SetMotorSpeed(int delta_velocity)
+void MotorControl(int delta_velocity)
 {
     int left_duty_cycle = 700, right_duty_cycle = 700;  //Base speed of motors set to 700 out of 800
     enum e_direction {reverse,forward} left_dir_modifier= forward, right_dir_modifier= forward;
@@ -113,14 +125,14 @@ void PID_SetMotorSpeed(int delta_velocity)
     //if delta velocity negative turn CCW toward line
     if ( delta_velocity < 0 )
     {
-        left_duty_cycle += delta_velocity*15/16;
-        right_duty_cycle -= delta_velocity/16;
+        left_duty_cycle += delta_velocity*15/16;    //Decrease left motor by |15/16*delta_velocity|
+        right_duty_cycle -= delta_velocity/16;      //Increase right motor by |delta_velocity/16|
     }
     //if delta velocity positive turn CW toward line
     else
     {
-        left_duty_cycle += delta_velocity/16;
-        right_duty_cycle -= delta_velocity*15/16;
+        left_duty_cycle += delta_velocity/16;       //Increase right motor by delta_velocity/16
+        right_duty_cycle -= delta_velocity*15/16;   //Decrease right motor by 15/16*delta_velocity
     }
     //Since the motor speed can be decreased by up to 1500 units (700 10 -800)
     //But the motor speed can only be increased by up to 100 (700 to 800)
@@ -153,3 +165,47 @@ void PID_SetMotorSpeed(int delta_velocity)
     RmotorGoFwdCmp = !RmotorGoFwd;
 }
  
+//Function for sharp turns
+void SharpTurn(char direction)
+{
+    int delta_velocity;
+    
+    flag_count = 0; //Reset counter
+    while (SeeLine.B && flag_count<7813) //While any sensor triggered and less than 1 sec elapsed
+    {
+        MotorControl(I*I_CONSTANT);        //Continue on line
+        if (TMR0IF)                             //increment counter
+        {
+            flag_count++;
+            TMR0IF = 0;
+        }
+        
+    }
+    
+    if(flag_count<7813) //If 1 second pass exit sharp turn function
+        return;
+    else
+    {
+        if(direction)   //If right side sensors triggered
+        {
+            delta_velocity = 1600;      //Turn CW
+          while (!SeeLine.b.CntLeft && delta_velocity)    //Start going more and more forward if center triggered
+          {
+              MotorControl(delta_velocity);
+              if (SeeLine.b.Center)
+                  delta_velocity--;
+          }
+        }
+        else            //If left side sensors triggered
+        {
+            delta_velocity = -1600;     //Turn CCW
+          while (!SeeLine.b.CntRight && delta_velocity)   //Start going more and more forward if center triggered
+          {
+              MotorControl(delta_velocity);
+              if (SeeLine.b.Center)
+                  delta_velocity++;
+          }
+        }
+    }
+    I = 0;   //Reset Integral term
+}
