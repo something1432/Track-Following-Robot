@@ -5027,17 +5027,17 @@ extern union sensor_union SeeLine;
 unsigned char lvd_flag_set(void);
 
 # 8 "../Robot Files/main.c"
-const unsigned int P_CONSTANT = 0;
-const unsigned int I_CONSTANT = 0;
-const unsigned int D_CONSTANT = 0;
+const unsigned int P_CONSTANT = 150;
+const unsigned int I_CONSTANT = 1250;
+const unsigned int D_CONSTANT = 65535;
 
-unsigned int flag_count = 0;
+
 int I = 0;
 
 void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity);
 void SharpTurn(char direction);
-void GetBackonTrack(signed char last_error);
+void GetBackonTrack(signed char error[]);
 
 void main(void)
 {
@@ -5081,14 +5081,10 @@ case 0b11000u:
 error[2]=-3; break;
 case 0b10000u:
 error[2]=-4; break;
-case 0b00111u:
-case 0b00101u:
 
-case 0b11100u:
-case 0b10100u:
-
+# 68
 case 0b00000u:
-
+GetBackonTrack(error);
 default:
 error[2]=0; break;
 }
@@ -5190,21 +5186,9 @@ void SharpTurn(char direction)
 {
 int delta_velocity;
 
-flag_count = 0;
-while (SeeLine.B && flag_count!=7813)
-{
-MotorControl(I*I_CONSTANT);
-if (TMR0IF)
-{
-flag_count++;
-TMR0IF = 0;
-}
-
-}
-
-if(!SeeLine.B)
-{
+# 188
 motors_brake_all();
+_delay(50000);
 if(direction)
 {
 delta_velocity = 1600;
@@ -5226,34 +5210,30 @@ delta_velocity++;
 }
 }
 I = 0;
+
+
 }
 
-flag_count = 0;
-}
 
-
-void GetBackonTrack(signed char last_error)
+void GetBackonTrack(signed char error[])
 {
-if(last_error>1)
+if((error[2]||error[1]) > 1)
 SharpTurn(1);
-else if(last_error<-1)
+else if((error[2]||error[1]) < -1)
 SharpTurn(0);
 else
 {
-flag_count = 0;
-while (!SeeLine.B && flag_count!=7813)
+WriteTimer0(0);
+TMR0IF = 0;
+while (!SeeLine.B && !TMR0IF)
 {
 MotorControl(0);
-if (TMR0IF)
-{
-flag_count++;
-TMR0IF = 0;
-}
 }
 
 if(!SeeLine.B)
 {
 motors_brake_all();
+_delay(50000);
 MotorControl(1600);
 for(char i=0; i < 80; i++)
 _delay(100000);
@@ -5261,6 +5241,5 @@ _delay(100000);
 while (!SeeLine.B)
 MotorControl(0);
 }
-flag_count = 0;
 }
 }

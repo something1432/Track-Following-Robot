@@ -5,17 +5,17 @@
 #include <xc.h>
 
 //PID controller constants
-const unsigned int P_CONSTANT = 0;  //proportional constant
-const unsigned int I_CONSTANT = 0;  //inversly proportional constant
-const unsigned int D_CONSTANT = 0;  //Proportional constant
+const unsigned int P_CONSTANT = 150;  //proportional constant
+const unsigned int I_CONSTANT = 1250;  //inversly proportional constant
+const unsigned int D_CONSTANT = 65535;  //Proportional constant
 
-unsigned int flag_count = 0;    //Timer0 flag counter
+//unsigned int flag_count = 0;    //Timer0 flag counter
 int I = 0;  //Integral
 
 void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity);
 void SharpTurn(char direction);
-void GetBackonTrack(signed char last_error);
+void GetBackonTrack(signed char error[]);
 
 void main(void)
 {
@@ -59,14 +59,14 @@ void main(void)
                error[2]=-3;   break;
            case 0b10000u:
                error[2]=-4;   break;
-           case 0b00111u:
+           /*case 0b00111u:
            case 0b00101u:
-               //SharpTurn(1);    //Right turn
+               SharpTurn(1);    //Right turn
            case 0b11100u:
            case 0b10100u:
-               //SharpTurn(0);    //Left turn
+               SharpTurn(0);    //Left turn*/
            case 0b00000u:
-               //GetBackonTrack(error[1]);
+               GetBackonTrack(error);
            default:
                error[2]=0;    break;
          }
@@ -170,9 +170,9 @@ void MotorControl(int delta_velocity)
 void SharpTurn(char direction)
 {
     int delta_velocity;
-    
-    flag_count = 0; //Reset counter
-    while (SeeLine.B && flag_count!=7813) //While any sensor triggered and less than 1 sec elapsed
+   /* WriteTimer0(0);
+    TMR0IF = 0;
+    while (SeeLine.B && !TMR0IF) //While any sensor triggered and less than ~ 1 sec elapsed
     {
         MotorControl(I*I_CONSTANT);        //Continue on line
         if (TMR0IF)                             //increment counter
@@ -182,10 +182,11 @@ void SharpTurn(char direction)
         }
         
     }
-    
-    if(!SeeLine.B) //If no sensor triggered
-    {
+    */
+    //if(!SeeLine.B) //If no sensor triggered
+    //{
         motors_brake_all(); //Stop
+        _delay(50000);
         if(direction)   //If right side sensors triggered last
         {
             delta_velocity = 1600;      //Turn CW
@@ -207,34 +208,30 @@ void SharpTurn(char direction)
           }
         }
         I = 0;          //Reset Integral term
-    }
+    //}
     
-    flag_count = 0; //Reset counter
 }
 
 //Function to get robot on track if it is off
-void GetBackonTrack(signed char last_error)
+void GetBackonTrack(signed char error[])
 {
-    if(last_error>1)        //If lost track on a right turn
+    if((error[2]||error[1]) > 1)        //If lost track on a right turn
         SharpTurn(1);
-    else if(last_error<-1)  //If lost track on a left turn
+    else if((error[2]||error[1]) < -1)  //If lost track on a left turn
         SharpTurn(0);
     else
     {
-        flag_count = 0; //Reset counter
-        while (!SeeLine.B && flag_count!=7813) //While no sensor triggered and less than 1 sec elapsed
+        WriteTimer0(0);
+        TMR0IF = 0;
+        while (!SeeLine.B && !TMR0IF) //While no sensor triggered and less than ~ 1 sec elapsed
         {
             MotorControl(0);        //go straight
-            if (TMR0IF)             //increment counter
-            {
-                flag_count++;
-                TMR0IF = 0;
-            }
         }
 
         if(!SeeLine.B)    //If no sensor is triggered
         {
             motors_brake_all(); //Stop
+            _delay(50000);
             MotorControl(1600); //Start turning CW
             for(char i=0; i < 80; i++)   //Keep spinning until a full rotation
                 _delay(100000);
@@ -242,6 +239,5 @@ void GetBackonTrack(signed char last_error)
             while (!SeeLine.B)      //While no sensor triggered
                 MotorControl(0);    //Go forward 
         }
-        flag_count = 0; //Reset counter
     }
 }
