@@ -87,7 +87,7 @@ void PID_LineFollowing(signed char error[])
     static int D = 0;   //Derivative
     
     //Calculate I
-    if (!(Readtimer()%I_CONSTANT))  //Integral will only increment if Timer reads a multiple of I_CONSTANT
+    if (!(ReadTimer0()%I_CONSTANT))  //Integral will only increment if Timer reads a multiple of I_CONSTANT
     {
         if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
             //If motor is saturated Integral will not wind up
@@ -99,12 +99,13 @@ void PID_LineFollowing(signed char error[])
     //Calculate D
     if(error[1]!=error[2]) //If there is a delta error
     {
-        D = D_CONSTANT/Readtimer()*(error[2]-error[1]);
+        D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
         //Record error
         error[0]=error[1];
         error[1]=error[2];
     }
-    if((TMR0IF) //If ~1s have passed
+    
+    if(TMR0IF) //If ~1s have passed
     {
         D = D_CONSTANT/65535*(error[1]-error[0]);
         TMR0IF = 0;

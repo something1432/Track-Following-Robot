@@ -5030,9 +5030,9 @@ void motor_control(void);
 unsigned char lvd_flag_set(void);
 
 # 9 "../Robot Files/main.c"
-const char P_CONSTANT = 0;
-const char I_CONSTANT = 0;
-const char D_CONSTANT = 0;
+const unsigned int P_CONSTANT = 0;
+const unsigned int I_CONSTANT = 0;
+const unsigned int D_CONSTANT = 0;
 
 unsigned int flag_count = 0;
 int I = 0;
@@ -5044,7 +5044,7 @@ void GetBackonTrack(signed char last_error);
 
 void main(void)
 {
-signed char error[2]={0};
+signed char error[3]={0};
 initialization();
 
 
@@ -5057,7 +5057,7 @@ threshold = 620u;
 
 
 
-OpenTimer0(0b01111111 & 0b11011111 & 0b11111111 & 0b11110001);
+OpenTimer0(0b01111111 & 0b11011111 & 0b10111111 & 0b11110110);
 WriteTimer0(0);
 TMR0IF = 0;
 
@@ -5069,31 +5069,31 @@ check_sensors();
 switch(SeeLine.B)
 {
 case 0b00110u:
-error[1]=1; break;
+error[2]=1; break;
 case 0b00010u:
-error[1]=2; break;
+error[2]=2; break;
 case 0b00011u:
-error[1]=3; break;
+error[2]=3; break;
 case 0b00001u:
-error[1]=4; break;
+error[2]=4; break;
 case 0b01100u:
-error[1]=-1; break;
+error[2]=-1; break;
 case 0b01000u:
-error[1]=-2; break;
+error[2]=-2; break;
 case 0b11000u:
-error[1]=-3; break;
+error[2]=-3; break;
 case 0b10000u:
-error[1]=-4; break;
+error[2]=-4; break;
 case 0b00111u:
 case 0b00101u:
-SharpTurn(1);
+
 case 0b11100u:
 case 0b10100u:
-SharpTurn(0);
+
 case 0b00000u:
-GetBackonTrack(error[1]);
+
 default:
-error[1]=0; break;
+error[2]=0; break;
 }
 set_leds();
 PID_LineFollowing(error);
@@ -5106,36 +5106,38 @@ if(lvd_flag_set()) LVtrap();
 
 void PID_LineFollowing(signed char error[])
 {
-static int delta_velocity;
-static char P = 0;
+static int delta_velocity = 0;
 
 static int D = 0;
 
 
-P = error[1];
-
-
-if (TMR0IF)
+if (!(ReadTimer0()%I_CONSTANT))
 {
-flag_count++;
-TMR0IF = 0;
-if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[1]<0) || (delta_velocity<=-1600 && error[1]>0))
+if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
 
-if( !(I>=3273 || I<=-3274) || (I>=3273 && error[1]<0) || (I<=-3274 && error[1]>0))
+if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error[2]>0))
 
-I += error[1];
+I += error[2];
 }
 
 
-if((error[0]!=error[1]) || flag_count >= 7813)
+if(error[1]!=error[2])
 {
-D = (error[1]-error[0])*32767/flag_count;
-flag_count = 0;
+D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
+
 error[0]=error[1];
+error[1]=error[2];
+}
+
+if(TMR0IF)
+{
+D = D_CONSTANT/65535*(error[1]-error[0]);
+TMR0IF = 0;
 }
 
 
-delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;
+
+delta_velocity = P_CONSTANT*error[2] + I + D;
 
 MotorControl(delta_velocity);
 }
@@ -5159,7 +5161,7 @@ left_duty_cycle += delta_velocity/16;
 right_duty_cycle -= delta_velocity*15/16;
 }
 
-# 142
+# 144
 if ( left_duty_cycle < 0 )
 {
 left_dir_modifier = reverse;
