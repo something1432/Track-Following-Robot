@@ -6,9 +6,9 @@
 #include <xc.h>
 
 //PID controller constants
-const char P_CONSTANT = 0;  //proportional constant
-const char I_CONSTANT = 0;  //inversly proportional constant
-const char D_CONSTANT = 0;  //inversly proportional constant
+const unsigned int P_CONSTANT = 0;  //proportional constant
+const unsigned int I_CONSTANT = 0;  //inversly proportional constant
+const unsigned int D_CONSTANT = 0;  //Proportional constant
 
 unsigned int flag_count = 0;    //Timer0 flag counter
 int I = 0;  //Integral
@@ -20,7 +20,7 @@ void GetBackonTrack(signed char last_error);
 
 void main(void)
 {
-    signed char error[2]={0};
+    signed char error[3]={0};   //Keep last 3 values of error
     initialization(); // function from sumovore.c
                       // it sets up pwm (using timer2),
                       // IO pins, the ADC, the 
@@ -33,7 +33,7 @@ void main(void)
                      // uncomment and change to any unsigned int <1024u -- most usually <512u
     
     
-    OpenTimer0(TIMER_INT_OFF & T0_SOURCE_INT & T0_8BIT & T0_PS_1_4);
+    OpenTimer0(TIMER_INT_OFF & T0_SOURCE_INT & T0_16BIT & T0_PS_1_128);
     WriteTimer0(0);
     TMR0IF = 0;
     
@@ -45,31 +45,31 @@ void main(void)
         switch(SeeLine.B)
         {
            case 0b00110u:
-               error[1]=1;    break;
+               error[2]=1;    break;
            case 0b00010u:
-               error[1]=2;    break;
+               error[2]=2;    break;
            case 0b00011u:
-               error[1]=3;    break;
+               error[2]=3;    break;
            case 0b00001u:
-               error[1]=4;    break;
+               error[2]=4;    break;
            case 0b01100u:
-               error[1]=-1;   break;
+               error[2]=-1;   break;
            case 0b01000u:
-               error[1]=-2;   break;
+               error[2]=-2;   break;
            case 0b11000u:
-               error[1]=-3;   break;
+               error[2]=-3;   break;
            case 0b10000u:
-               error[1]=-4;   break;
+               error[2]=-4;   break;
            case 0b00111u:
            case 0b00101u:
-               SharpTurn(1);    //Right turn
+               //SharpTurn(1);    //Right turn
            case 0b11100u:
            case 0b10100u:
-               SharpTurn(0);    //Left turn
+               //SharpTurn(0);    //Left turn
            case 0b00000u:
-               GetBackonTrack(error[1]);
+               //GetBackonTrack(error[1]);
            default:
-               error[1]=0;    break;
+               error[2]=0;    break;
          }
         set_leds();         // function from sumovore.c
         PID_LineFollowing(error);
@@ -82,36 +82,37 @@ void main(void)
 //Function to calculate delta velocity using PID
 void PID_LineFollowing(signed char error[])
 {
-    static int delta_velocity;
-    static char P = 0;  //Proportional
+    static int delta_velocity = 0;
     //Integral defined as global variable
     static int D = 0;   //Derivative
     
-    //Calculate P
-    P = error[1];
-    
-    //Calculate I & increment flag counter
-    if (TMR0IF)
+    //Calculate I
+    if (!(Readtimer()%I_CONSTANT))  //Integral will only increment if Timer reads a multiple of I_CONSTANT
     {
-        flag_count++;
-        TMR0IF = 0;
-        if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[1]<0) || (delta_velocity<=-1600 && error[1]>0))
+        if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
             //If motor is saturated Integral will not wind up
-        if( !(I>=3273 || I<=-3274) || (I>=3273 && error[1]<0) || (I<=-3274 && error[1]>0))
+        if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error[2]>0))
             //If I is not near max magnitude, or if I is near max magnitude but will decrease 
-            I += error[1]; //Integral value, maximum magnitude reached when held at max error for 1s
+            I += error[2]; //Integral value
     }
     
     //Calculate D
-    if((error[0]!=error[1]) || flag_count >= 7813) //If there is a delta error or ~1s have passed
+    if(error[1]!=error[2]) //If there is a delta error
     {
-        D = (error[1]-error[0])*32767/flag_count; //Multiplied answer by max int value to keep significance
-        flag_count = 0;
+        D = D_CONSTANT/Readtimer()*(error[2]-error[1]);
+        //Record error
         error[0]=error[1];
+        error[1]=error[2];
+    }
+    if((TMR0IF) //If ~1s have passed
+    {
+        D = D_CONSTANT/65535*(error[1]-error[0]);
+        TMR0IF = 0;
     }
     
+    
     //Calculate Delta Velocity
-    delta_velocity = P_CONSTANT*P + I/I_CONSTANT + D/D_CONSTANT;    //Motor saturates at a delta velocity of |1600|
+    delta_velocity = P_CONSTANT*error[2] + I + D;    //Motor saturates at a delta velocity of |1600|
     
     MotorControl(delta_velocity);  //Send Delta velocity to Motor control function
 }
