@@ -1,197 +1,26 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[p mainexit ]
-"95 ../Robot Files/sumovore.h
-[v _initialization `(v ~T0 @X0 0 ef ]
-"207 C:\Program Files (x86)\Microchip\xc8\v1.34\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"65 ../Robot Files/sumovore.h
-[v _threshold `ui ~T0 @X0 0 e ]
-"118 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\timers.h
-[v _OpenTimer0 `(v ~T0 @X0 0 ef1`uc ]
-"121
-[v _WriteTimer0 `(v ~T0 @X0 0 ef1`ui ]
-"8097 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f4525.h
-[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
-"107 ../Robot Files/sumovore.h
-[v _check_sensors `(v ~T0 @X0 0 ef ]
-"88
-[s S398 :5 `uc 1 :3 `uc 1 ]
-[n S398 . B . ]
-"75
-[s S396 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 ]
-[n S396 sensors Right CntRight Center CntLeft Left . ]
-"85
-[u S397 `S398 1 `S396 1 ]
-[n S397 sensor_union . b ]
-"110
-[v _SeeLine `S397 ~T0 @X0 0 e ]
-"106
-[v _set_leds `(v ~T0 @X0 0 ef ]
-"15 ../Robot Files/main.c
-[v _PID_LineFollowing `(v ~T0 @X0 0 ef1`*c ]
-"1 ../Robot Files/interrupts.h
-[v _lvd_flag_set `(uc ~T0 @X0 0 ef ]
-"108 ../Robot Files/sumovore.h
-[v _LVtrap `(v ~T0 @X0 0 ef ]
-"120 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\timers.h
-[v _ReadTimer0 `(ui ~T0 @X0 0 ef ]
-"16 ../Robot Files/main.c
-[v _MotorControl `(v ~T0 @X0 0 ef1`i ]
-"486 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\pwm.h
-[v _SetDCPWM2 `(v ~T0 @X0 0 ef1`ui ]
-"363 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f4525.h
-[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S18 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
-"373
-[s S19 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S19 . T1OSO T1OSI CCP1 SCK SDI SDO TX RX ]
-"383
-[s S20 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S20 . T13CKI CCP2 . SCL SDA . CK DT ]
-"393
-[s S21 :1 `uc 1 ]
-[n S21 . T1CKI ]
-"396
-[s S22 :2 `uc 1 :1 `uc 1 ]
-[n S22 . . PA1 ]
-"400
-[s S23 :1 `uc 1 :1 `uc 1 ]
-[n S23 . . PA2 ]
-"362
-[u S17 `S18 1 `S19 1 `S20 1 `S21 1 `S22 1 `S23 1 ]
-[n S17 . . . . . . . ]
-"405
-[v _PORTCbits `VS17 ~T0 @X0 0 e@3970 ]
-"681
-[s S30 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S30 . RE0 RE1 RE2 RE3 ]
-"687
-[s S31 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S31 . RD WR CS MCLR ]
-"693
-[s S32 :1 `uc 1 ]
-[n S32 . NOT_RD ]
-"696
-[s S33 :1 `uc 1 :1 `uc 1 ]
-[n S33 . . NOT_WR ]
-"700
-[s S34 :2 `uc 1 :1 `uc 1 ]
-[n S34 . . NOT_CS ]
-"704
-[s S35 :3 `uc 1 :1 `uc 1 ]
-[n S35 . . NOT_MCLR ]
-"708
-[s S36 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S36 . nRD nWR nCS nMCLR ]
-"714
-[s S37 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S37 . AN5 AN6 AN7 VPP ]
-"720
-[s S38 :2 `uc 1 :1 `uc 1 ]
-[n S38 . . CCP10 ]
-"724
-[s S39 :7 `uc 1 :1 `uc 1 ]
-[n S39 . . CCP2E ]
-"728
-[s S40 :6 `uc 1 :1 `uc 1 ]
-[n S40 . . CCP6E ]
-"732
-[s S41 :5 `uc 1 :1 `uc 1 ]
-[n S41 . . CCP7E ]
-"736
-[s S42 :4 `uc 1 :1 `uc 1 ]
-[n S42 . . CCP8E ]
-"740
-[s S43 :3 `uc 1 :1 `uc 1 ]
-[n S43 . . CCP9E ]
-"744
-[s S44 :7 `uc 1 :1 `uc 1 ]
-[n S44 . . PA2E ]
-"748
-[s S45 :6 `uc 1 :1 `uc 1 ]
-[n S45 . . PB1E ]
-"752
-[s S46 :2 `uc 1 :1 `uc 1 ]
-[n S46 . . PB2 ]
-"756
-[s S47 :4 `uc 1 :1 `uc 1 ]
-[n S47 . . PB3E ]
-"760
-[s S48 :5 `uc 1 :1 `uc 1 ]
-[n S48 . . PC1E ]
-"764
-[s S49 :1 `uc 1 :1 `uc 1 ]
-[n S49 . . PC2 ]
-"768
-[s S50 :3 `uc 1 :1 `uc 1 ]
-[n S50 . . PC3E ]
-"772
-[s S51 :1 `uc 1 ]
-[n S51 . PD2 ]
-"775
-[s S52 :1 `uc 1 ]
-[n S52 . RDE ]
-"778
-[s S53 :4 `uc 1 :1 `uc 1 ]
-[n S53 . . RE4 ]
-"782
-[s S54 :5 `uc 1 :1 `uc 1 ]
-[n S54 . . RE5 ]
-"786
-[s S55 :6 `uc 1 :1 `uc 1 ]
-[n S55 . . RE6 ]
-"790
-[s S56 :7 `uc 1 :1 `uc 1 ]
-[n S56 . . RE7 ]
-"794
-[s S57 :1 `uc 1 :1 `uc 1 ]
-[n S57 . . WRE ]
-"680
-[u S29 `S30 1 `S31 1 `S32 1 `S33 1 `S34 1 `S35 1 `S36 1 `S37 1 `S38 1 `S39 1 `S40 1 `S41 1 `S42 1 `S43 1 `S44 1 `S45 1 `S46 1 `S47 1 `S48 1 `S49 1 `S50 1 `S51 1 `S52 1 `S53 1 `S54 1 `S55 1 `S56 1 `S57 1 ]
-[n S29 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ]
-"799
-[v _PORTEbits `VS29 ~T0 @X0 0 e@3972 ]
-"468 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\pwm.h
-[v _SetDCPWM1 `(v ~T0 @X0 0 ef1`ui ]
-"105 ../Robot Files/sumovore.h
-[v _motors_brake_all `(v ~T0 @X0 0 ef ]
-[v F4117 `(v ~T0 @X0 1 tf1`ul ]
-"161 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18.h
-[v __delay `JF4117 ~T0 @X0 0 e ]
-[p i __delay ]
-[; ;stdio.h: 8: typedef int ptrdiff_t;
-[; ;stdio.h: 9: typedef unsigned size_t;
-[; ;stdio.h: 10: typedef unsigned short wchar_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 24: extern int errno;
-[; ;stdio.h: 55: struct __prbuf
-[; ;stdio.h: 56: {
-[; ;stdio.h: 57: char * ptr;
-[; ;stdio.h: 58: void (* func)(char);
-[; ;stdio.h: 59: };
-[; ;conio.h: 17: extern int errno;
-[; ;conio.h: 20: extern void init_uart(void);
-[; ;conio.h: 22: extern char getch(void);
-[; ;conio.h: 23: extern char getche(void);
-[; ;conio.h: 24: extern void putch(char);
-[; ;conio.h: 25: extern void ungetch(char);
-[; ;conio.h: 27: extern __bit kbhit(void);
-[; ;conio.h: 31: extern char * cgets(char *);
-[; ;conio.h: 32: extern void cputs(const char *);
-[; ;stdio.h: 100: extern int cprintf(char *, ...);
-[; ;stdio.h: 105: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 195: extern char * gets(char *);
-[; ;stdio.h: 196: extern int puts(const char *);
-[; ;stdio.h: 197: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 198: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 199: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 200: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 201: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 207: extern int printf(const char *, ...);
+"6174 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f4525.h
+[s S331 :2 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S331 . SCS IOFS OSTS IRCF IDLEN ]
+"6181
+[s S332 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S332 . SCS0 SCS1 FLTS . IRCF0 IRCF1 IRCF2 ]
+"6173
+[u S330 `S331 1 `S332 1 ]
+[n S330 . . . ]
+"6191
+[v _OSCCONbits `VS330 ~T0 @X0 0 e@4051 ]
+"2686
+[s S138 :5 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S138 . TUN . PLLEN INTSRC ]
+"2692
+[s S139 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S139 . TUN0 TUN1 TUN2 TUN3 TUN4 ]
+"2685
+[u S137 `S138 1 `S139 1 ]
+[n S137 . . . ]
+"2700
+[v _OSCTUNEbits `VS137 ~T0 @X0 0 e@3995 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic18f4525.h: 49: extern volatile unsigned char PORTA @ 0xF80;
@@ -3338,6 +3167,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;EEP.h: 36: void Busy_eep ( void );
 [; ;EEP.h: 37: unsigned char Read_b_eep( unsigned int badd );
 [; ;EEP.h: 38: void Write_b_eep( unsigned int badd, unsigned char bdat );
+[; ;stddef.h: 2: typedef int ptrdiff_t;
+[; ;stddef.h: 3: typedef unsigned size_t;
+[; ;stddef.h: 4: typedef unsigned short wchar_t;
 [; ;stddef.h: 13: extern int errno;
 [; ;GenericTypeDefs.h: 65: typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
 [; ;GenericTypeDefs.h: 68: typedef enum _BIT { CLEAR = 0, SET } BIT;
@@ -3881,744 +3713,192 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 161: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 163: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 165: extern __nonreentrant void _delay3(unsigned char);
-[; ;sumovore.h: 65: extern unsigned int threshold;
-[; ;sumovore.h: 75: struct sensors
-[; ;sumovore.h: 76: {
-[; ;sumovore.h: 77: unsigned Right:1;
-[; ;sumovore.h: 78: unsigned CntRight:1;
-[; ;sumovore.h: 79: unsigned Center:1;
-[; ;sumovore.h: 80: unsigned CntLeft:1;
-[; ;sumovore.h: 81: unsigned Left:1;
-[; ;sumovore.h: 82: unsigned :3;
-[; ;sumovore.h: 83: };
-[; ;sumovore.h: 85: union sensor_union
-[; ;sumovore.h: 86: {
-[; ;sumovore.h: 87: struct
-[; ;sumovore.h: 88: {
-[; ;sumovore.h: 89: unsigned B:5;
-[; ;sumovore.h: 90: unsigned :3;
-[; ;sumovore.h: 91: };
-[; ;sumovore.h: 92: struct sensors b;
-[; ;sumovore.h: 93: };
-[; ;sumovore.h: 95: void initialization(void);
-[; ;sumovore.h: 97: unsigned int adc(unsigned char channel);
-[; ;sumovore.h: 99: enum motor_speed_setting { rev_fast, rev_medium, rev_slow, stop, slow, medium, fast };
-[; ;sumovore.h: 101: enum motor_selection { left, right };
-[; ;sumovore.h: 103: void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier);
-[; ;sumovore.h: 105: void motors_brake_all( void );
-[; ;sumovore.h: 106: void set_leds(void);
-[; ;sumovore.h: 107: void check_sensors(void);
-[; ;sumovore.h: 108: void LVtrap(void);
-[; ;sumovore.h: 110: extern union sensor_union SeeLine;
-[; ;interrupts.h: 1: unsigned char lvd_flag_set(void);
-"8 ../Robot Files/main.c
-[v _P_CONSTANT `Cui ~T0 @X0 1 e ]
-[i _P_CONSTANT
--> -> 0 `i `ui
-]
-[; ;main.c: 8: const unsigned int P_CONSTANT = 0;
-"9
-[v _I_CONSTANT `Cui ~T0 @X0 1 e ]
-[i _I_CONSTANT
--> -> 0 `i `ui
-]
-[; ;main.c: 9: const unsigned int I_CONSTANT = 0;
-"10
-[v _D_CONSTANT `Cui ~T0 @X0 1 e ]
-[i _D_CONSTANT
--> -> 0 `i `ui
-]
-[; ;main.c: 10: const unsigned int D_CONSTANT = 0;
-"12
-[v _flag_count `ui ~T0 @X0 1 e ]
-[i _flag_count
--> -> 0 `i `ui
-]
-[; ;main.c: 12: unsigned int flag_count = 0;
-"13
-[v _I `i ~T0 @X0 1 e ]
-[i _I
--> 0 `i
-]
-[; ;main.c: 13: int I = 0;
-[; ;main.c: 15: void PID_LineFollowing(signed char error[]);
-[; ;main.c: 16: void MotorControl(int delta_velocity);
-[; ;main.c: 17: void SharpTurn(char direction);
-[; ;main.c: 18: void GetBackonTrack(signed char last_error);
-"20
-[v _main `(v ~T0 @X0 1 ef ]
-"21
+[; ;osc.h: 9: void set_osc_32MHz(void);
+[; ;osc.h: 10: void set_osc_8MHz(void);
+[; ;osc.h: 11: void set_osc_1MHz(void);
+[; ;osc.h: 12: void set_osc_500kHz(void);
+[; ;osc.h: 13: void set_osc_4MHz(void);
+"18 ../Robot Files/osc.c
+[v _set_osc_32MHz `(v ~T0 @X0 1 ef ]
+"19
 {
-[; ;main.c: 20: void main(void)
-[; ;main.c: 21: {
-[e :U _main ]
+[; ;osc.c: 18: void set_osc_32MHz(void)
+[; ;osc.c: 19: {
+[e :U _set_osc_32MHz ]
 [f ]
-[v F4184 `c ~T0 @X0 -> 3 `i s ]
-[i F4184
-:U ..
+"20
+[v _i `i ~T0 @X0 1 a ]
+[; ;osc.c: 20: int i;
+[; ;osc.c: 22: OSCCONbits.IRCF2 = 1;
 "22
--> -> 0 `i `c
-..
-]
-[v _error `c ~T0 @X0 -> 3 `i a ]
-[; ;main.c: 22: signed char error[3]={0};
-[e = _error F4184 ]
-[; ;main.c: 23: initialization();
+[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
+[; ;osc.c: 23: OSCCONbits.IRCF1 = 1;
 "23
-[e ( _initialization ..  ]
-[; ;main.c: 28: printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r");
+[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
+[; ;osc.c: 24: OSCCONbits.IRCF0 = 1;
+"24
+[e = . . _OSCCONbits 1 4 -> -> 1 `i `uc ]
+[; ;osc.c: 26: OSCTUNEbits.PLLEN = 1;
+"26
+[e = . . _OSCTUNEbits 0 2 -> -> 1 `i `uc ]
+[; ;osc.c: 28: for(i=0;i<500;i++);
 "28
-[e ( _printf :s 1C ]
-[; ;main.c: 29: asm(" clrwdt");
-"29
-[; <"  clrwdt ;# ">
-[; ;main.c: 31: threshold = 620u;
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 500 `i 396  ]
+[e $U 397  ]
+[e :U 396 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 500 `i 396  ]
+[e :U 397 ]
+}
+[; ;osc.c: 31: }
 "31
-[e = _threshold -> 620 `ui ]
-[; ;main.c: 35: OpenTimer0(0b01111111 & 0b11011111 & 0b10111111 & 0b11110110);
+[e :UE 395 ]
+}
+"33
+[v _set_osc_8MHz `(v ~T0 @X0 1 ef ]
+"34
+{
+[; ;osc.c: 33: void set_osc_8MHz(void)
+[; ;osc.c: 34: {
+[e :U _set_osc_8MHz ]
+[f ]
 "35
-[e ( _OpenTimer0 (1 -> & & & -> 127 `i -> 223 `i -> 191 `i -> 246 `i `uc ]
-[; ;main.c: 36: WriteTimer0(0);
-"36
-[e ( _WriteTimer0 (1 -> -> 0 `i `ui ]
-[; ;main.c: 37: TMR0IF = 0;
+[v _i `i ~T0 @X0 1 a ]
+[; ;osc.c: 35: int i;
+[; ;osc.c: 37: OSCCONbits.IRCF2 = 1;
 "37
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;main.c: 39: while(1)
+[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
+[; ;osc.c: 38: OSCCONbits.IRCF1 = 1;
+"38
+[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
+[; ;osc.c: 39: OSCCONbits.IRCF0 = 1;
 "39
-[e :U 401 ]
-[; ;main.c: 40: {
-"40
-{
-[; ;main.c: 41: check_sensors();
+[e = . . _OSCCONbits 1 4 -> -> 1 `i `uc ]
+[; ;osc.c: 41: OSCTUNEbits.PLLEN = 0;
 "41
-[e ( _check_sensors ..  ]
-[; ;main.c: 44: switch(SeeLine.B)
-"44
-[e $U 404  ]
-[; ;main.c: 45: {
-"45
+[e = . . _OSCTUNEbits 0 2 -> -> 0 `i `uc ]
+[; ;osc.c: 43: for(i=0;i<500;i++);
+"43
 {
-[; ;main.c: 46: case 0b00110u:
-"46
-[e :U 405 ]
-[; ;main.c: 47: error[2]=1; break;
-"47
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -> 1 `i `c ]
-[e $U 403  ]
-[; ;main.c: 48: case 0b00010u:
-"48
-[e :U 406 ]
-[; ;main.c: 49: error[2]=2; break;
-"49
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -> 2 `i `c ]
-[e $U 403  ]
-[; ;main.c: 50: case 0b00011u:
-"50
-[e :U 407 ]
-[; ;main.c: 51: error[2]=3; break;
-"51
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -> 3 `i `c ]
-[e $U 403  ]
-[; ;main.c: 52: case 0b00001u:
-"52
-[e :U 408 ]
-[; ;main.c: 53: error[2]=4; break;
-"53
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -> 4 `i `c ]
-[e $U 403  ]
-[; ;main.c: 54: case 0b01100u:
-"54
-[e :U 409 ]
-[; ;main.c: 55: error[2]=-1; break;
-"55
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -U -> 1 `i `c ]
-[e $U 403  ]
-[; ;main.c: 56: case 0b01000u:
-"56
-[e :U 410 ]
-[; ;main.c: 57: error[2]=-2; break;
-"57
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -U -> 2 `i `c ]
-[e $U 403  ]
-[; ;main.c: 58: case 0b11000u:
-"58
-[e :U 411 ]
-[; ;main.c: 59: error[2]=-3; break;
-"59
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -U -> 3 `i `c ]
-[e $U 403  ]
-[; ;main.c: 60: case 0b10000u:
-"60
-[e :U 412 ]
-[; ;main.c: 61: error[2]=-4; break;
-"61
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -U -> 4 `i `c ]
-[e $U 403  ]
-[; ;main.c: 62: case 0b00111u:
-"62
-[e :U 413 ]
-"63
-[e :U 414 ]
-"65
-[e :U 415 ]
-"66
-[e :U 416 ]
-"68
-[e :U 417 ]
-[; ;main.c: 63: case 0b00101u:
-[; ;main.c: 65: case 0b11100u:
-[; ;main.c: 66: case 0b10100u:
-[; ;main.c: 68: case 0b00000u:
-[; ;main.c: 70: default:
-"70
-[e :U 418 ]
-[; ;main.c: 71: error[2]=0; break;
-"71
-[e = *U + &U _error * -> -> -> 2 `i `ui `ux -> -> # *U &U _error `ui `ux -> -> 0 `i `c ]
-[e $U 403  ]
-"72
-}
-[; ;main.c: 72: }
-[e $U 403  ]
-"44
-[e :U 404 ]
-[e [\ . . _SeeLine 0 0 , $ -> -> 6 `ui `uc 405
- , $ -> -> 2 `ui `uc 406
- , $ -> -> 3 `ui `uc 407
- , $ -> -> 1 `ui `uc 408
- , $ -> -> 12 `ui `uc 409
- , $ -> -> 8 `ui `uc 410
- , $ -> -> 24 `ui `uc 411
- , $ -> -> 16 `ui `uc 412
- , $ -> -> 7 `ui `uc 413
- , $ -> -> 5 `ui `uc 414
- , $ -> -> 28 `ui `uc 415
- , $ -> -> 20 `ui `uc 416
- , $ -> -> 0 `ui `uc 417
- 418 ]
-"72
-[e :U 403 ]
-[; ;main.c: 73: set_leds();
-"73
-[e ( _set_leds ..  ]
-[; ;main.c: 74: PID_LineFollowing(error);
-"74
-[e ( _PID_LineFollowing (1 &U _error ]
-[; ;main.c: 76: asm(" clrwdt");
-"76
-[; <"  clrwdt ;# ">
-[; ;main.c: 77: if(lvd_flag_set()) LVtrap();
-"77
-[e $ ! != -> ( _lvd_flag_set ..  `i -> -> -> 0 `i `uc `i 419  ]
-[e ( _LVtrap ..  ]
-[e :U 419 ]
-"78
-}
-[e :U 400 ]
-"39
+[e = _i -> 0 `i ]
+[e $ < _i -> 500 `i 400  ]
 [e $U 401  ]
-[e :U 402 ]
-[; ;main.c: 78: }
-[; ;main.c: 79: }
-"79
+[e :U 400 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 500 `i 400  ]
+[e :U 401 ]
+}
+[; ;osc.c: 46: }
+"46
 [e :UE 399 ]
 }
-"82
-[v _PID_LineFollowing `(v ~T0 @X0 1 ef1`*c ]
-"83
+"48
+[v _set_osc_1MHz `(v ~T0 @X0 1 ef ]
+"49
 {
-[; ;main.c: 82: void PID_LineFollowing(signed char error[])
-[; ;main.c: 83: {
-[e :U _PID_LineFollowing ]
-"82
-[v _error `*c ~T0 @X0 1 r1 ]
-"83
+[; ;osc.c: 48: void set_osc_1MHz(void)
+[; ;osc.c: 49: {
+[e :U _set_osc_1MHz ]
 [f ]
+"50
+[v _i `i ~T0 @X0 1 a ]
+[; ;osc.c: 50: int i;
+[; ;osc.c: 52: OSCCONbits.IRCF2 = 1;
+"52
+[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
+[; ;osc.c: 53: OSCCONbits.IRCF1 = 0;
+"53
+[e = . . _OSCCONbits 1 5 -> -> 0 `i `uc ]
+[; ;osc.c: 54: OSCCONbits.IRCF0 = 0;
+"54
+[e = . . _OSCCONbits 1 4 -> -> 0 `i `uc ]
+[; ;osc.c: 56: for(i=0;i<500;i++);
+"56
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 500 `i 404  ]
+[e $U 405  ]
+[e :U 404 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 500 `i 404  ]
+[e :U 405 ]
+}
+[; ;osc.c: 59: }
+"59
+[e :UE 403 ]
+}
+"61
+[v _set_osc_500kHz `(v ~T0 @X0 1 ef ]
+"62
+{
+[; ;osc.c: 61: void set_osc_500kHz(void)
+[; ;osc.c: 62: {
+[e :U _set_osc_500kHz ]
+[f ]
+"63
+[v _i `i ~T0 @X0 1 a ]
+[; ;osc.c: 63: int i;
+[; ;osc.c: 65: OSCCONbits.IRCF2 = 0;
+"65
+[e = . . _OSCCONbits 1 6 -> -> 0 `i `uc ]
+[; ;osc.c: 66: OSCCONbits.IRCF1 = 1;
+"66
+[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
+[; ;osc.c: 67: OSCCONbits.IRCF0 = 1;
+"67
+[e = . . _OSCCONbits 1 4 -> -> 1 `i `uc ]
+[; ;osc.c: 69: for(i=0;i<500;i++);
+"69
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 500 `i 408  ]
+[e $U 409  ]
+[e :U 408 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 500 `i 408  ]
+[e :U 409 ]
+}
+[; ;osc.c: 72: }
+"72
+[e :UE 407 ]
+}
+"74
+[v _set_osc_4MHz `(v ~T0 @X0 1 ef ]
+"75
+{
+[; ;osc.c: 74: void set_osc_4MHz(void)
+[; ;osc.c: 75: {
+[e :U _set_osc_4MHz ]
+[f ]
+"76
+[v _i `i ~T0 @X0 1 a ]
+[; ;osc.c: 76: int i;
+[; ;osc.c: 78: OSCCONbits.IRCF2 = 1;
+"78
+[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
+[; ;osc.c: 79: OSCCONbits.IRCF1 = 1;
+"79
+[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
+[; ;osc.c: 80: OSCCONbits.IRCF0 = 0;
+"80
+[e = . . _OSCCONbits 1 4 -> -> 0 `i `uc ]
+[; ;osc.c: 82: OSCTUNEbits.PLLEN = 0;
+"82
+[e = . . _OSCTUNEbits 0 2 -> -> 0 `i `uc ]
+[; ;osc.c: 84: for(i=0;i<500;i++);
 "84
-[v F4186 `i ~T0 @X0 1 s delta_velocity ]
-[i F4186
--> 0 `i
-]
-"86
-[v F4187 `i ~T0 @X0 1 s D ]
-[i F4187
--> 0 `i
-]
-[; ;main.c: 84: static int delta_velocity = 0;
-[; ;main.c: 86: static int D = 0;
-[; ;main.c: 89: if (!(ReadTimer0()%I_CONSTANT))
-"89
-[e $ ! ! != % ( _ReadTimer0 ..  _I_CONSTANT -> -> 0 `i `ui 421  ]
-[; ;main.c: 90: {
-"90
 {
-[; ;main.c: 91: if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
-"91
-[e $ ! || || ! || >= F4186 -> 1600 `i <= F4186 -> 1600 `i && >= F4186 -> 1600 `i < -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i -> 0 `i && <= F4186 -U -> 1600 `i > -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i -> 0 `i 422  ]
-[; ;main.c: 93: if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error[2]>0))
-"93
-[e $ ! || || ! || >= _I -> 3273 `i <= _I -U -> 3274 `i && >= _I -> 3273 `i < -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i -> 0 `i && <= _I -U -> 3274 `i > -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i -> 0 `i 423  ]
-[; ;main.c: 95: I += error[2];
-"95
-[e =+ _I -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i ]
-[e :U 423 ]
-"96
-[e :U 422 ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 500 `i 412  ]
+[e $U 413  ]
+[e :U 412 ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 500 `i 412  ]
+[e :U 413 ]
 }
-[e :U 421 ]
-[; ;main.c: 96: }
-[; ;main.c: 99: if(error[1]!=error[2])
-"99
-[e $ ! != -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i 424  ]
-[; ;main.c: 100: {
-"100
-{
-[; ;main.c: 101: D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
-"101
-[e = F4187 -> * / _D_CONSTANT ( _ReadTimer0 ..  -> - -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i `ui `i ]
-[; ;main.c: 103: error[0]=error[1];
-"103
-[e = *U + _error * -> -> 0 `i `x -> -> # *U _error `i `x *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x ]
-[; ;main.c: 104: error[1]=error[2];
-"104
-[e = *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x ]
-"105
+[; ;osc.c: 87: }
+"87
+[e :UE 411 ]
 }
-[e :U 424 ]
-[; ;main.c: 105: }
-[; ;main.c: 107: if(TMR0IF)
-"107
-[e $ ! _TMR0IF 425  ]
-[; ;main.c: 108: {
-"108
-{
-[; ;main.c: 109: D = D_CONSTANT/65535*(error[1]-error[0]);
-"109
-[e = F4187 -> * / -> _D_CONSTANT `l -> 65535 `l -> - -> *U + _error * -> -> 1 `i `x -> -> # *U _error `i `x `i -> *U + _error * -> -> 0 `i `x -> -> # *U _error `i `x `i `l `i ]
-[; ;main.c: 110: TMR0IF = 0;
-"110
-[e = _TMR0IF -> -> 0 `i `b ]
-"111
-}
-[e :U 425 ]
-[; ;main.c: 111: }
-[; ;main.c: 115: delta_velocity = P_CONSTANT*error[2] + I + D;
-"115
-[e = F4186 -> + + * _P_CONSTANT -> -> *U + _error * -> -> 2 `i `x -> -> # *U _error `i `x `i `ui -> _I `ui -> F4187 `ui `i ]
-[; ;main.c: 117: MotorControl(delta_velocity);
-"117
-[e ( _MotorControl (1 F4186 ]
-[; ;main.c: 118: }
-"118
-[e :UE 420 ]
-}
-"121
-[v _MotorControl `(v ~T0 @X0 1 ef1`i ]
-"122
-{
-[; ;main.c: 121: void MotorControl(int delta_velocity)
-[; ;main.c: 122: {
-[e :U _MotorControl ]
-"121
-[v _delta_velocity `i ~T0 @X0 1 r1 ]
-"122
-[f ]
-"123
-[v _left_duty_cycle `i ~T0 @X0 1 a ]
-[; ;main.c: 123: int left_duty_cycle = 700, right_duty_cycle = 700;
-[e = _left_duty_cycle -> 700 `i ]
-[v _right_duty_cycle `i ~T0 @X0 1 a ]
-[e = _right_duty_cycle -> 700 `i ]
-"124
-[c E4191 0 1 .. ]
-[n E4191 e_direction reverse forward  ]
-[v _left_dir_modifier `E4191 ~T0 @X0 1 a ]
-[; ;main.c: 124: enum e_direction {reverse,forward} left_dir_modifier= forward, right_dir_modifier= forward;
-[e = _left_dir_modifier . `E4191 1 ]
-[v _right_dir_modifier `E4191 ~T0 @X0 1 a ]
-[e = _right_dir_modifier . `E4191 1 ]
-[; ;main.c: 127: if ( delta_velocity < 0 )
-"127
-[e $ ! < _delta_velocity -> 0 `i 427  ]
-[; ;main.c: 128: {
-"128
-{
-[; ;main.c: 129: left_duty_cycle += delta_velocity*15/16;
-"129
-[e =+ _left_duty_cycle / * _delta_velocity -> 15 `i -> 16 `i ]
-[; ;main.c: 130: right_duty_cycle -= delta_velocity/16;
-"130
-[e =- _right_duty_cycle / _delta_velocity -> 16 `i ]
-"131
-}
-[; ;main.c: 131: }
-[e $U 428  ]
-"133
-[e :U 427 ]
-[; ;main.c: 133: else
-[; ;main.c: 134: {
-"134
-{
-[; ;main.c: 135: left_duty_cycle += delta_velocity/16;
-"135
-[e =+ _left_duty_cycle / _delta_velocity -> 16 `i ]
-[; ;main.c: 136: right_duty_cycle -= delta_velocity*15/16;
-"136
-[e =- _right_duty_cycle / * _delta_velocity -> 15 `i -> 16 `i ]
-"137
-}
-[e :U 428 ]
-[; ;main.c: 137: }
-[; ;main.c: 143: if ( left_duty_cycle < 0 )
-"143
-[e $ ! < _left_duty_cycle -> 0 `i 429  ]
-[; ;main.c: 144: {
-"144
-{
-[; ;main.c: 145: left_dir_modifier = reverse;
-"145
-[e = _left_dir_modifier . `E4191 0 ]
-[; ;main.c: 146: left_duty_cycle *= -1;
-"146
-[e =* _left_duty_cycle -U -> 1 `i ]
-"147
-}
-[e :U 429 ]
-[; ;main.c: 147: }
-[; ;main.c: 148: if ( left_duty_cycle > 800 ) left_duty_cycle = 800;
-"148
-[e $ ! > _left_duty_cycle -> 800 `i 430  ]
-[e = _left_duty_cycle -> 800 `i ]
-[e :U 430 ]
-[; ;main.c: 150: SetDCPWM2((unsigned int) left_duty_cycle );
-"150
-[e ( _SetDCPWM2 (1 -> _left_duty_cycle `ui ]
-[; ;main.c: 151: if ( left_dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
-"151
-[e $ ! == -> _left_dir_modifier `i -> . `E4191 0 `i 431  ]
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[e $U 432  ]
-"152
-[e :U 431 ]
-[; ;main.c: 152: else PORTCbits.RC0 = 0b1;
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[e :U 432 ]
-[; ;main.c: 153: PORTEbits.RE1 = !PORTCbits.RC0;
-"153
-[e = . . _PORTEbits 0 1 -> -> ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[; ;main.c: 156: if ( right_duty_cycle < 0 )
-"156
-[e $ ! < _right_duty_cycle -> 0 `i 433  ]
-[; ;main.c: 157: {
-"157
-{
-[; ;main.c: 158: right_dir_modifier = reverse;
-"158
-[e = _right_dir_modifier . `E4191 0 ]
-[; ;main.c: 159: right_duty_cycle *= -1;
-"159
-[e =* _right_duty_cycle -U -> 1 `i ]
-"160
-}
-[e :U 433 ]
-[; ;main.c: 160: }
-[; ;main.c: 161: if ( right_duty_cycle > 800 ) right_duty_cycle = 800;
-"161
-[e $ ! > _right_duty_cycle -> 800 `i 434  ]
-[e = _right_duty_cycle -> 800 `i ]
-[e :U 434 ]
-[; ;main.c: 163: SetDCPWM1((unsigned int) right_duty_cycle );
-"163
-[e ( _SetDCPWM1 (1 -> _right_duty_cycle `ui ]
-[; ;main.c: 164: if ( right_dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
-"164
-[e $ ! == -> _right_dir_modifier `i -> . `E4191 0 `i 435  ]
-[e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
-[e $U 436  ]
-"165
-[e :U 435 ]
-[; ;main.c: 165: else PORTCbits.RC5 = 0b1;
-[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
-[e :U 436 ]
-[; ;main.c: 166: PORTEbits.RE0 = !PORTCbits.RC5;
-"166
-[e = . . _PORTEbits 0 0 -> -> ! != -> . . _PORTCbits 0 5 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[; ;main.c: 167: }
-"167
-[e :UE 426 ]
-}
-"170
-[v _SharpTurn `(v ~T0 @X0 1 ef1`uc ]
-"171
-{
-[; ;main.c: 170: void SharpTurn(char direction)
-[; ;main.c: 171: {
-[e :U _SharpTurn ]
-"170
-[v _direction `uc ~T0 @X0 1 r1 ]
-"171
-[f ]
-"172
-[v _delta_velocity `i ~T0 @X0 1 a ]
-[; ;main.c: 172: int delta_velocity;
-[; ;main.c: 174: flag_count = 0;
-"174
-[e = _flag_count -> -> 0 `i `ui ]
-[; ;main.c: 175: while (SeeLine.B && flag_count!=7813)
-"175
-[e $U 438  ]
-[e :U 439 ]
-[; ;main.c: 176: {
-"176
-{
-[; ;main.c: 177: MotorControl(I*I_CONSTANT);
-"177
-[e ( _MotorControl (1 -> * -> _I `ui _I_CONSTANT `i ]
-[; ;main.c: 178: if (TMR0IF)
-"178
-[e $ ! _TMR0IF 441  ]
-[; ;main.c: 179: {
-"179
-{
-[; ;main.c: 180: flag_count++;
-"180
-[e ++ _flag_count -> -> 1 `i `ui ]
-[; ;main.c: 181: TMR0IF = 0;
-"181
-[e = _TMR0IF -> -> 0 `i `b ]
-"182
-}
-[e :U 441 ]
-"184
-}
-[e :U 438 ]
-"175
-[e $ && != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i != _flag_count -> -> 7813 `i `ui 439  ]
-[e :U 440 ]
-[; ;main.c: 182: }
-[; ;main.c: 184: }
-[; ;main.c: 186: if(!SeeLine.B)
-"186
-[e $ ! ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 442  ]
-[; ;main.c: 187: {
-"187
-{
-[; ;main.c: 188: motors_brake_all();
-"188
-[e ( _motors_brake_all ..  ]
-[; ;main.c: 189: if(direction)
-"189
-[e $ ! != -> _direction `i -> -> -> 0 `i `uc `i 443  ]
-[; ;main.c: 190: {
-"190
-{
-[; ;main.c: 191: delta_velocity = 1600;
-"191
-[e = _delta_velocity -> 1600 `i ]
-[; ;main.c: 192: while (!SeeLine.b.CntLeft && delta_velocity)
-"192
-[e $U 444  ]
-[e :U 445 ]
-[; ;main.c: 193: {
-"193
-{
-[; ;main.c: 194: MotorControl(delta_velocity);
-"194
-[e ( _MotorControl (1 _delta_velocity ]
-[; ;main.c: 195: if (SeeLine.b.Center)
-"195
-[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 447  ]
-[; ;main.c: 196: delta_velocity--;
-"196
-[e -- _delta_velocity -> 1 `i ]
-[e :U 447 ]
-"197
-}
-[e :U 444 ]
-"192
-[e $ && ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 445  ]
-[e :U 446 ]
-"198
-}
-[; ;main.c: 197: }
-[; ;main.c: 198: }
-[e $U 448  ]
-"199
-[e :U 443 ]
-[; ;main.c: 199: else
-[; ;main.c: 200: {
-"200
-{
-[; ;main.c: 201: delta_velocity = -1600;
-"201
-[e = _delta_velocity -U -> 1600 `i ]
-[; ;main.c: 202: while (!SeeLine.b.CntRight && delta_velocity)
-"202
-[e $U 449  ]
-[e :U 450 ]
-[; ;main.c: 203: {
-"203
-{
-[; ;main.c: 204: MotorControl(delta_velocity);
-"204
-[e ( _MotorControl (1 _delta_velocity ]
-[; ;main.c: 205: if (SeeLine.b.Center)
-"205
-[e $ ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i 452  ]
-[; ;main.c: 206: delta_velocity++;
-"206
-[e ++ _delta_velocity -> 1 `i ]
-[e :U 452 ]
-"207
-}
-[e :U 449 ]
-"202
-[e $ && ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i != _delta_velocity -> 0 `i 450  ]
-[e :U 451 ]
-"208
-}
-[e :U 448 ]
-[; ;main.c: 207: }
-[; ;main.c: 208: }
-[; ;main.c: 209: I = 0;
-"209
-[e = _I -> 0 `i ]
-"210
-}
-[e :U 442 ]
-[; ;main.c: 210: }
-[; ;main.c: 212: flag_count = 0;
-"212
-[e = _flag_count -> -> 0 `i `ui ]
-[; ;main.c: 213: }
-"213
-[e :UE 437 ]
-}
-"216
-[v _GetBackonTrack `(v ~T0 @X0 1 ef1`c ]
-"217
-{
-[; ;main.c: 216: void GetBackonTrack(signed char last_error)
-[; ;main.c: 217: {
-[e :U _GetBackonTrack ]
-"216
-[v _last_error `c ~T0 @X0 1 r1 ]
-"217
-[f ]
-[; ;main.c: 218: if(last_error>1)
-"218
-[e $ ! > -> _last_error `i -> 1 `i 454  ]
-[; ;main.c: 219: SharpTurn(1);
-"219
-[e ( _SharpTurn (1 -> -> 1 `i `uc ]
-[e $U 455  ]
-"220
-[e :U 454 ]
-[; ;main.c: 220: else if(last_error<-1)
-[e $ ! < -> _last_error `i -U -> 1 `i 456  ]
-[; ;main.c: 221: SharpTurn(0);
-"221
-[e ( _SharpTurn (1 -> -> 0 `i `uc ]
-[e $U 457  ]
-"222
-[e :U 456 ]
-[; ;main.c: 222: else
-[; ;main.c: 223: {
-"223
-{
-[; ;main.c: 224: flag_count = 0;
-"224
-[e = _flag_count -> -> 0 `i `ui ]
-[; ;main.c: 225: while (!SeeLine.B && flag_count!=7813)
-"225
-[e $U 458  ]
-[e :U 459 ]
-[; ;main.c: 226: {
-"226
-{
-[; ;main.c: 227: MotorControl(0);
-"227
-[e ( _MotorControl (1 -> 0 `i ]
-[; ;main.c: 228: if (TMR0IF)
-"228
-[e $ ! _TMR0IF 461  ]
-[; ;main.c: 229: {
-"229
-{
-[; ;main.c: 230: flag_count++;
-"230
-[e ++ _flag_count -> -> 1 `i `ui ]
-[; ;main.c: 231: TMR0IF = 0;
-"231
-[e = _TMR0IF -> -> 0 `i `b ]
-"232
-}
-[e :U 461 ]
-"233
-}
-[e :U 458 ]
-"225
-[e $ && ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i != _flag_count -> -> 7813 `i `ui 459  ]
-[e :U 460 ]
-[; ;main.c: 232: }
-[; ;main.c: 233: }
-[; ;main.c: 235: if(!SeeLine.B)
-"235
-[e $ ! ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 462  ]
-[; ;main.c: 236: {
-"236
-{
-[; ;main.c: 237: motors_brake_all();
-"237
-[e ( _motors_brake_all ..  ]
-[; ;main.c: 238: MotorControl(1600);
-"238
-[e ( _MotorControl (1 -> 1600 `i ]
-[; ;main.c: 239: for(char i=0; i < 80; i++)
-"239
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 80 `i 463  ]
-[e $U 464  ]
-"240
-[e :U 463 ]
-[; ;main.c: 240: _delay(100000);
-[e ( __delay (1 -> -> 100000 `l `ul ]
-"239
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 80 `i 463  ]
-[e :U 464 ]
-"240
-}
-[; ;main.c: 242: while (!SeeLine.B)
-"242
-[e $U 466  ]
-[e :U 467 ]
-[; ;main.c: 243: MotorControl(0);
-"243
-[e ( _MotorControl (1 -> 0 `i ]
-[e :U 466 ]
-"242
-[e $ ! != -> . . _SeeLine 0 0 `i -> -> -> 0 `i `uc `i 467  ]
-[e :U 468 ]
-"244
-}
-[e :U 462 ]
-[; ;main.c: 244: }
-[; ;main.c: 245: flag_count = 0;
-"245
-[e = _flag_count -> -> 0 `i `ui ]
-"246
-}
-[e :U 457 ]
-[e :U 455 ]
-[; ;main.c: 246: }
-[; ;main.c: 247: }
-"247
-[e :UE 453 ]
-}
-[p f _printf 8388608 ]
-[a 1C 10 13 75 119 97 110 116 108 101 110 32 65 80 83 67 49 50 57 57 32 115 105 109 112 108 101 32 99 117 114 118 101 32 102 111 108 108 111 119 101 114 32 45 45 32 119 105 116 104 32 101 114 114 111 114 32 99 111 100 101 115 10 13 0 ]
-

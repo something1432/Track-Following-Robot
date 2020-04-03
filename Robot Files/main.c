@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <p18f4525.h>
 #include "sumovore.h"
-#include "motor_control.h"
 #include "interrupts.h"
 #include <xc.h>
 

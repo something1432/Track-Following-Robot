@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.34 build -361300703 
-                                                                                               Thu Apr 02 20:43:47 2020
+                                                                                               Thu Apr 02 21:11:03 2020
 
 Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
      1                           	processor	18F4525
@@ -292,7 +292,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    286                           	psect	bssCOMRAM
    287  00003E                     __pbssCOMRAM:
    288                           	opt stack 0
-   289  00003E                     main@F4186:
+   289  00003E                     main@F4184:
    290                           	opt stack 0
    291  00003E                     	ds	3
    292  000041                     PID_LineFollowing@D:
@@ -551,7 +551,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    545 ;;
    546 ;; *************** function _main *****************
    547 ;; Defined at:
-   548 ;;		line 21 in file "../Robot Files/main.c"
+   548 ;;		line 20 in file "../Robot Files/main.c"
    549 ;; Parameters:    Size  Location     Type
    550 ;;		None
    551 ;; Auto vars:     Size  Location     Type
@@ -597,17 +597,17 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    586  0014E4                     _main:
    587                           	opt stack 25
    588                           
-   589                           ;main.c: 23: signed char error[3]={0};
+   589                           ;main.c: 22: signed char error[3]={0};
    590                           
    591                           ;incstack = 0
-   592  0014E4  C03E  F03B         	movff	main@F4186,main@error
-   593  0014E8  C03F  F03C         	movff	main@F4186+1,main@error+1
-   594  0014EC  C040  F03D         	movff	main@F4186+2,main@error+2
+   592  0014E4  C03E  F03B         	movff	main@F4184,main@error
+   593  0014E8  C03F  F03C         	movff	main@F4184+1,main@error+1
+   594  0014EC  C040  F03D         	movff	main@F4184+2,main@error+2
    595                           
-   596                           ;main.c: 24: initialization();
+   596                           ;main.c: 23: initialization();
    597  0014F0  EC54  F00C         	call	_initialization	;wreg free
    598                           
-   599                           ;main.c: 29: printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r
+   599                           ;main.c: 28: printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r
       +                          ");
    600  0014F4  0E15               	movlw	low STR_1
    601  0014F6  6E0F               	movwf	printf@f,c
@@ -616,85 +616,85 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    604  0014FC  EC7D  F00E         	call	_printf	;wreg free
    605  001500  0004               	clrwdt		;# 
    606                           
-   607                           ;main.c: 32: threshold = 620u;
+   607                           ;main.c: 31: threshold = 620u;
    608  001502  0E02               	movlw	2
    609  001504  6E4A               	movwf	_threshold+1,c
    610  001506  0E6C               	movlw	108
    611  001508  6E49               	movwf	_threshold,c
    612                           
-   613                           ;main.c: 36: OpenTimer0(0b01111111 & 0b11011111 & 0b10111111 & 0b11110110);
+   613                           ;main.c: 35: OpenTimer0(0b01111111 & 0b11011111 & 0b10111111 & 0b11110110);
    614  00150A  0E16               	movlw	22
    615  00150C  EC08  F00F         	call	_OpenTimer0
    616                           
-   617                           ;main.c: 37: WriteTimer0(0);
+   617                           ;main.c: 36: WriteTimer0(0);
    618  001510  0E00               	movlw	0
    619  001512  6E10               	movwf	WriteTimer0@timer0+1,c
    620  001514  0E00               	movlw	0
    621  001516  6E0F               	movwf	WriteTimer0@timer0,c
    622  001518  EC95  F00F         	call	_WriteTimer0	;wreg free
    623                           
-   624                           ;main.c: 38: TMR0IF = 0;
+   624                           ;main.c: 37: TMR0IF = 0;
    625  00151C  94F2               	bcf	intcon,2,c	;volatile
    626  00151E  D000               	goto	l2643
    627  001520                     l2643:
    628                           
-   629                           ;main.c: 41: {
-   630                           ;main.c: 42: check_sensors();
+   629                           ;main.c: 40: {
+   630                           ;main.c: 41: check_sensors();
    631  001520  EC51  F00B         	call	_check_sensors	;wreg free
    632                           
-   633                           ;main.c: 45: switch(SeeLine.B)
+   633                           ;main.c: 44: switch(SeeLine.B)
    634  001524  D014               	goto	l2663
    635  001526                     l2645:
    636                           
-   637                           ;main.c: 48: error[2]=1; break;
+   637                           ;main.c: 47: error[2]=1; break;
    638  001526  0E01               	movlw	1
    639  001528  D010               	goto	L7
    640  00152A                     l2647:
    641                           
-   642                           ;main.c: 50: error[2]=2; break;
+   642                           ;main.c: 49: error[2]=2; break;
    643  00152A  0E02               	movlw	2
    644  00152C  D00E               	goto	L7
    645  00152E                     l2649:
    646                           
-   647                           ;main.c: 52: error[2]=3; break;
+   647                           ;main.c: 51: error[2]=3; break;
    648  00152E  0E03               	movlw	3
    649  001530  D00C               	goto	L7
    650  001532                     l2651:
    651                           
-   652                           ;main.c: 54: error[2]=4; break;
+   652                           ;main.c: 53: error[2]=4; break;
    653  001532  0E04               	movlw	4
    654  001534  D00A               	goto	L7
-   655  001536                     l86:
+   655  001536                     l62:
    656                           
-   657                           ;main.c: 56: error[2]=-1; break;
+   657                           ;main.c: 55: error[2]=-1; break;
    658  001536  683D               	setf	main@error+2,c
    659  001538  D032               	goto	l2665
    660  00153A                     l2653:
    661                           
-   662                           ;main.c: 58: error[2]=-2; break;
+   662                           ;main.c: 57: error[2]=-2; break;
    663  00153A  0EFE               	movlw	254
    664  00153C  D006               	goto	L7
    665  00153E                     l2655:
    666                           
-   667                           ;main.c: 60: error[2]=-3; break;
+   667                           ;main.c: 59: error[2]=-3; break;
    668  00153E  0EFD               	movlw	253
    669  001540  D004               	goto	L7
    670  001542                     l2657:
    671                           
-   672                           ;main.c: 62: error[2]=-4; break;
+   672                           ;main.c: 61: error[2]=-4; break;
    673  001542  0EFC               	movlw	252
    674  001544  D002               	goto	L7
    675                           
-   676                           ;main.c: 63: case 0b00111u:
+   676                           ;main.c: 62: case 0b00111u:
    677  001546  D000               	goto	l2659
    678  001548                     l2659:
    679                           
-   680                           ;main.c: 72: error[2]=0; break;
+   680                           ;main.c: 71: error[2]=0; break;
    681  001548  0E00               	movlw	0
    682  00154A                     L7:
    683  00154A  6E3D               	movwf	main@error+2,c
    684                           
-   685                           ;main.c: 73: }
+   685                           ;main.c: 72: }
    686  00154C  D028               	goto	l2665
    687  00154E                     l2663:
    688  00154E  504B               	movf	_SeeLine,w,c
@@ -732,7 +732,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    720  001580  D7DC               	goto	l2653
    721  001582  0A04               	xorlw	4	; case 12
    722  001584  B4D8               	btfsc	status,2,c
-   723  001586  D7D7               	goto	l86
+   723  001586  D7D7               	goto	l62
    724  001588  0A1C               	xorlw	28	; case 16
    725  00158A  B4D8               	btfsc	status,2,c
    726  00158C  D7DA               	goto	l2657
@@ -746,10 +746,10 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    734  00159C  D7D5               	goto	l2659
    735  00159E                     l2665:
    736                           
-   737                           ;main.c: 74: set_leds();
+   737                           ;main.c: 73: set_leds();
    738  00159E  EC9C  F00C         	call	_set_leds	;wreg free
    739                           
-   740                           ;main.c: 75: PID_LineFollowing(error);
+   740                           ;main.c: 74: PID_LineFollowing(error);
    741  0015A2  0E3B               	movlw	low main@error
    742  0015A4  6E34               	movwf	PID_LineFollowing@error,c
    743  0015A6  0E00               	movlw	high main@error
@@ -757,7 +757,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    745  0015AA  EC43  F008         	call	_PID_LineFollowing	;wreg free
    746  0015AE  0004               	clrwdt		;# 
    747                           
-   748                           ;main.c: 78: if(lvd_flag_set()) LVtrap();
+   748                           ;main.c: 77: if(lvd_flag_set()) LVtrap();
    749  0015B0  ECBD  F00F         	call	_lvd_flag_set	;wreg free
    750  0015B4  0900               	iorlw	0
    751  0015B6  B4D8               	btfsc	status,2,c
@@ -949,8 +949,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
    927                           
    928                           ;incstack = 0
    929  001F7A  504C               	movf	_lvd_flag,w,c
-   930  001F7C  D000               	goto	l24
-   931  001F7E                     l24:
+   930  001F7C  D000               	goto	l179
+   931  001F7E                     l179:
    932  001F7E  0012               	return		;funcret
    933  001F80                     __end_of_lvd_flag_set:
    934                           	opt stack 0
@@ -1136,7 +1136,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1107                           
   1108 ;; *************** function _set_osc_32MHz *****************
   1109 ;; Defined at:
-  1110 ;;		line 18 in file "../../Common/osc.c"
+  1110 ;;		line 18 in file "../Robot Files/osc.c"
   1111 ;; Parameters:    Size  Location     Type
   1112 ;;		None
   1113 ;; Auto vars:     Size  Location     Type
@@ -1203,14 +1203,14 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1169  001D40  0E01               	movlw	1
   1170  001D42  5810               	subwfb	set_osc_32MHz@i+1,w,c
   1171  001D44  B0D8               	btfsc	status,0,c
-  1172  001D46  D005               	goto	l382
+  1172  001D46  D005               	goto	l188
   1173  001D48  D001               	goto	l1519
-  1174  001D4A  D003               	goto	l382
+  1174  001D4A  D003               	goto	l188
   1175  001D4C                     l1519:
   1176  001D4C  4A0F               	infsnz	set_osc_32MHz@i,f,c
   1177  001D4E  2A10               	incf	set_osc_32MHz@i+1,f,c
   1178  001D50  D7F3               	goto	l1515
-  1179  001D52                     l382:
+  1179  001D52                     l188:
   1180  001D52  0012               	return		;funcret
   1181  001D54                     __end_of_set_osc_32MHz:
   1182                           	opt stack 0
@@ -1275,7 +1275,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1236  001C12  B4D8               	btfsc	status,2,c
   1237  001C14  D003               	goto	l2357
   1238  001C16  ECB3  F00B         	call	_PORtask	;wreg free
-  1239  001C1A  D018               	goto	l337
+  1239  001C1A  D018               	goto	l366
   1240  001C1C                     l2357:
   1241                           
   1242                           ;sumovore.c: 286: else if (isBOR() ) BORtask();
@@ -1284,29 +1284,29 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1245  001C22  B4D8               	btfsc	status,2,c
   1246  001C24  D003               	goto	l2361
   1247  001C26  ECF8  F00E         	call	_BORtask	;wreg free
-  1248  001C2A  D010               	goto	l337
+  1248  001C2A  D010               	goto	l366
   1249  001C2C                     l2361:
   1250                           
   1251                           ;sumovore.c: 288: else if(isWDTTO() ) WDTtask();
   1252  001C2C  ECD2  F00E         	call	_isWDTTO	;wreg free
   1253  001C30  0900               	iorlw	0
   1254  001C32  B4D8               	btfsc	status,2,c
-  1255  001C34  D003               	goto	l333
+  1255  001C34  D003               	goto	l362
   1256  001C36  EC37  F00F         	call	_WDTtask	;wreg free
-  1257  001C3A  D008               	goto	l337
-  1258  001C3C                     l333:
+  1257  001C3A  D008               	goto	l366
+  1258  001C3C                     l362:
   1259                           
   1260                           ;sumovore.c: 292: else if(STKPTRbits.STKFUL) STKFULtask();
   1261  001C3C  AEFC               	btfss	stkptr,7,c	;volatile
   1262  001C3E  D003               	goto	l2367
   1263  001C40  EC28  F00F         	call	_STKFULtask	;wreg free
-  1264  001C44  D003               	goto	l337
+  1264  001C44  D003               	goto	l366
   1265  001C46                     l2367:
   1266                           
   1267                           ;sumovore.c: 296: else RESETtask();
   1268  001C46  EC45  F00F         	call	_RESETtask	;wreg free
-  1269  001C4A  D000               	goto	l337
-  1270  001C4C                     l337:
+  1269  001C4A  D000               	goto	l366
+  1270  001C4C                     l366:
   1271  001C4C  0012               	return		;funcret
   1272  001C4E                     __end_of_reset_codes:
   1273                           	opt stack 0
@@ -1851,8 +1851,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1777  00179E  8883               	bsf	3971,4,c	;volatile
   1778                           
   1779                           ;sumovore.c: 317: while(count1<10u)
-  1780  0017A0  D02D               	goto	l340
-  1781  0017A2                     l341:
+  1780  0017A0  D02D               	goto	l369
+  1781  0017A2                     l370:
   1782  0017A2  0004               	clrwdt		;# 
   1783                           
   1784                           ;sumovore.c: 320: if (count2==30000u)
@@ -1923,18 +1923,18 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   1849  0017F6  2219               	addwfc	PORtask@count2+1,f,c
   1850  0017F8  221A               	addwfc	PORtask@count2+2,f,c
   1851  0017FA  221B               	addwfc	PORtask@count2+3,f,c
-  1852  0017FC                     l340:
+  1852  0017FC                     l369:
   1853  0017FC  5017               	movf	PORtask@count1+3,w,c
   1854  0017FE  1016               	iorwf	PORtask@count1+2,w,c
   1855  001800  1015               	iorwf	PORtask@count1+1,w,c
-  1856  001802  E106               	bnz	l346
+  1856  001802  E106               	bnz	l375
   1857  001804  0E0A               	movlw	10
   1858  001806  5C14               	subwf	PORtask@count1,w,c
   1859  001808  B0D8               	btfsc	status,0,c
-  1860  00180A  D002               	goto	l346
-  1861  00180C  D7CA               	goto	l341
-  1862  00180E  D000               	goto	l346
-  1863  001810                     l346:
+  1860  00180A  D002               	goto	l375
+  1861  00180C  D7CA               	goto	l370
+  1862  00180E  D000               	goto	l375
+  1863  001810                     l375:
   1864  001810  0012               	return		;funcret
   1865  001812                     __end_of_PORtask:
   1866                           	opt stack 0
@@ -3145,8 +3145,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   2996  001D6C  ECA7  F00F         	call	_ReadADC	;wreg free
   2997  001D70  C00F  F013         	movff	?_ReadADC,?_adc
   2998  001D74  C010  F014         	movff	?_ReadADC+1,?_adc+1
-  2999  001D78  D000               	goto	l320
-  3000  001D7A                     l320:
+  2999  001D78  D000               	goto	l349
+  3000  001D7A                     l349:
   3001  001D7A  0012               	return		;funcret
   3002  001D7C                     __end_of_adc:
   3003                           	opt stack 0
@@ -3467,7 +3467,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3293                           
   3294 ;; *************** function _PID_LineFollowing *****************
   3295 ;; Defined at:
-  3296 ;;		line 83 in file "../Robot Files/main.c"
+  3296 ;;		line 82 in file "../Robot Files/main.c"
   3297 ;; Parameters:    Size  Location     Type
   3298 ;;  error           2   51[COMRAM] PTR char 
   3299 ;;		 -> main@error(3), 
@@ -3512,9 +3512,9 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3333  001086                     _PID_LineFollowing:
   3334                           	opt stack 27
   3335                           
-  3336                           ;main.c: 85: static int delta_velocity = 0;
-  3337                           ;main.c: 87: static int D = 0;
-  3338                           ;main.c: 90: if (!(ReadTimer0()%I_CONSTANT))
+  3336                           ;main.c: 84: static int delta_velocity = 0;
+  3337                           ;main.c: 86: static int D = 0;
+  3338                           ;main.c: 89: if (!(ReadTimer0()%I_CONSTANT))
   3339                           
   3340                           ;incstack = 0
   3341  001086  EC9E  F00F         	call	_ReadTimer0	;wreg free
@@ -3540,8 +3540,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3361  0010B2  A4D8               	btfss	status,2,c
   3362  0010B4  D077               	goto	l2551
   3363                           
-  3364                           ;main.c: 91: {
-  3365                           ;main.c: 92: if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600
+  3364                           ;main.c: 90: {
+  3365                           ;main.c: 91: if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600
       +                           && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
   3366  0010B6  BE44               	btfsc	PID_LineFollowing@delta_velocity+1,7,c
   3367  0010B8  D006               	goto	l2527
@@ -3598,7 +3598,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3418  00111C  D043               	goto	l2551
   3419  00111E                     l2537:
   3420                           
-  3421                           ;main.c: 94: if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error
+  3421                           ;main.c: 93: if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error
       +                          [2]>0))
   3422  00111E  BE46               	btfsc	_I+1,7,c
   3423  001120  D006               	goto	l2539
@@ -3655,7 +3655,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3474  001184  D00F               	goto	l2551
   3475  001186                     l2549:
   3476                           
-  3477                           ;main.c: 96: I += error[2];
+  3477                           ;main.c: 95: I += error[2];
   3478  001186  EE20 F002          	lfsr	2,2
   3479  00118A  5034               	movf	PID_LineFollowing@error,w,c
   3480  00118C  26D9               	addwf	fsr2l,f,c
@@ -3672,8 +3672,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3491  0011A2  D000               	goto	l2551
   3492  0011A4                     l2551:
   3493                           
-  3494                           ;main.c: 97: }
-  3495                           ;main.c: 100: if(error[1]!=error[2])
+  3494                           ;main.c: 96: }
+  3495                           ;main.c: 99: if(error[1]!=error[2])
   3496  0011A4  EE20 F002          	lfsr	2,2
   3497  0011A8  5034               	movf	PID_LineFollowing@error,w,c
   3498  0011AA  26D9               	addwf	fsr2l,f,c
@@ -3689,8 +3689,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3508  0011C0  B4D8               	btfsc	status,2,c
   3509  0011C2  D058               	goto	l2559
   3510                           
-  3511                           ;main.c: 101: {
-  3512                           ;main.c: 102: D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
+  3511                           ;main.c: 100: {
+  3512                           ;main.c: 101: D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
   3513  0011C4  EE20 F001          	lfsr	2,1
   3514  0011C8  5034               	movf	PID_LineFollowing@error,w,c
   3515  0011CA  26D9               	addwf	fsr2l,f,c
@@ -3744,7 +3744,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3563  001236  C01D  F041         	movff	?___wmul,PID_LineFollowing@D
   3564  00123A  C01E  F042         	movff	?___wmul+1,PID_LineFollowing@D+1
   3565                           
-  3566                           ;main.c: 104: error[0]=error[1];
+  3566                           ;main.c: 103: error[0]=error[1];
   3567  00123E  EE20 F001          	lfsr	2,1
   3568  001242  5034               	movf	PID_LineFollowing@error,w,c
   3569  001244  26D9               	addwf	fsr2l,f,c
@@ -3754,7 +3754,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3573  00124E  C035  FFE2         	movff	PID_LineFollowing@error+1,fsr1h
   3574  001252  CFDF FFE7          	movff	indf2,indf1
   3575                           
-  3576                           ;main.c: 105: error[1]=error[2];
+  3576                           ;main.c: 104: error[1]=error[2];
   3577  001256  EE20 F002          	lfsr	2,2
   3578  00125A  5034               	movf	PID_LineFollowing@error,w,c
   3579  00125C  26D9               	addwf	fsr2l,f,c
@@ -3769,13 +3769,13 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3588  001272  D000               	goto	l2559
   3589  001274                     l2559:
   3590                           
-  3591                           ;main.c: 106: }
-  3592                           ;main.c: 108: if(TMR0IF)
+  3591                           ;main.c: 105: }
+  3592                           ;main.c: 107: if(TMR0IF)
   3593  001274  A4F2               	btfss	intcon,2,c	;volatile
-  3594  001276  D044               	goto	l122
+  3594  001276  D044               	goto	l98
   3595                           
-  3596                           ;main.c: 109: {
-  3597                           ;main.c: 110: D = D_CONSTANT/65535*(error[1]-error[0]);
+  3596                           ;main.c: 108: {
+  3597                           ;main.c: 109: D = D_CONSTANT/65535*(error[1]-error[0]);
   3598  001278  C034  FFD9         	movff	PID_LineFollowing@error,fsr2l
   3599  00127C  C035  FFDA         	movff	PID_LineFollowing@error+1,fsr2h
   3600  001280  50DF               	movf	indf2,w,c
@@ -3835,12 +3835,12 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3654  0012F6  C01D  F041         	movff	?___wmul,PID_LineFollowing@D
   3655  0012FA  C01E  F042         	movff	?___wmul+1,PID_LineFollowing@D+1
   3656                           
-  3657                           ;main.c: 111: TMR0IF = 0;
+  3657                           ;main.c: 110: TMR0IF = 0;
   3658  0012FE  94F2               	bcf	intcon,2,c	;volatile
-  3659  001300                     l122:
+  3659  001300                     l98:
   3660                           
-  3661                           ;main.c: 112: }
-  3662                           ;main.c: 116: delta_velocity = P_CONSTANT*error[2] + I + D;
+  3661                           ;main.c: 111: }
+  3662                           ;main.c: 115: delta_velocity = P_CONSTANT*error[2] + I + D;
   3663  001300  EE20 F002          	lfsr	2,2
   3664  001304  5034               	movf	PID_LineFollowing@error,w,c
   3665  001306  26D9               	addwf	fsr2l,f,c
@@ -3877,7 +3877,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   3696  001342  201E               	addwfc	?___wmul+1,w,c
   3697  001344  6E44               	movwf	PID_LineFollowing@delta_velocity+1,c
   3698                           
-  3699                           ;main.c: 118: MotorControl(delta_velocity);
+  3699                           ;main.c: 117: MotorControl(delta_velocity);
   3700  001346  C043  F02B         	movff	PID_LineFollowing@delta_velocity,MotorControl@delta_velocity
   3701  00134A  C044  F02C         	movff	PID_LineFollowing@delta_velocity+1,MotorControl@delta_velocity+1
   3702  00134E  ECAA  F009         	call	_MotorControl	;wreg free
@@ -4374,14 +4374,14 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4173                           
   4174 ;; *************** function _MotorControl *****************
   4175 ;; Defined at:
-  4176 ;;		line 122 in file "../Robot Files/main.c"
+  4176 ;;		line 121 in file "../Robot Files/main.c"
   4177 ;; Parameters:    Size  Location     Type
   4178 ;;  delta_veloci    2   42[COMRAM] int 
   4179 ;; Auto vars:     Size  Location     Type
   4180 ;;  right_duty_c    2   49[COMRAM] int 
   4181 ;;  left_duty_cy    2   47[COMRAM] int 
-  4182 ;;  right_dir_mo    1   46[COMRAM] enum E4193
-  4183 ;;  left_dir_mod    1   45[COMRAM] enum E4193
+  4182 ;;  right_dir_mo    1   46[COMRAM] enum E4191
+  4183 ;;  left_dir_mod    1   45[COMRAM] enum E4191
   4184 ;; Return value:  Size  Location     Type
   4185 ;;		None               void
   4186 ;; Registers used:
@@ -4421,7 +4421,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4215  001354                     _MotorControl:
   4216                           	opt stack 27
   4217                           
-  4218                           ;main.c: 124: int left_duty_cycle = 700, right_duty_cycle = 700;
+  4218                           ;main.c: 123: int left_duty_cycle = 700, right_duty_cycle = 700;
   4219                           
   4220                           ;incstack = 0
   4221  001354  0E02               	movlw	2
@@ -4433,19 +4433,19 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4227  001360  0EBC               	movlw	188
   4228  001362  6E32               	movwf	MotorControl@right_duty_cycle,c
   4229                           
-  4230                           ;main.c: 125: enum e_direction {reverse,forward} left_dir_modifier= forward, right_dir_m
+  4230                           ;main.c: 124: enum e_direction {reverse,forward} left_dir_modifier= forward, right_dir_m
       +                          odifier= forward;
   4231  001364  0E01               	movlw	1
   4232  001366  6E2E               	movwf	MotorControl@left_dir_modifier,c
   4233  001368  0E01               	movlw	1
   4234  00136A  6E2F               	movwf	MotorControl@right_dir_modifier,c
   4235                           
-  4236                           ;main.c: 128: if ( delta_velocity < 0 )
+  4236                           ;main.c: 127: if ( delta_velocity < 0 )
   4237  00136C  AE2C               	btfss	MotorControl@delta_velocity+1,7,c
   4238  00136E  D023               	goto	l2265
   4239                           
-  4240                           ;main.c: 129: {
-  4241                           ;main.c: 130: left_duty_cycle += delta_velocity*15/16;
+  4240                           ;main.c: 128: {
+  4241                           ;main.c: 129: left_duty_cycle += delta_velocity*15/16;
   4242  001370  C02B  F01D         	movff	MotorControl@delta_velocity,___wmul@multiplier
   4243  001374  C02C  F01E         	movff	MotorControl@delta_velocity+1,___wmul@multiplier+1
   4244  001378  0E00               	movlw	0
@@ -4465,7 +4465,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4258  00139C  5024               	movf	?___awdiv+1,w,c
   4259  00139E  2231               	addwfc	MotorControl@left_duty_cycle+1,f,c
   4260                           
-  4261                           ;main.c: 131: right_duty_cycle -= delta_velocity/16;
+  4261                           ;main.c: 130: right_duty_cycle -= delta_velocity/16;
   4262  0013A0  C02B  F023         	movff	MotorControl@delta_velocity,___awdiv@dividend
   4263  0013A4  C02C  F024         	movff	MotorControl@delta_velocity+1,___awdiv@dividend+1
   4264  0013A8  0E00               	movlw	0
@@ -4476,9 +4476,9 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4269  0013B4  D022               	goto	L8
   4270  0013B6                     l2265:
   4271                           
-  4272                           ;main.c: 134: else
-  4273                           ;main.c: 135: {
-  4274                           ;main.c: 136: left_duty_cycle += delta_velocity/16;
+  4272                           ;main.c: 133: else
+  4273                           ;main.c: 134: {
+  4274                           ;main.c: 135: left_duty_cycle += delta_velocity/16;
   4275  0013B6  C02B  F023         	movff	MotorControl@delta_velocity,___awdiv@dividend
   4276  0013BA  C02C  F024         	movff	MotorControl@delta_velocity+1,___awdiv@dividend+1
   4277  0013BE  0E00               	movlw	0
@@ -4491,7 +4491,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4284  0013CE  5024               	movf	?___awdiv+1,w,c
   4285  0013D0  2231               	addwfc	MotorControl@left_duty_cycle+1,f,c
   4286                           
-  4287                           ;main.c: 137: right_duty_cycle -= delta_velocity*15/16;
+  4287                           ;main.c: 136: right_duty_cycle -= delta_velocity*15/16;
   4288  0013D2  C02B  F01D         	movff	MotorControl@delta_velocity,___wmul@multiplier
   4289  0013D6  C02C  F01E         	movff	MotorControl@delta_velocity+1,___wmul@multiplier+1
   4290  0013DA  0E00               	movlw	0
@@ -4514,17 +4514,17 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4307  001402  D000               	goto	l2269
   4308  001404                     l2269:
   4309                           
-  4310                           ;main.c: 138: }
-  4311                           ;main.c: 144: if ( left_duty_cycle < 0 )
+  4310                           ;main.c: 137: }
+  4311                           ;main.c: 143: if ( left_duty_cycle < 0 )
   4312  001404  AE31               	btfss	MotorControl@left_duty_cycle+1,7,c
   4313  001406  D010               	goto	l2275
   4314                           
-  4315                           ;main.c: 145: {
-  4316                           ;main.c: 146: left_dir_modifier = reverse;
+  4315                           ;main.c: 144: {
+  4316                           ;main.c: 145: left_dir_modifier = reverse;
   4317  001408  0E00               	movlw	0
   4318  00140A  6E2E               	movwf	MotorControl@left_dir_modifier,c
   4319                           
-  4320                           ;main.c: 147: left_duty_cycle *= -1;
+  4320                           ;main.c: 146: left_duty_cycle *= -1;
   4321  00140C  C030  F01D         	movff	MotorControl@left_duty_cycle,___wmul@multiplier
   4322  001410  C031  F01E         	movff	MotorControl@left_duty_cycle+1,___wmul@multiplier+1
   4323  001414  0EFF               	movlw	255
@@ -4536,8 +4536,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4329  001426  D000               	goto	l2275
   4330  001428                     l2275:
   4331                           
-  4332                           ;main.c: 148: }
-  4333                           ;main.c: 149: if ( left_duty_cycle > 800 ) left_duty_cycle = 800;
+  4332                           ;main.c: 147: }
+  4333                           ;main.c: 148: if ( left_duty_cycle > 800 ) left_duty_cycle = 800;
   4334  001428  BE31               	btfsc	MotorControl@left_duty_cycle+1,7,c
   4335  00142A  D00B               	goto	l2279
   4336  00142C  0E21               	movlw	33
@@ -4553,25 +4553,25 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4346  001440  D000               	goto	l2279
   4347  001442                     l2279:
   4348                           
-  4349                           ;main.c: 151: SetDCPWM2((unsigned int) left_duty_cycle );
+  4349                           ;main.c: 150: SetDCPWM2((unsigned int) left_duty_cycle );
   4350  001442  C030  F00F         	movff	MotorControl@left_duty_cycle,SetDCPWM2@dutycycle
   4351  001446  C031  F010         	movff	MotorControl@left_duty_cycle+1,SetDCPWM2@dutycycle+1
   4352  00144A  EC27  F00E         	call	_SetDCPWM2	;wreg free
   4353                           
-  4354                           ;main.c: 152: if ( left_dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
+  4354                           ;main.c: 151: if ( left_dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
   4355  00144E  502E               	movf	MotorControl@left_dir_modifier,w,c
   4356  001450  A4D8               	btfss	status,2,c
-  4357  001452  D002               	goto	l130
+  4357  001452  D002               	goto	l106
   4358  001454  9082               	bcf	3970,0,c	;volatile
   4359  001456  D002               	goto	l2285
-  4360  001458                     l130:
+  4360  001458                     l106:
   4361                           
-  4362                           ;main.c: 153: else PORTCbits.RC0 = 0b1;
+  4362                           ;main.c: 152: else PORTCbits.RC0 = 0b1;
   4363  001458  8082               	bsf	3970,0,c	;volatile
   4364  00145A  D000               	goto	l2285
   4365  00145C                     l2285:
   4366                           
-  4367                           ;main.c: 154: PORTEbits.RE1 = !PORTCbits.RC0;
+  4367                           ;main.c: 153: PORTEbits.RE1 = !PORTCbits.RC0;
   4368  00145C  B082               	btfsc	3970,0,c	;volatile
   4369  00145E  D003               	goto	u1600
   4370  001460  6A2D               	clrf	??_MotorControl& (0+255),c
@@ -4587,16 +4587,16 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4380  001470  182D               	xorwf	??_MotorControl,w,c
   4381  001472  6E84               	movwf	3972,c	;volatile
   4382                           
-  4383                           ;main.c: 157: if ( right_duty_cycle < 0 )
+  4383                           ;main.c: 156: if ( right_duty_cycle < 0 )
   4384  001474  AE33               	btfss	MotorControl@right_duty_cycle+1,7,c
   4385  001476  D010               	goto	l2291
   4386                           
-  4387                           ;main.c: 158: {
-  4388                           ;main.c: 159: right_dir_modifier = reverse;
+  4387                           ;main.c: 157: {
+  4388                           ;main.c: 158: right_dir_modifier = reverse;
   4389  001478  0E00               	movlw	0
   4390  00147A  6E2F               	movwf	MotorControl@right_dir_modifier,c
   4391                           
-  4392                           ;main.c: 160: right_duty_cycle *= -1;
+  4392                           ;main.c: 159: right_duty_cycle *= -1;
   4393  00147C  C032  F01D         	movff	MotorControl@right_duty_cycle,___wmul@multiplier
   4394  001480  C033  F01E         	movff	MotorControl@right_duty_cycle+1,___wmul@multiplier+1
   4395  001484  0EFF               	movlw	255
@@ -4608,8 +4608,8 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4401  001496  D000               	goto	l2291
   4402  001498                     l2291:
   4403                           
-  4404                           ;main.c: 161: }
-  4405                           ;main.c: 162: if ( right_duty_cycle > 800 ) right_duty_cycle = 800;
+  4404                           ;main.c: 160: }
+  4405                           ;main.c: 161: if ( right_duty_cycle > 800 ) right_duty_cycle = 800;
   4406  001498  BE33               	btfsc	MotorControl@right_duty_cycle+1,7,c
   4407  00149A  D00B               	goto	l2295
   4408  00149C  0E21               	movlw	33
@@ -4625,25 +4625,25 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   4418  0014B0  D000               	goto	l2295
   4419  0014B2                     l2295:
   4420                           
-  4421                           ;main.c: 164: SetDCPWM1((unsigned int) right_duty_cycle );
+  4421                           ;main.c: 163: SetDCPWM1((unsigned int) right_duty_cycle );
   4422  0014B2  C032  F00F         	movff	MotorControl@right_duty_cycle,SetDCPWM1@dutycycle
   4423  0014B6  C033  F010         	movff	MotorControl@right_duty_cycle+1,SetDCPWM1@dutycycle+1
   4424  0014BA  EC44  F00E         	call	_SetDCPWM1	;wreg free
   4425                           
-  4426                           ;main.c: 165: if ( right_dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
+  4426                           ;main.c: 164: if ( right_dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
   4427  0014BE  502F               	movf	MotorControl@right_dir_modifier,w,c
   4428  0014C0  A4D8               	btfss	status,2,c
-  4429  0014C2  D002               	goto	l134
+  4429  0014C2  D002               	goto	l110
   4430  0014C4  9A82               	bcf	3970,5,c	;volatile
   4431  0014C6  D002               	goto	l2301
-  4432  0014C8                     l134:
+  4432  0014C8                     l110:
   4433                           
-  4434                           ;main.c: 166: else PORTCbits.RC5 = 0b1;
+  4434                           ;main.c: 165: else PORTCbits.RC5 = 0b1;
   4435  0014C8  8A82               	bsf	3970,5,c	;volatile
   4436  0014CA  D000               	goto	l2301
   4437  0014CC                     l2301:
   4438                           
-  4439                           ;main.c: 167: PORTEbits.RE0 = !PORTCbits.RC5;
+  4439                           ;main.c: 166: PORTEbits.RE0 = !PORTCbits.RC5;
   4440  0014CC  BA82               	btfsc	3970,5,c	;volatile
   4441  0014CE  D003               	goto	u1650
   4442  0014D0  6A2D               	clrf	??_MotorControl& (0+255),c
@@ -5602,7 +5602,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   5345  001AAE  6E11               	movwf	gtrap@count+2,c
   5346  001AB0  0E00               	movlw	0
   5347  001AB2  6E12               	movwf	gtrap@count+3,c
-  5348  001AB4                     l367:
+  5348  001AB4                     l396:
   5349  001AB4  0004               	clrwdt		;# 
   5350                           
   5351                           ;sumovore.c: 470: if (count==30000u)
@@ -5665,7 +5665,7 @@ Microchip Technology Omniscient Code Generator (Lite mode) build 201502162209
   5408  001AFC  2210               	addwfc	gtrap@count+1,f,c
   5409  001AFE  2211               	addwfc	gtrap@count+2,f,c
   5410  001B00  2212               	addwfc	gtrap@count+3,f,c
-  5411  001B02  D7D8               	goto	l367
+  5411  001B02  D7D8               	goto	l396
   5412  001B04  0012               	return		;funcret
   5413  001B06                     __end_of_gtrap:
   5414                           	opt stack 0
@@ -6437,23 +6437,23 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.34 build -361300703 
-Symbol Table                                                                                   Thu Apr 02 20:43:47 2020
+Symbol Table                                                                                   Thu Apr 02 21:11:03 2020
 
                          _STKPTRbits 000FFC                                    _I 0045  
-                                 l24 1F7E                                   l86 1536  
+                                 l62 1536                                   l98 1300  
                                  u60 1F74                         ___awdiv@sign 0028  
                 ___wmul@multiplicand 001F                          __CFG_BORV$0 000000  
-                                l130 1458                                  l122 1300  
-                                l134 14C8                                  l320 1D7A  
-                                l340 17FC                                  l341 17A2  
-                                l333 1C3C                                  l510 1E2A  
-                                l511 1E2C                                  l417 1F78  
-                                l337 1C4C                                  l346 1810  
-                                l540 1EBE                                  l382 1D52  
-                                l367 1AB4                                  l607 1DA2  
-                                l447 1F5C                                  l439 1B60  
-                                l800 18A6                                  l570 1A7C  
-                                l539 1EBC                                  l571 1A86  
+                                l110 14C8                                  l106 1458  
+                                l510 1E2A                                  l511 1E2C  
+                                l417 1F78                                  l370 17A2  
+                                l362 1C3C                                  l179 1F7E  
+                                l540 1EBE                                  l188 1D52  
+                                l349 1D7A                                  l366 1C4C  
+                                l607 1DA2                                  l447 1F5C  
+                                l439 1B60                                  l375 1810  
+                                l800 18A6                                  l369 17FC  
+                                l570 1A7C                                  l539 1EBC  
+                                l571 1A86                                  l396 1AB4  
                                 l572 1A88                                  l565 1A60  
                                 l581 1EEE                                  l574 1AA2  
                                 l590 1DEE                                  l487 1CE4  
@@ -6690,7 +6690,7 @@ Symbol Table                                                                    
                       ??_reset_codes 001C                             _PIR1bits 000F9E  
                            _PIR2bits 000FA1               __end_of_initialization 1938  
                            _RCONbits 000FD0                    ??_openPORTCforPWM 000F  
-                      _set_osc_32MHz 1D28                            main@F4186 003E  
+                      _set_osc_32MHz 1D28                            main@F4184 003E  
 __end_ofset_motor_speed@motor_speeds 100F          set_motor_speed@motor_speeds 1001  
                         _HLVDCONbits 000FD2                            _threshold 0049  
               __size_of_MotorControl 0190                           _ADCON0bits 000FC2  

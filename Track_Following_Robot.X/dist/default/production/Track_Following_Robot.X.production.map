@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.34\dat\en_msgs.txt -cs \
   -h+dist/default/production\Track_Following_Robot.X.production.sym \
   --cmf=dist/default/production\Track_Following_Robot.X.production.cmf -z \
-  -Q18F4525 -oC:\Users\Anmol\AppData\Local\Temp\s3mg.6 \
+  -Q18F4525 -oC:\Users\Anmol\AppData\Local\Temp\s5bc.6 \
   -Mdist/default/production/Track_Following_Robot.X.production.map -E1 \
   -ver=XC8 -ASTACK=080h-0f7fh -pstack=STACK -ACODE=00h-0BFFFh \
   -ACONST=00h-0BFFFh -ASMALLCONST=01000h-010FFhx176 \
@@ -26,7 +26,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\Anmol\AppData\Local\Temp\s3mg.obj \
+  C:\Users\Anmol\AppData\Local\Temp\s5bc.obj \
   dist/default/production\Track_Following_Robot.X.production.obj 
 
 Object code version is 3.11
@@ -39,7 +39,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Anmol\AppData\Local\Temp\s3mg.obj
+C:\Users\Anmol\AppData\Local\Temp\s5bc.obj
                 end_init                             18       18        4        4       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -856,7 +856,7 @@ intlevel0                            text         000000
 intlevel1                            text         000000
 intlevel2                            text         000000
 intlevel3                            text         000000
-main@F4186                           bssCOMRAM    00003E
+main@F4184                           bssCOMRAM    00003E
 main@error                           cstackCOMRAM 00003B
 printf@ap                            cstackCOMRAM 000011
 printf@c                             cstackCOMRAM 000013
@@ -873,7 +873,7 @@ FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 21 in file "../Robot Files/main.c"
+		line 20 in file "../Robot Files/main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1015,7 +1015,7 @@ Total ram usage:        0 bytes
 
  *************** function _set_osc_32MHz *****************
  Defined at:
-		line 18 in file "../../Common/osc.c"
+		line 18 in file "../Robot Files/osc.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1908,7 +1908,7 @@ Total ram usage:        4 bytes
 
  *************** function _PID_LineFollowing *****************
  Defined at:
-		line 83 in file "../Robot Files/main.c"
+		line 82 in file "../Robot Files/main.c"
  Parameters:    Size  Location     Type
   error           2   51[COMRAM] PTR char 
 		 -> main@error(3), 
@@ -2070,14 +2070,14 @@ Total ram usage:        4 bytes
 
  *************** function _MotorControl *****************
  Defined at:
-		line 122 in file "../Robot Files/main.c"
+		line 121 in file "../Robot Files/main.c"
  Parameters:    Size  Location     Type
   delta_veloci    2   42[COMRAM] int 
  Auto vars:     Size  Location     Type
   right_duty_c    2   49[COMRAM] int 
   left_duty_cy    2   47[COMRAM] int 
-  right_dir_mo    1   46[COMRAM] enum E4193
-  left_dir_mod    1   45[COMRAM] enum E4193
+  right_dir_mo    1   46[COMRAM] enum E4191
+  left_dir_mod    1   45[COMRAM] enum E4191
  Return value:  Size  Location     Type
 		None               void
  Registers used:
@@ -2604,15 +2604,15 @@ C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c
 
 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\awdiv.c estimated size: 151
 
-../../Common/osc.c
-		_set_osc_32MHz 		CODE           	1D28	0000	45
-
-../../Common/osc.c estimated size: 45
-
 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\aldiv.c
 		___aldiv       		CODE           	15C4	0000	223
 
 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\aldiv.c estimated size: 223
+
+../Robot Files/osc.c
+		_set_osc_32MHz 		CODE           	1D28	0000	45
+
+../Robot Files/osc.c estimated size: 45
 
 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
 		_printf        		CODE           	1CFA	0000	47
