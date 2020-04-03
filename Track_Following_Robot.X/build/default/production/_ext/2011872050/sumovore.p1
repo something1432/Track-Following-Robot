@@ -219,11 +219,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
 "2517
 [v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
-"189 ../Robot Files/sumovore.c
-[c E4160 0 1 .. ]
-[n E4160 motor_selection left right  ]
-[c E4152 0 1 2 3 4 5 6 .. ]
-[n E4152 motor_speed_setting rev_fast rev_medium rev_slow stop slow medium fast  ]
 "2084 C:\Program Files (x86)\Microchip\xc8\v1.34\include\plib\adc.h
 [v _SetChanADC `(v ~T0 @X0 0 ef1`uc ]
 "2016
@@ -4326,670 +4321,554 @@ Version 3.2 HI-TECH Software Intermediate Code
 "184
 [e :UE 405 ]
 }
-"188
-[v _set_motor_speed `(v ~T0 @X0 1 ef3`E4160`E4152`i ]
-"189
-{
-[; ;sumovore.c: 188: void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier)
-[; ;sumovore.c: 189: {
-[e :U _set_motor_speed ]
-"188
-[v _the_motor `E4160 ~T0 @X0 1 r1 ]
-[v _motor_speed `E4152 ~T0 @X0 1 r2 ]
-[v _speed_modifier `i ~T0 @X0 1 r3 ]
-"189
-[f ]
-"190
-[v F4214 `Ci ~T0 @X0 -> 0 `x s motor_speeds ]
-[i F4214
-:U ..
--U -> 800 `i
--U -> 725 `i
--U -> 650 `i
--> 0 `i
--> 650 `i
--> 725 `i
--> 800 `i
-..
-]
-"191
-[v _duty_cycle `i ~T0 @X0 1 a ]
-"192
-[c E4216 0 1 .. ]
-[n E4216 e_direction reverse forward  ]
-[v _dir_modifier `E4216 ~T0 @X0 1 a ]
-[; ;sumovore.c: 190: const static int motor_speeds[] = { -800, -725, -650, 0, 650, 725, 800};
-[; ;sumovore.c: 191: int duty_cycle;
-[; ;sumovore.c: 192: enum e_direction {reverse,forward} dir_modifier= forward;
-[e = _dir_modifier . `E4216 1 ]
-[; ;sumovore.c: 194: duty_cycle = motor_speeds[ motor_speed ] + speed_modifier;
-"194
-[e = _duty_cycle + *U + &U F4214 * -> _motor_speed `ux -> -> # *U &U F4214 `ui `ux _speed_modifier ]
-[; ;sumovore.c: 195: if ( duty_cycle < 0 )
-"195
-[e $ ! < _duty_cycle -> 0 `i 407  ]
-[; ;sumovore.c: 196: {
-"196
-{
-[; ;sumovore.c: 197: dir_modifier = reverse;
-"197
-[e = _dir_modifier . `E4216 0 ]
-[; ;sumovore.c: 198: duty_cycle = -1 * duty_cycle;
-"198
-[e = _duty_cycle * -U -> 1 `i _duty_cycle ]
-"199
-}
-[e :U 407 ]
-[; ;sumovore.c: 199: }
-[; ;sumovore.c: 200: if ( duty_cycle > 800 ) duty_cycle = 800;
-"200
-[e $ ! > _duty_cycle -> 800 `i 408  ]
-[e = _duty_cycle -> 800 `i ]
-[e :U 408 ]
-[; ;sumovore.c: 202: if (the_motor == left)
-"202
-[e $ ! == -> _the_motor `i -> . `E4160 0 `i 409  ]
-[; ;sumovore.c: 203: {
-"203
-{
-[; ;sumovore.c: 204: SetDCPWM2((unsigned int) duty_cycle );
-"204
-[e ( _SetDCPWM2 (1 -> _duty_cycle `ui ]
-[; ;sumovore.c: 205: if ( dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
-"205
-[e $ ! == -> _dir_modifier `i -> . `E4216 0 `i 410  ]
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[e $U 411  ]
-"206
-[e :U 410 ]
-[; ;sumovore.c: 206: else PORTCbits.RC0 = 0b1;
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[e :U 411 ]
-[; ;sumovore.c: 207: PORTEbits.RE1 = !PORTCbits.RC0;
-"207
-[e = . . _PORTEbits 0 1 -> -> ! != -> . . _PORTCbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-"208
-}
-[; ;sumovore.c: 208: }
-[e $U 412  ]
-"209
-[e :U 409 ]
-[; ;sumovore.c: 209: else
-[; ;sumovore.c: 210: {
-"210
-{
-[; ;sumovore.c: 211: SetDCPWM1((unsigned int) duty_cycle );
-"211
-[e ( _SetDCPWM1 (1 -> _duty_cycle `ui ]
-[; ;sumovore.c: 212: if ( dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
-"212
-[e $ ! == -> _dir_modifier `i -> . `E4216 0 `i 413  ]
-[e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
-[e $U 414  ]
-"213
-[e :U 413 ]
-[; ;sumovore.c: 213: else PORTCbits.RC5 = 0b1;
-[e = . . _PORTCbits 0 5 -> -> 1 `i `uc ]
-[e :U 414 ]
-[; ;sumovore.c: 214: PORTEbits.RE0 = !PORTCbits.RC5;
-"214
-[e = . . _PORTEbits 0 0 -> -> ! != -> . . _PORTCbits 0 5 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-"215
-}
-[e :U 412 ]
-[; ;sumovore.c: 215: }
-[; ;sumovore.c: 216: }
-"216
-[e :UE 406 ]
-}
-"218
-[v _motors_brake_all `(v ~T0 @X0 1 ef ]
 "219
+[v _motors_brake_all `(v ~T0 @X0 1 ef ]
+"220
 {
-[; ;sumovore.c: 218: void motors_brake_all( void )
-[; ;sumovore.c: 219: {
+[; ;sumovore.c: 219: void motors_brake_all( void )
+[; ;sumovore.c: 220: {
 [e :U _motors_brake_all ]
 [f ]
-[; ;sumovore.c: 220: SetDCPWM1(800u );
-"220
-[e ( _SetDCPWM1 (1 -> 800 `ui ]
-[; ;sumovore.c: 221: SetDCPWM2(800u );
+[; ;sumovore.c: 221: SetDCPWM1(800u );
 "221
-[e ( _SetDCPWM2 (1 -> 800 `ui ]
-[; ;sumovore.c: 222: PORTEbits.RE1 = 0b0;
+[e ( _SetDCPWM1 (1 -> 800 `ui ]
+[; ;sumovore.c: 222: SetDCPWM2(800u );
 "222
-[e = . . _PORTEbits 0 1 -> -> 0 `i `uc ]
-[; ;sumovore.c: 223: PORTCbits.RC0 = 0b0;
+[e ( _SetDCPWM2 (1 -> 800 `ui ]
+[; ;sumovore.c: 223: PORTEbits.RE1 = 0b0;
 "223
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;sumovore.c: 224: PORTEbits.RE0 = 0b0;
+[e = . . _PORTEbits 0 1 -> -> 0 `i `uc ]
+[; ;sumovore.c: 224: PORTCbits.RC0 = 0b0;
 "224
-[e = . . _PORTEbits 0 0 -> -> 0 `i `uc ]
-[; ;sumovore.c: 225: PORTCbits.RC5 = 0b0;
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;sumovore.c: 225: PORTEbits.RE0 = 0b0;
 "225
+[e = . . _PORTEbits 0 0 -> -> 0 `i `uc ]
+[; ;sumovore.c: 226: PORTCbits.RC5 = 0b0;
+"226
 [e = . . _PORTCbits 0 5 -> -> 0 `i `uc ]
-[; ;sumovore.c: 227: }
-"227
-[e :UE 415 ]
+[; ;sumovore.c: 228: }
+"228
+[e :UE 406 ]
 }
-"229
+"230
 [v _adc `(ui ~T0 @X0 1 ef1`uc ]
-"230
-{
-[; ;sumovore.c: 229: unsigned int adc(unsigned char channel)
-[; ;sumovore.c: 230: {
-[e :U _adc ]
-"229
-[v _channel `uc ~T0 @X0 1 r1 ]
-"230
-[f ]
-[; ;sumovore.c: 231: SetChanADC( channel );
 "231
-[e ( _SetChanADC (1 _channel ]
-[; ;sumovore.c: 232: ConvertADC();
-"232
-[e ( _ConvertADC ..  ]
-[; ;sumovore.c: 233: while( BusyADC() );
-"233
-[e $U 417  ]
-[e :U 418 ]
-[e :U 417 ]
-[e $ != -> ( _BusyADC ..  `i -> -> -> 0 `i `uc `i 418  ]
-[e :U 419 ]
-[; ;sumovore.c: 235: return ReadADC();
-"235
-[e ) -> ( _ReadADC ..  `ui ]
-[e $UE 416  ]
-[; ;sumovore.c: 236: }
-"236
-[e :UE 416 ]
-}
-"241
-[v _check_sensors `(v ~T0 @X0 1 ef ]
-"242
 {
-[; ;sumovore.c: 241: void check_sensors(void)
-[; ;sumovore.c: 242: {
+[; ;sumovore.c: 230: unsigned int adc(unsigned char channel)
+[; ;sumovore.c: 231: {
+[e :U _adc ]
+"230
+[v _channel `uc ~T0 @X0 1 r1 ]
+"231
+[f ]
+[; ;sumovore.c: 232: SetChanADC( channel );
+"232
+[e ( _SetChanADC (1 _channel ]
+[; ;sumovore.c: 233: ConvertADC();
+"233
+[e ( _ConvertADC ..  ]
+[; ;sumovore.c: 234: while( BusyADC() );
+"234
+[e $U 408  ]
+[e :U 409 ]
+[e :U 408 ]
+[e $ != -> ( _BusyADC ..  `i -> -> -> 0 `i `uc `i 409  ]
+[e :U 410 ]
+[; ;sumovore.c: 236: return ReadADC();
+"236
+[e ) -> ( _ReadADC ..  `ui ]
+[e $UE 407  ]
+[; ;sumovore.c: 237: }
+"237
+[e :UE 407 ]
+}
+"242
+[v _check_sensors `(v ~T0 @X0 1 ef ]
+"243
+{
+[; ;sumovore.c: 242: void check_sensors(void)
+[; ;sumovore.c: 243: {
 [e :U _check_sensors ]
 [f ]
-[; ;sumovore.c: 243: SeeLine.b.Left = ( adc(0b10000111) > threshold );
-"243
-[e = . . _SeeLine 1 4 -> -> > ( _adc (1 -> -> 135 `i `uc _threshold `i `uc ]
-[; ;sumovore.c: 244: SeeLine.b.CntLeft = ( adc(0b10001111) > threshold );
+[; ;sumovore.c: 244: SeeLine.b.Left = ( adc(0b10000111) > threshold );
 "244
-[e = . . _SeeLine 1 3 -> -> > ( _adc (1 -> -> 143 `i `uc _threshold `i `uc ]
-[; ;sumovore.c: 245: SeeLine.b.Center = ( adc(0b10010111) > threshold );
+[e = . . _SeeLine 1 4 -> -> > ( _adc (1 -> -> 135 `i `uc _threshold `i `uc ]
+[; ;sumovore.c: 245: SeeLine.b.CntLeft = ( adc(0b10001111) > threshold );
 "245
-[e = . . _SeeLine 1 2 -> -> > ( _adc (1 -> -> 151 `i `uc _threshold `i `uc ]
-[; ;sumovore.c: 246: SeeLine.b.CntRight = ( adc(0b10011111) > threshold );
+[e = . . _SeeLine 1 3 -> -> > ( _adc (1 -> -> 143 `i `uc _threshold `i `uc ]
+[; ;sumovore.c: 246: SeeLine.b.Center = ( adc(0b10010111) > threshold );
 "246
-[e = . . _SeeLine 1 1 -> -> > ( _adc (1 -> -> 159 `i `uc _threshold `i `uc ]
-[; ;sumovore.c: 247: SeeLine.b.Right = ( adc(0b10100111) > threshold );
+[e = . . _SeeLine 1 2 -> -> > ( _adc (1 -> -> 151 `i `uc _threshold `i `uc ]
+[; ;sumovore.c: 247: SeeLine.b.CntRight = ( adc(0b10011111) > threshold );
 "247
-[e = . . _SeeLine 1 0 -> -> > ( _adc (1 -> -> 167 `i `uc _threshold `i `uc ]
-[; ;sumovore.c: 248: }
+[e = . . _SeeLine 1 1 -> -> > ( _adc (1 -> -> 159 `i `uc _threshold `i `uc ]
+[; ;sumovore.c: 248: SeeLine.b.Right = ( adc(0b10100111) > threshold );
 "248
-[e :UE 420 ]
+[e = . . _SeeLine 1 0 -> -> > ( _adc (1 -> -> 167 `i `uc _threshold `i `uc ]
+[; ;sumovore.c: 249: }
+"249
+[e :UE 411 ]
 }
-"255
-[v _set_leds `(v ~T0 @X0 1 ef ]
 "256
+[v _set_leds `(v ~T0 @X0 1 ef ]
+"257
 {
-[; ;sumovore.c: 255: void set_leds(void)
-[; ;sumovore.c: 256: {
+[; ;sumovore.c: 256: void set_leds(void)
+[; ;sumovore.c: 257: {
 [e :U _set_leds ]
 [f ]
-[; ;sumovore.c: 257: PORTDbits.RD0=!SeeLine.b.Left;
-"257
-[e = . . _PORTDbits 0 0 -> -> ! != -> . . _SeeLine 1 4 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;sumovore.c: 258: PORTDbits.RD1=!SeeLine.b.CntLeft;
+[; ;sumovore.c: 258: PORTDbits.RD0=!SeeLine.b.Left;
 "258
-[e = . . _PORTDbits 0 1 -> -> ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;sumovore.c: 259: PORTDbits.RD2=!SeeLine.b.Center;
+[e = . . _PORTDbits 0 0 -> -> ! != -> . . _SeeLine 1 4 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;sumovore.c: 259: PORTDbits.RD1=!SeeLine.b.CntLeft;
 "259
-[e = . . _PORTDbits 0 2 -> -> ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;sumovore.c: 260: PORTDbits.RD3=!SeeLine.b.CntRight;
+[e = . . _PORTDbits 0 1 -> -> ! != -> . . _SeeLine 1 3 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;sumovore.c: 260: PORTDbits.RD2=!SeeLine.b.Center;
 "260
-[e = . . _PORTDbits 0 3 -> -> ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;sumovore.c: 261: PORTDbits.RD4=!SeeLine.b.Right;
+[e = . . _PORTDbits 0 2 -> -> ! != -> . . _SeeLine 1 2 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;sumovore.c: 261: PORTDbits.RD3=!SeeLine.b.CntRight;
 "261
-[e = . . _PORTDbits 0 4 -> -> ! != -> . . _SeeLine 1 0 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;sumovore.c: 262: }
+[e = . . _PORTDbits 0 3 -> -> ! != -> . . _SeeLine 1 1 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;sumovore.c: 262: PORTDbits.RD4=!SeeLine.b.Right;
 "262
-[e :UE 421 ]
+[e = . . _PORTDbits 0 4 -> -> ! != -> . . _SeeLine 1 0 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;sumovore.c: 263: }
+"263
+[e :UE 412 ]
 }
-"281
-[v _reset_codes `(v ~T0 @X0 1 ef ]
 "282
+[v _reset_codes `(v ~T0 @X0 1 ef ]
+"283
 {
-[; ;sumovore.c: 281: void reset_codes(void)
-[; ;sumovore.c: 282: {
+[; ;sumovore.c: 282: void reset_codes(void)
+[; ;sumovore.c: 283: {
 [e :U _reset_codes ]
 [f ]
-[; ;sumovore.c: 283: if( isPOR() ) PORtask();
-"283
-[e $ ! != -> ( _isPOR ..  `i -> -> -> 0 `i `uc `i 423  ]
+[; ;sumovore.c: 284: if( isPOR() ) PORtask();
+"284
+[e $ ! != -> ( _isPOR ..  `i -> -> -> 0 `i `uc `i 414  ]
 [e ( _PORtask ..  ]
-[e $U 424  ]
-"286
-[e :U 423 ]
-[; ;sumovore.c: 286: else if (isBOR() ) BORtask();
-[e $ ! != -> ( _isBOR ..  `i -> -> -> 0 `i `uc `i 425  ]
+[e $U 415  ]
+"287
+[e :U 414 ]
+[; ;sumovore.c: 287: else if (isBOR() ) BORtask();
+[e $ ! != -> ( _isBOR ..  `i -> -> -> 0 `i `uc `i 416  ]
 [e ( _BORtask ..  ]
-[e $U 426  ]
-"288
-[e :U 425 ]
-[; ;sumovore.c: 288: else if(isWDTTO() ) WDTtask();
-[e $ ! != -> ( _isWDTTO ..  `i -> -> -> 0 `i `uc `i 427  ]
+[e $U 417  ]
+"289
+[e :U 416 ]
+[; ;sumovore.c: 289: else if(isWDTTO() ) WDTtask();
+[e $ ! != -> ( _isWDTTO ..  `i -> -> -> 0 `i `uc `i 418  ]
 [e ( _WDTtask ..  ]
-[e $U 428  ]
-"292
-[e :U 427 ]
-[; ;sumovore.c: 292: else if(STKPTRbits.STKFUL) STKFULtask();
-[e $ ! != -> . . _STKPTRbits 0 3 `i -> -> -> 0 `i `Vuc `i 429  ]
+[e $U 419  ]
+"293
+[e :U 418 ]
+[; ;sumovore.c: 293: else if(STKPTRbits.STKFUL) STKFULtask();
+[e $ ! != -> . . _STKPTRbits 0 3 `i -> -> -> 0 `i `Vuc `i 420  ]
 [e ( _STKFULtask ..  ]
-[e $U 430  ]
-"296
-[e :U 429 ]
-[; ;sumovore.c: 296: else RESETtask();
-[e ( _RESETtask ..  ]
-[e :U 430 ]
-[e :U 428 ]
-[e :U 426 ]
-[e :U 424 ]
-[; ;sumovore.c: 297: }
+[e $U 421  ]
 "297
-[e :UE 422 ]
+[e :U 420 ]
+[; ;sumovore.c: 297: else RESETtask();
+[e ( _RESETtask ..  ]
+[e :U 421 ]
+[e :U 419 ]
+[e :U 417 ]
+[e :U 415 ]
+[; ;sumovore.c: 298: }
+"298
+[e :UE 413 ]
 }
-"306
-[v _PORtask `(v ~T0 @X0 1 ef ]
 "307
+[v _PORtask `(v ~T0 @X0 1 ef ]
+"308
 {
-[; ;sumovore.c: 306: void PORtask(void)
-[; ;sumovore.c: 307: {
+[; ;sumovore.c: 307: void PORtask(void)
+[; ;sumovore.c: 308: {
 [e :U _PORtask ]
 [f ]
-"308
+"309
 [v _count1 `ul ~T0 @X0 1 a ]
-[; ;sumovore.c: 308: unsigned long count1=0, count2=0;
+[; ;sumovore.c: 309: unsigned long count1=0, count2=0;
 [e = _count1 -> -> -> 0 `i `l `ul ]
 [v _count2 `ul ~T0 @X0 1 a ]
 [e = _count2 -> -> -> 0 `i `l `ul ]
-[; ;sumovore.c: 309: StatusReset();
-"309
+[; ;sumovore.c: 310: StatusReset();
+"310
 [e ( _StatusReset ..  ]
-[; ;sumovore.c: 311: printf("<POR>");
-"311
-[e ( _printf :s 1C ]
-[; ;sumovore.c: 312: PORTDbits.RD0=!1;
+[; ;sumovore.c: 312: printf("<POR>");
 "312
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 313: PORTDbits.RD1=!0;
+[e ( _printf :s 1C ]
+[; ;sumovore.c: 313: PORTDbits.RD0=!1;
 "313
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 314: PORTDbits.RD2=!0;
-"314
-[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 315: PORTDbits.RD3=!0;
-"315
-[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 316: PORTDbits.RD4=!0;
-"316
-[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 317: while(count1<10u)
-"317
-[e $U 432  ]
-[e :U 433 ]
-[; ;sumovore.c: 318: {
-"318
-{
-[; ;sumovore.c: 319: asm(" clrwdt");
-"319
-[; <"  clrwdt ;# ">
-[; ;sumovore.c: 320: if (count2==30000u)
-"320
-[e $ ! == _count2 -> -> 30000 `ui `ul 435  ]
-[; ;sumovore.c: 321: {
-"321
-{
-[; ;sumovore.c: 322: count2=0;
-"322
-[e = _count2 -> -> -> 0 `i `l `ul ]
-[; ;sumovore.c: 323: count1++;
-"323
-[e ++ _count1 -> -> -> 1 `i `l `ul ]
-[; ;sumovore.c: 324: PORTDbits.RD0=!1;
-"324
 [e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 325: PORTDbits.RD1=!0;
-"325
+[; ;sumovore.c: 314: PORTDbits.RD1=!0;
+"314
 [e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-"326
-}
-[; ;sumovore.c: 326: }
-[e $U 436  ]
-"327
-[e :U 435 ]
-[; ;sumovore.c: 327: else if (count2==15000u)
-[e $ ! == _count2 -> -> 15000 `ui `ul 437  ]
-[; ;sumovore.c: 328: {
-"328
-{
-[; ;sumovore.c: 329: PORTDbits.RD0=!0;
-"329
-[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 330: PORTDbits.RD1=!1;
-"330
-[e = . . _PORTDbits 0 1 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-"331
-}
-[e :U 437 ]
-"332
-[e :U 436 ]
-[; ;sumovore.c: 331: }
-[; ;sumovore.c: 332: count2++;
-[e ++ _count2 -> -> -> 1 `i `l `ul ]
-"333
-}
-[e :U 432 ]
+[; ;sumovore.c: 315: PORTDbits.RD2=!0;
+"315
+[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 316: PORTDbits.RD3=!0;
+"316
+[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 317: PORTDbits.RD4=!0;
 "317
-[e $ < _count1 -> -> 10 `ui `ul 433  ]
-[e :U 434 ]
-[; ;sumovore.c: 333: }
-[; ;sumovore.c: 334: }
-"334
-[e :UE 431 ]
-}
-"348
-[v _BORtask `(v ~T0 @X0 1 ef ]
-"349
+[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 318: while(count1<10u)
+"318
+[e $U 423  ]
+[e :U 424 ]
+[; ;sumovore.c: 319: {
+"319
 {
-[; ;sumovore.c: 348: void BORtask(void)
-[; ;sumovore.c: 349: {
+[; ;sumovore.c: 320: asm(" clrwdt");
+"320
+[; <"  clrwdt ;# ">
+[; ;sumovore.c: 321: if (count2==30000u)
+"321
+[e $ ! == _count2 -> -> 30000 `ui `ul 426  ]
+[; ;sumovore.c: 322: {
+"322
+{
+[; ;sumovore.c: 323: count2=0;
+"323
+[e = _count2 -> -> -> 0 `i `l `ul ]
+[; ;sumovore.c: 324: count1++;
+"324
+[e ++ _count1 -> -> -> 1 `i `l `ul ]
+[; ;sumovore.c: 325: PORTDbits.RD0=!1;
+"325
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 326: PORTDbits.RD1=!0;
+"326
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+"327
+}
+[; ;sumovore.c: 327: }
+[e $U 427  ]
+"328
+[e :U 426 ]
+[; ;sumovore.c: 328: else if (count2==15000u)
+[e $ ! == _count2 -> -> 15000 `ui `ul 428  ]
+[; ;sumovore.c: 329: {
+"329
+{
+[; ;sumovore.c: 330: PORTDbits.RD0=!0;
+"330
+[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 331: PORTDbits.RD1=!1;
+"331
+[e = . . _PORTDbits 0 1 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+"332
+}
+[e :U 428 ]
+"333
+[e :U 427 ]
+[; ;sumovore.c: 332: }
+[; ;sumovore.c: 333: count2++;
+[e ++ _count2 -> -> -> 1 `i `l `ul ]
+"334
+}
+[e :U 423 ]
+"318
+[e $ < _count1 -> -> 10 `ui `ul 424  ]
+[e :U 425 ]
+[; ;sumovore.c: 334: }
+[; ;sumovore.c: 335: }
+"335
+[e :UE 422 ]
+}
+"349
+[v _BORtask `(v ~T0 @X0 1 ef ]
+"350
+{
+[; ;sumovore.c: 349: void BORtask(void)
+[; ;sumovore.c: 350: {
 [e :U _BORtask ]
 [f ]
-[; ;sumovore.c: 350: StatusReset();
-"350
+[; ;sumovore.c: 351: StatusReset();
+"351
 [e ( _StatusReset ..  ]
-[; ;sumovore.c: 352: printf("<BOR>");
-"352
-[e ( _printf :s 2C ]
-[; ;sumovore.c: 353: PORTDbits.RD0=!0;
+[; ;sumovore.c: 353: printf("<BOR>");
 "353
-[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 354: PORTDbits.RD1=!0;
+[e ( _printf :s 2C ]
+[; ;sumovore.c: 354: PORTDbits.RD0=!0;
 "354
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 355: PORTDbits.RD2=!0;
+[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 355: PORTDbits.RD1=!0;
 "355
-[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 356: PORTDbits.RD3=!0;
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 356: PORTDbits.RD2=!0;
 "356
-[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 357: PORTDbits.RD4=!1;
+[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 357: PORTDbits.RD3=!0;
 "357
-[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 358: gtrap();
+[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 358: PORTDbits.RD4=!1;
 "358
-[e ( _gtrap ..  ]
-[; ;sumovore.c: 359: }
+[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 359: gtrap();
 "359
-[e :UE 438 ]
+[e ( _gtrap ..  ]
+[; ;sumovore.c: 360: }
+"360
+[e :UE 429 ]
 }
-"369
-[v _WDTtask `(v ~T0 @X0 1 ef ]
 "370
+[v _WDTtask `(v ~T0 @X0 1 ef ]
+"371
 {
-[; ;sumovore.c: 369: void WDTtask(void)
-[; ;sumovore.c: 370: {
+[; ;sumovore.c: 370: void WDTtask(void)
+[; ;sumovore.c: 371: {
 [e :U _WDTtask ]
 [f ]
-[; ;sumovore.c: 371: printf("<WDT TO>");
-"371
-[e ( _printf :s 3C ]
-[; ;sumovore.c: 372: PORTDbits.RD0=!1;
+[; ;sumovore.c: 372: printf("<WDT TO>");
 "372
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 373: PORTDbits.RD1=!0;
+[e ( _printf :s 3C ]
+[; ;sumovore.c: 373: PORTDbits.RD0=!1;
 "373
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 374: PORTDbits.RD2=!1;
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 374: PORTDbits.RD1=!0;
 "374
-[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 375: PORTDbits.RD3=!0;
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 375: PORTDbits.RD2=!1;
 "375
-[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 376: PORTDbits.RD4=!0;
+[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 376: PORTDbits.RD3=!0;
 "376
-[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 377: gtrap();
+[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 377: PORTDbits.RD4=!0;
 "377
-[e ( _gtrap ..  ]
-[; ;sumovore.c: 378: }
+[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 378: gtrap();
 "378
-[e :UE 439 ]
+[e ( _gtrap ..  ]
+[; ;sumovore.c: 379: }
+"379
+[e :UE 430 ]
 }
-"388
-[v _STKFULtask `(v ~T0 @X0 1 ef ]
 "389
+[v _STKFULtask `(v ~T0 @X0 1 ef ]
+"390
 {
-[; ;sumovore.c: 388: void STKFULtask(void)
-[; ;sumovore.c: 389: {
+[; ;sumovore.c: 389: void STKFULtask(void)
+[; ;sumovore.c: 390: {
 [e :U _STKFULtask ]
 [f ]
-[; ;sumovore.c: 391: STKPTRbits.STKFUL = 0;
-"391
-[e = . . _STKPTRbits 0 3 -> -> 0 `i `uc ]
-[; ;sumovore.c: 392: printf("<STKFUL>");
+[; ;sumovore.c: 392: STKPTRbits.STKFUL = 0;
 "392
-[e ( _printf :s 4C ]
-[; ;sumovore.c: 393: PORTDbits.RD0=!1;
+[e = . . _STKPTRbits 0 3 -> -> 0 `i `uc ]
+[; ;sumovore.c: 393: printf("<STKFUL>");
 "393
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 394: PORTDbits.RD1=!0;
+[e ( _printf :s 4C ]
+[; ;sumovore.c: 394: PORTDbits.RD0=!1;
 "394
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 395: PORTDbits.RD2=!1;
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 395: PORTDbits.RD1=!0;
 "395
-[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 396: PORTDbits.RD3=!0;
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 396: PORTDbits.RD2=!1;
 "396
-[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 397: PORTDbits.RD4=!1;
+[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 397: PORTDbits.RD3=!0;
 "397
-[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 398: gtrap();
+[e = . . _PORTDbits 0 3 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 398: PORTDbits.RD4=!1;
 "398
-[e ( _gtrap ..  ]
-[; ;sumovore.c: 399: }
+[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 399: gtrap();
 "399
-[e :UE 440 ]
+[e ( _gtrap ..  ]
+[; ;sumovore.c: 400: }
+"400
+[e :UE 431 ]
 }
-"404
-[v _RESETtask `(v ~T0 @X0 1 ef ]
 "405
+[v _RESETtask `(v ~T0 @X0 1 ef ]
+"406
 {
-[; ;sumovore.c: 404: void RESETtask(void)
-[; ;sumovore.c: 405: {
+[; ;sumovore.c: 405: void RESETtask(void)
+[; ;sumovore.c: 406: {
 [e :U _RESETtask ]
 [f ]
-[; ;sumovore.c: 407: printf(" <reset> ");
-"407
-[e ( _printf :s 5C ]
-[; ;sumovore.c: 408: PORTDbits.RD0=!1;
+[; ;sumovore.c: 408: printf(" <reset> ");
 "408
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 409: PORTDbits.RD1=!0;
+[e ( _printf :s 5C ]
+[; ;sumovore.c: 409: PORTDbits.RD0=!1;
 "409
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 410: PORTDbits.RD2=!1;
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 410: PORTDbits.RD1=!0;
 "410
-[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 411: PORTDbits.RD3=!1;
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 411: PORTDbits.RD2=!1;
 "411
-[e = . . _PORTDbits 0 3 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 412: PORTDbits.RD4=!1;
+[e = . . _PORTDbits 0 2 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 412: PORTDbits.RD3=!1;
 "412
-[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 413: gtrap();
+[e = . . _PORTDbits 0 3 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 413: PORTDbits.RD4=!1;
 "413
-[e ( _gtrap ..  ]
-[; ;sumovore.c: 414: }
+[e = . . _PORTDbits 0 4 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 414: gtrap();
 "414
-[e :UE 441 ]
+[e ( _gtrap ..  ]
+[; ;sumovore.c: 415: }
+"415
+[e :UE 432 ]
 }
-"427
-[v _openLVD `(v ~T0 @X0 1 ef ]
 "428
+[v _openLVD `(v ~T0 @X0 1 ef ]
+"429
 {
-[; ;sumovore.c: 427: void openLVD(void)
-[; ;sumovore.c: 428: {
+[; ;sumovore.c: 428: void openLVD(void)
+[; ;sumovore.c: 429: {
 [e :U _openLVD ]
 [f ]
-[; ;sumovore.c: 429: RCONbits.IPEN = 1;
-"429
-[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;sumovore.c: 430: HLVDCONbits.HLVDEN = 1;
+[; ;sumovore.c: 430: RCONbits.IPEN = 1;
 "430
+[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
+[; ;sumovore.c: 431: HLVDCONbits.HLVDEN = 1;
+"431
 [e = . . _HLVDCONbits 0 1 -> -> 1 `i `uc ]
-[; ;sumovore.c: 432: IPR2bits.HLVDIP = 1;
-"432
-[e = . . _IPR2bits 0 2 -> -> 1 `i `uc ]
-[; ;sumovore.c: 433: HLVDCONbits.VDIRMAG = 0;
+[; ;sumovore.c: 433: IPR2bits.HLVDIP = 1;
 "433
+[e = . . _IPR2bits 0 2 -> -> 1 `i `uc ]
+[; ;sumovore.c: 434: HLVDCONbits.VDIRMAG = 0;
+"434
 [e = . . _HLVDCONbits 0 4 -> -> 0 `i `uc ]
-[; ;sumovore.c: 435: HLVDCONbits.HLVDL3 = 1;
-"435
-[e = . . _HLVDCONbits 1 3 -> -> 1 `i `uc ]
-[; ;sumovore.c: 436: HLVDCONbits.HLVDL2 = 1;
+[; ;sumovore.c: 436: HLVDCONbits.HLVDL3 = 1;
 "436
-[e = . . _HLVDCONbits 1 2 -> -> 1 `i `uc ]
-[; ;sumovore.c: 437: HLVDCONbits.HLVDL1 = 1;
+[e = . . _HLVDCONbits 1 3 -> -> 1 `i `uc ]
+[; ;sumovore.c: 437: HLVDCONbits.HLVDL2 = 1;
 "437
-[e = . . _HLVDCONbits 1 1 -> -> 1 `i `uc ]
-[; ;sumovore.c: 438: HLVDCONbits.HLVDL0 = 0;
+[e = . . _HLVDCONbits 1 2 -> -> 1 `i `uc ]
+[; ;sumovore.c: 438: HLVDCONbits.HLVDL1 = 1;
 "438
-[e = . . _HLVDCONbits 1 0 -> -> 0 `i `uc ]
-[; ;sumovore.c: 439: PIR2bits.HLVDIF = 0;
+[e = . . _HLVDCONbits 1 1 -> -> 1 `i `uc ]
+[; ;sumovore.c: 439: HLVDCONbits.HLVDL0 = 0;
 "439
-[e = . . _PIR2bits 0 2 -> -> 0 `i `uc ]
-[; ;sumovore.c: 440: PIE2bits.HLVDIE = 1;
+[e = . . _HLVDCONbits 1 0 -> -> 0 `i `uc ]
+[; ;sumovore.c: 440: PIR2bits.HLVDIF = 0;
 "440
-[e = . . _PIE2bits 0 2 -> -> 1 `i `uc ]
-[; ;sumovore.c: 441: INTCONbits.GIEH = 1;
+[e = . . _PIR2bits 0 2 -> -> 0 `i `uc ]
+[; ;sumovore.c: 441: PIE2bits.HLVDIE = 1;
 "441
-[e = . . _INTCONbits 2 7 -> -> 1 `i `uc ]
-[; ;sumovore.c: 442: }
+[e = . . _PIE2bits 0 2 -> -> 1 `i `uc ]
+[; ;sumovore.c: 442: INTCONbits.GIEH = 1;
 "442
-[e :UE 442 ]
+[e = . . _INTCONbits 2 7 -> -> 1 `i `uc ]
+[; ;sumovore.c: 443: }
+"443
+[e :UE 433 ]
 }
-"448
-[v _LVtrap `(v ~T0 @X0 1 ef ]
 "449
+[v _LVtrap `(v ~T0 @X0 1 ef ]
+"450
 {
-[; ;sumovore.c: 448: void LVtrap(void)
-[; ;sumovore.c: 449: {
+[; ;sumovore.c: 449: void LVtrap(void)
+[; ;sumovore.c: 450: {
 [e :U _LVtrap ]
 [f ]
-[; ;sumovore.c: 450: printf("\\<LVD>");
-"450
-[e ( _printf :s 6C ]
-[; ;sumovore.c: 451: openPORTD();
+[; ;sumovore.c: 451: printf("\\<LVD>");
 "451
-[e ( _openPORTD ..  ]
-[; ;sumovore.c: 452: PORTDbits.RD0=!1;
+[e ( _printf :s 6C ]
+[; ;sumovore.c: 452: openPORTD();
 "452
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 453: PORTDbits.RD1=!0;
+[e ( _openPORTD ..  ]
+[; ;sumovore.c: 453: PORTDbits.RD0=!1;
 "453
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 454: PORTDbits.RD2=!0;
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 454: PORTDbits.RD1=!0;
 "454
-[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 455: PORTDbits.RD3=!1;
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 455: PORTDbits.RD2=!0;
 "455
-[e = . . _PORTDbits 0 3 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 456: PORTDbits.RD4=!0;
+[e = . . _PORTDbits 0 2 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 456: PORTDbits.RD3=!1;
 "456
-[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 457: gtrap();
+[e = . . _PORTDbits 0 3 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 457: PORTDbits.RD4=!0;
 "457
-[e ( _gtrap ..  ]
-[; ;sumovore.c: 458: }
+[e = . . _PORTDbits 0 4 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 458: gtrap();
 "458
-[e :UE 443 ]
+[e ( _gtrap ..  ]
+[; ;sumovore.c: 459: }
+"459
+[e :UE 434 ]
 }
-"463
-[v _gtrap `(v ~T0 @X0 1 ef ]
 "464
+[v _gtrap `(v ~T0 @X0 1 ef ]
+"465
 {
-[; ;sumovore.c: 463: void gtrap(void)
-[; ;sumovore.c: 464: {
+[; ;sumovore.c: 464: void gtrap(void)
+[; ;sumovore.c: 465: {
 [e :U _gtrap ]
 [f ]
-"465
+"466
 [v _count `ul ~T0 @X0 1 a ]
-[; ;sumovore.c: 465: unsigned long count=0;
+[; ;sumovore.c: 466: unsigned long count=0;
 [e = _count -> -> -> 0 `i `l `ul ]
-[; ;sumovore.c: 467: while(1)
-"467
-[e :U 446 ]
-[; ;sumovore.c: 468: {
+[; ;sumovore.c: 468: while(1)
 "468
-{
-[; ;sumovore.c: 469: asm(" clrwdt");
+[e :U 437 ]
+[; ;sumovore.c: 469: {
 "469
-[; <"  clrwdt ;# ">
-[; ;sumovore.c: 470: if (count==30000u)
+{
+[; ;sumovore.c: 470: asm(" clrwdt");
 "470
-[e $ ! == _count -> -> 30000 `ui `ul 448  ]
-[; ;sumovore.c: 471: {
+[; <"  clrwdt ;# ">
+[; ;sumovore.c: 471: if (count==30000u)
 "471
-{
-[; ;sumovore.c: 472: count=0;
+[e $ ! == _count -> -> 30000 `ui `ul 439  ]
+[; ;sumovore.c: 472: {
 "472
-[e = _count -> -> -> 0 `i `l `ul ]
-[; ;sumovore.c: 473: PORTDbits.RD0=!1;
-"473
-[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 474: PORTDbits.RD1=!0;
-"474
-[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-"475
-}
-[; ;sumovore.c: 475: }
-[e $U 449  ]
-"476
-[e :U 448 ]
-[; ;sumovore.c: 476: else if (count==15000u)
-[e $ ! == _count -> -> 15000 `ui `ul 450  ]
-[; ;sumovore.c: 477: {
-"477
 {
-[; ;sumovore.c: 478: PORTDbits.RD0=!0;
+[; ;sumovore.c: 473: count=0;
+"473
+[e = _count -> -> -> 0 `i `l `ul ]
+[; ;sumovore.c: 474: PORTDbits.RD0=!1;
+"474
+[e = . . _PORTDbits 0 0 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 475: PORTDbits.RD1=!0;
+"475
+[e = . . _PORTDbits 0 1 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+"476
+}
+[; ;sumovore.c: 476: }
+[e $U 440  ]
+"477
+[e :U 439 ]
+[; ;sumovore.c: 477: else if (count==15000u)
+[e $ ! == _count -> -> 15000 `ui `ul 441  ]
+[; ;sumovore.c: 478: {
 "478
-[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
-[; ;sumovore.c: 479: PORTDbits.RD1=!1;
+{
+[; ;sumovore.c: 479: PORTDbits.RD0=!0;
 "479
-[e = . . _PORTDbits 0 1 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
+[e = . . _PORTDbits 0 0 -> -> ! != -> 0 `i -> 0 `i `i `uc ]
+[; ;sumovore.c: 480: PORTDbits.RD1=!1;
 "480
-}
-[e :U 450 ]
+[e = . . _PORTDbits 0 1 -> -> ! != -> 1 `i -> 0 `i `i `uc ]
 "481
-[e :U 449 ]
-[; ;sumovore.c: 480: }
-[; ;sumovore.c: 481: count++;
-[e ++ _count -> -> -> 1 `i `l `ul ]
-"482
 }
-[e :U 445 ]
-"467
-[e $U 446  ]
-[e :U 447 ]
-[; ;sumovore.c: 482: }
-[; ;sumovore.c: 483: }
+[e :U 441 ]
+"482
+[e :U 440 ]
+[; ;sumovore.c: 481: }
+[; ;sumovore.c: 482: count++;
+[e ++ _count -> -> -> 1 `i `l `ul ]
 "483
-[e :UE 444 ]
+}
+[e :U 436 ]
+"468
+[e $U 437  ]
+[e :U 438 ]
+[; ;sumovore.c: 483: }
+[; ;sumovore.c: 484: }
+"484
+[e :UE 435 ]
 }
 [p f _printf 8388608 ]
 [a 1C 60 80 79 82 62 0 ]

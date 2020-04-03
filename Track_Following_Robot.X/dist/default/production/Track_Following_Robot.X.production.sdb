@@ -3,44 +3,29 @@
 [d edition pro ]
 [d chip 18F4525 ]
 [d frameptr 4065 ]
-"124 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
-[e E4190 e_direction `uc
+"137 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+[e E4173 e_direction `uc
 reverse 0
+CCW 0
 forward 1
-]
-"189 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
-[e E4160 motor_selection `uc
-left 0
-right 1
-]
-[e E4152 motor_speed_setting `uc
-rev_fast 0
-rev_medium 1
-rev_slow 2
-stop 3
-slow 4
-medium 5
-fast 6
-]
-"192
-[e E4216 e_direction `uc
-reverse 0
-forward 1
+CW 1
 ]
 "24 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/interrupts.c
 [v _high_isr high_isr `II(v  1 e 0 0 ]
 "47
 [v _lvd_flag_set lvd_flag_set `(uc  1 e 1 0 ]
-"20 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"25 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _main main `(v  1 e 0 0 ]
-"82
+"88
 [v _PID_LineFollowing PID_LineFollowing `(v  1 e 0 0 ]
-"121
+"134
 [v _MotorControl MotorControl `(v  1 e 0 0 ]
-"170
-[v _SharpTurn SharpTurn `(v  1 e 0 0 ]
-"216
+"190
 [v _GetBackonTrack GetBackonTrack `(v  1 e 0 0 ]
+"224
+[v _SharpTurn SharpTurn `(v  1 e 0 0 ]
+"275
+[v _AllSensorsTriggered AllSensorsTriggered `(v  1 e 0 0 ]
 "18 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/osc.c
 [v _set_osc_32MHz set_osc_32MHz `(v  1 e 0 0 ]
 "65 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
@@ -57,31 +42,31 @@ forward 1
 [v _openPORTD openPORTD `(v  1 e 0 0 ]
 "178
 [v _openPORTE openPORTE `(v  1 e 0 0 ]
-"218
+"219
 [v _motors_brake_all motors_brake_all `(v  1 e 0 0 ]
-"229
+"230
 [v _adc adc `(ui  1 e 2 0 ]
-"241
+"242
 [v _check_sensors check_sensors `(v  1 e 0 0 ]
-"255
+"256
 [v _set_leds set_leds `(v  1 e 0 0 ]
-"281
+"282
 [v _reset_codes reset_codes `(v  1 e 0 0 ]
-"306
+"307
 [v _PORtask PORtask `(v  1 e 0 0 ]
-"348
+"349
 [v _BORtask BORtask `(v  1 e 0 0 ]
-"369
+"370
 [v _WDTtask WDTtask `(v  1 e 0 0 ]
-"388
+"389
 [v _STKFULtask STKFULtask `(v  1 e 0 0 ]
-"404
+"405
 [v _RESETtask RESETtask `(v  1 e 0 0 ]
-"427
+"428
 [v _openLVD openLVD `(v  1 e 0 0 ]
-"448
+"449
 [v _LVtrap LVtrap `(v  1 e 0 0 ]
-"463
+"464
 [v _gtrap gtrap `(v  1 e 0 0 ]
 "8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -164,23 +149,27 @@ forward 1
 "10
 [v _D_CONSTANT D_CONSTANT `Cui  1 e 2 0 ]
 "13
+[v _TURN_SPEED_DIVIDER TURN_SPEED_DIVIDER `Cuc  1 e 1 0 ]
+"14
+[v _TURN_TIME_ms TURN_TIME_ms `Cui  1 e 2 0 ]
+"17
 [v _I I `i  1 e 2 0 ]
-[s S51 . 1 `uc 1 B 1 0 :5:0 
+[s S55 . 1 `uc 1 B 1 0 :5:0 
 `uc 1 . 1 0 :3:5 
 ]
 "61 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
-[s S54 sensors 1 `uc 1 Right 1 0 :1:0 
+[s S58 sensors 1 `uc 1 Right 1 0 :1:0 
 `uc 1 CntRight 1 0 :1:1 
 `uc 1 Center 1 0 :1:2 
 `uc 1 CntLeft 1 0 :1:3 
 `uc 1 Left 1 0 :1:4 
 `uc 1 . 1 0 :3:5 
 ]
-[u S61 sensor_union 1 `S51 1 . 1 0 `S54 1 b 1 0 ]
-[v _SeeLine SeeLine `S61  1 e 1 0 ]
+[u S65 sensor_union 1 `S55 1 . 1 0 `S58 1 b 1 0 ]
+[v _SeeLine SeeLine `S65  1 e 1 0 ]
 "62
 [v _threshold threshold `ui  1 e 2 0 ]
-[s S106 . 1 `uc 1 RC0 1 0 :1:0 
+[s S116 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 RC3 1 0 :1:3 
@@ -190,7 +179,7 @@ forward 1
 `uc 1 RC7 1 0 :1:7 
 ]
 "405 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic18f4525.h
-[s S115 . 1 `uc 1 T1OSO 1 0 :1:0 
+[s S125 . 1 `uc 1 T1OSO 1 0 :1:0 
 `uc 1 T1OSI 1 0 :1:1 
 `uc 1 CCP1 1 0 :1:2 
 `uc 1 SCK 1 0 :1:3 
@@ -199,7 +188,7 @@ forward 1
 `uc 1 TX 1 0 :1:6 
 `uc 1 RX 1 0 :1:7 
 ]
-[s S124 . 1 `uc 1 T13CKI 1 0 :1:0 
+[s S134 . 1 `uc 1 T13CKI 1 0 :1:0 
 `uc 1 CCP2 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 SCL 1 0 :1:3 
@@ -208,19 +197,19 @@ forward 1
 `uc 1 CK 1 0 :1:6 
 `uc 1 DT 1 0 :1:7 
 ]
-[s S133 . 1 `uc 1 T1CKI 1 0 :1:0 
+[s S143 . 1 `uc 1 T1CKI 1 0 :1:0 
 ]
-[s S135 . 1 `uc 1 . 1 0 :2:0 
+[s S145 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PA1 1 0 :1:2 
 ]
-[s S138 . 1 `uc 1 . 1 0 :1:0 
+[s S148 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 PA2 1 0 :1:1 
 ]
-[u S141 . 1 `S106 1 . 1 0 `S115 1 . 1 0 `S124 1 . 1 0 `S133 1 . 1 0 `S135 1 . 1 0 `S138 1 . 1 0 ]
-[v _PORTCbits PORTCbits `VES141  1 e 1 @3970 ]
+[u S151 . 1 `S116 1 . 1 0 `S125 1 . 1 0 `S134 1 . 1 0 `S143 1 . 1 0 `S145 1 . 1 0 `S148 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES151  1 e 1 @3970 ]
 "534
 [v _PORTD PORTD `VEuc  1 e 1 @3971 ]
-[s S924 . 1 `uc 1 RD0 1 0 :1:0 
+[s S928 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -230,7 +219,7 @@ forward 1
 `uc 1 RD7 1 0 :1:7 
 ]
 "571
-[s S933 . 1 `uc 1 PSP0 1 0 :1:0 
+[s S937 . 1 `uc 1 PSP0 1 0 :1:0 
 `uc 1 PSP1 1 0 :1:1 
 `uc 1 PSP2 1 0 :1:2 
 `uc 1 PSP3 1 0 :1:3 
@@ -239,113 +228,113 @@ forward 1
 `uc 1 PSP6 1 0 :1:6 
 `uc 1 PSP7 1 0 :1:7 
 ]
-[s S942 . 1 `uc 1 . 1 0 :5:0 
+[s S946 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 P1B 1 0 :1:5 
 `uc 1 P1C 1 0 :1:6 
 `uc 1 P1D 1 0 :1:7 
 ]
-[s S947 . 1 `uc 1 . 1 0 :7:0 
+[s S951 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 SS2 1 0 :1:7 
 ]
-[u S950 . 1 `S924 1 . 1 0 `S933 1 . 1 0 `S942 1 . 1 0 `S947 1 . 1 0 ]
-[v _PORTDbits PORTDbits `VES950  1 e 1 @3971 ]
-[s S184 . 1 `uc 1 RE0 1 0 :1:0 
+[u S954 . 1 `S928 1 . 1 0 `S937 1 . 1 0 `S946 1 . 1 0 `S951 1 . 1 0 ]
+[v _PORTDbits PORTDbits `VES954  1 e 1 @3971 ]
+[s S194 . 1 `uc 1 RE0 1 0 :1:0 
 `uc 1 RE1 1 0 :1:1 
 `uc 1 RE2 1 0 :1:2 
 `uc 1 RE3 1 0 :1:3 
 ]
 "799
-[s S189 . 1 `uc 1 RD 1 0 :1:0 
+[s S199 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 CS 1 0 :1:2 
 `uc 1 MCLR 1 0 :1:3 
 ]
-[s S194 . 1 `uc 1 NOT_RD 1 0 :1:0 
+[s S204 . 1 `uc 1 NOT_RD 1 0 :1:0 
 ]
-[s S196 . 1 `uc 1 . 1 0 :1:0 
+[s S206 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_WR 1 0 :1:1 
 ]
-[s S199 . 1 `uc 1 . 1 0 :2:0 
+[s S209 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_CS 1 0 :1:2 
 ]
-[s S202 . 1 `uc 1 . 1 0 :3:0 
+[s S212 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_MCLR 1 0 :1:3 
 ]
-[s S205 . 1 `uc 1 nRD 1 0 :1:0 
+[s S215 . 1 `uc 1 nRD 1 0 :1:0 
 `uc 1 nWR 1 0 :1:1 
 `uc 1 nCS 1 0 :1:2 
 `uc 1 nMCLR 1 0 :1:3 
 ]
-[s S210 . 1 `uc 1 AN5 1 0 :1:0 
+[s S220 . 1 `uc 1 AN5 1 0 :1:0 
 `uc 1 AN6 1 0 :1:1 
 `uc 1 AN7 1 0 :1:2 
 `uc 1 VPP 1 0 :1:3 
 ]
-[s S215 . 1 `uc 1 . 1 0 :2:0 
+[s S225 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 CCP10 1 0 :1:2 
 ]
-[s S218 . 1 `uc 1 . 1 0 :7:0 
+[s S228 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 CCP2E 1 0 :1:7 
 ]
-[s S221 . 1 `uc 1 . 1 0 :6:0 
+[s S231 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 CCP6E 1 0 :1:6 
 ]
-[s S224 . 1 `uc 1 . 1 0 :5:0 
+[s S234 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 CCP7E 1 0 :1:5 
 ]
-[s S227 . 1 `uc 1 . 1 0 :4:0 
+[s S237 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 CCP8E 1 0 :1:4 
 ]
-[s S230 . 1 `uc 1 . 1 0 :3:0 
+[s S240 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP9E 1 0 :1:3 
 ]
-[s S233 . 1 `uc 1 . 1 0 :7:0 
+[s S243 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 PA2E 1 0 :1:7 
 ]
-[s S236 . 1 `uc 1 . 1 0 :6:0 
+[s S246 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 PB1E 1 0 :1:6 
 ]
-[s S239 . 1 `uc 1 . 1 0 :2:0 
+[s S249 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PB2 1 0 :1:2 
 ]
-[s S242 . 1 `uc 1 . 1 0 :4:0 
+[s S252 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 PB3E 1 0 :1:4 
 ]
-[s S245 . 1 `uc 1 . 1 0 :5:0 
+[s S255 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 PC1E 1 0 :1:5 
 ]
-[s S248 . 1 `uc 1 . 1 0 :1:0 
+[s S258 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 PC2 1 0 :1:1 
 ]
-[s S251 . 1 `uc 1 . 1 0 :3:0 
+[s S261 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 PC3E 1 0 :1:3 
 ]
-[s S254 . 1 `uc 1 PD2 1 0 :1:0 
+[s S264 . 1 `uc 1 PD2 1 0 :1:0 
 ]
-[s S256 . 1 `uc 1 RDE 1 0 :1:0 
+[s S266 . 1 `uc 1 RDE 1 0 :1:0 
 ]
-[s S258 . 1 `uc 1 . 1 0 :4:0 
+[s S268 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 RE4 1 0 :1:4 
 ]
-[s S261 . 1 `uc 1 . 1 0 :5:0 
+[s S271 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RE5 1 0 :1:5 
 ]
-[s S264 . 1 `uc 1 . 1 0 :6:0 
+[s S274 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RE6 1 0 :1:6 
 ]
-[s S267 . 1 `uc 1 . 1 0 :7:0 
+[s S277 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 RE7 1 0 :1:7 
 ]
-[s S270 . 1 `uc 1 . 1 0 :1:0 
+[s S280 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 WRE 1 0 :1:1 
 ]
-[u S273 . 1 `S184 1 . 1 0 `S189 1 . 1 0 `S194 1 . 1 0 `S196 1 . 1 0 `S199 1 . 1 0 `S202 1 . 1 0 `S205 1 . 1 0 `S210 1 . 1 0 `S215 1 . 1 0 `S218 1 . 1 0 `S221 1 . 1 0 `S224 1 . 1 0 `S227 1 . 1 0 `S230 1 . 1 0 `S233 1 . 1 0 `S236 1 . 1 0 `S239 1 . 1 0 `S242 1 . 1 0 `S245 1 . 1 0 `S248 1 . 1 0 `S251 1 . 1 0 `S254 1 . 1 0 `S256 1 . 1 0 `S258 1 . 1 0 `S261 1 . 1 0 `S264 1 . 1 0 `S267 1 . 1 0 `S270 1 . 1 0 ]
-[v _PORTEbits PORTEbits `VES273  1 e 1 @3972 ]
+[u S283 . 1 `S194 1 . 1 0 `S199 1 . 1 0 `S204 1 . 1 0 `S206 1 . 1 0 `S209 1 . 1 0 `S212 1 . 1 0 `S215 1 . 1 0 `S220 1 . 1 0 `S225 1 . 1 0 `S228 1 . 1 0 `S231 1 . 1 0 `S234 1 . 1 0 `S237 1 . 1 0 `S240 1 . 1 0 `S243 1 . 1 0 `S246 1 . 1 0 `S249 1 . 1 0 `S252 1 . 1 0 `S255 1 . 1 0 `S258 1 . 1 0 `S261 1 . 1 0 `S264 1 . 1 0 `S266 1 . 1 0 `S268 1 . 1 0 `S271 1 . 1 0 `S274 1 . 1 0 `S277 1 . 1 0 `S280 1 . 1 0 ]
+[v _PORTEbits PORTEbits `VES283  1 e 1 @3972 ]
 "1633
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 "1854
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
-[s S1923 . 1 `uc 1 TRISB0 1 0 :1:0 
+[s S1917 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -355,7 +344,7 @@ forward 1
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "1886
-[s S1932 . 1 `uc 1 RB0 1 0 :1:0 
+[s S1926 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -364,11 +353,11 @@ forward 1
 `uc 1 RB6 1 0 :1:6 
 `uc 1 RB7 1 0 :1:7 
 ]
-[u S1941 . 1 `S1923 1 . 1 0 `S1932 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES1941  1 e 1 @3987 ]
+[u S1935 . 1 `S1917 1 . 1 0 `S1926 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES1935  1 e 1 @3987 ]
 "2075
 [v _TRISC TRISC `VEuc  1 e 1 @3988 ]
-[s S852 . 1 `uc 1 TRISC0 1 0 :1:0 
+[s S867 . 1 `uc 1 TRISC0 1 0 :1:0 
 `uc 1 TRISC1 1 0 :1:1 
 `uc 1 TRISC2 1 0 :1:2 
 `uc 1 TRISC3 1 0 :1:3 
@@ -378,27 +367,27 @@ forward 1
 `uc 1 TRISC7 1 0 :1:7 
 ]
 "2107
-[u S870 . 1 `S852 1 . 1 0 `S106 1 . 1 0 ]
-[v _TRISCbits TRISCbits `VES870  1 e 1 @3988 ]
+[u S885 . 1 `S867 1 . 1 0 `S116 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES885  1 e 1 @3988 ]
 "2296
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
 "2517
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
-[s S1422 . 1 `uc 1 TUN 1 0 :5:0 
+[s S1416 . 1 `uc 1 TUN 1 0 :5:0 
 `uc 1 . 1 0 :1:5 
 `uc 1 PLLEN 1 0 :1:6 
 `uc 1 INTSRC 1 0 :1:7 
 ]
 "2700
-[s S1427 . 1 `uc 1 TUN0 1 0 :1:0 
+[s S1421 . 1 `uc 1 TUN0 1 0 :1:0 
 `uc 1 TUN1 1 0 :1:1 
 `uc 1 TUN2 1 0 :1:2 
 `uc 1 TUN3 1 0 :1:3 
 `uc 1 TUN4 1 0 :1:4 
 ]
-[u S1433 . 1 `S1422 1 . 1 0 `S1427 1 . 1 0 ]
-[v _OSCTUNEbits OSCTUNEbits `VES1433  1 e 1 @3995 ]
-[s S1657 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[u S1427 . 1 `S1416 1 . 1 0 `S1421 1 . 1 0 ]
+[v _OSCTUNEbits OSCTUNEbits `VES1427  1 e 1 @3995 ]
+[s S1651 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSPIE 1 0 :1:3 
@@ -408,15 +397,15 @@ forward 1
 `uc 1 PSPIE 1 0 :1:7 
 ]
 "2769
-[s S1666 . 1 `uc 1 . 1 0 :5:0 
+[s S1660 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RC1IE 1 0 :1:5 
 ]
-[s S1669 . 1 `uc 1 . 1 0 :4:0 
+[s S1663 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IE 1 0 :1:4 
 ]
-[u S1672 . 1 `S1657 1 . 1 0 `S1666 1 . 1 0 `S1669 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES1672  1 e 1 @3997 ]
-[s S1622 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S1666 . 1 `S1651 1 . 1 0 `S1660 1 . 1 0 `S1663 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES1666  1 e 1 @3997 ]
+[s S1616 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -426,15 +415,15 @@ forward 1
 `uc 1 PSPIF 1 0 :1:7 
 ]
 "2848
-[s S1631 . 1 `uc 1 . 1 0 :5:0 
+[s S1625 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RC1IF 1 0 :1:5 
 ]
-[s S1634 . 1 `uc 1 . 1 0 :4:0 
+[s S1628 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IF 1 0 :1:4 
 ]
-[u S1637 . 1 `S1622 1 . 1 0 `S1631 1 . 1 0 `S1634 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES1637  1 e 1 @3998 ]
-[s S1178 . 1 `uc 1 CCP2IE 1 0 :1:0 
+[u S1631 . 1 `S1616 1 . 1 0 `S1625 1 . 1 0 `S1628 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES1631  1 e 1 @3998 ]
+[s S1182 . 1 `uc 1 CCP2IE 1 0 :1:0 
 `uc 1 TMR3IE 1 0 :1:1 
 `uc 1 HLVDIE 1 0 :1:2 
 `uc 1 BCLIE 1 0 :1:3 
@@ -444,12 +433,12 @@ forward 1
 `uc 1 OSCFIE 1 0 :1:7 
 ]
 "3002
-[s S1187 . 1 `uc 1 . 1 0 :2:0 
+[s S1191 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIE 1 0 :1:2 
 ]
-[u S1190 . 1 `S1178 1 . 1 0 `S1187 1 . 1 0 ]
-[v _PIE2bits PIE2bits `VES1190  1 e 1 @4000 ]
-[s S1150 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[u S1194 . 1 `S1182 1 . 1 0 `S1191 1 . 1 0 ]
+[v _PIE2bits PIE2bits `VES1194  1 e 1 @4000 ]
+[s S1154 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -459,12 +448,12 @@ forward 1
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "3067
-[s S1159 . 1 `uc 1 . 1 0 :2:0 
+[s S1163 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S1162 . 1 `S1150 1 . 1 0 `S1159 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES1162  1 e 1 @4001 ]
-[s S1122 . 1 `uc 1 CCP2IP 1 0 :1:0 
+[u S1166 . 1 `S1154 1 . 1 0 `S1163 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES1166  1 e 1 @4001 ]
+[s S1126 . 1 `uc 1 CCP2IP 1 0 :1:0 
 `uc 1 TMR3IP 1 0 :1:1 
 `uc 1 HLVDIP 1 0 :1:2 
 `uc 1 BCLIP 1 0 :1:3 
@@ -474,14 +463,14 @@ forward 1
 `uc 1 OSCFIP 1 0 :1:7 
 ]
 "3132
-[s S1131 . 1 `uc 1 . 1 0 :2:0 
+[s S1135 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIP 1 0 :1:2 
 ]
-[u S1134 . 1 `S1122 1 . 1 0 `S1131 1 . 1 0 ]
-[v _IPR2bits IPR2bits `VES1134  1 e 1 @4002 ]
+[u S1138 . 1 `S1126 1 . 1 0 `S1135 1 . 1 0 ]
+[v _IPR2bits IPR2bits `VES1138  1 e 1 @4002 ]
 "3265
 [v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
-[s S2281 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S2275 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -491,25 +480,25 @@ forward 1
 `uc 1 SPEN 1 0 :1:7 
 ]
 "3306
-[s S2290 . 1 `uc 1 . 1 0 :3:0 
+[s S2284 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S2293 . 1 `uc 1 . 1 0 :5:0 
+[s S2287 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[s S2296 . 1 `uc 1 . 1 0 :6:0 
+[s S2290 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S2299 . 1 `uc 1 . 1 0 :6:0 
+[s S2293 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S2302 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S2296 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[u S2304 . 1 `S2281 1 . 1 0 `S2290 1 . 1 0 `S2293 1 . 1 0 `S2296 1 . 1 0 `S2299 1 . 1 0 `S2302 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES2304  1 e 1 @4011 ]
+[u S2298 . 1 `S2275 1 . 1 0 `S2284 1 . 1 0 `S2287 1 . 1 0 `S2290 1 . 1 0 `S2293 1 . 1 0 `S2296 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES2298  1 e 1 @4011 ]
 "3474
 [v _TXSTA TXSTA `VEuc  1 e 1 @4012 ]
-[s S2194 . 1 `uc 1 TX9D 1 0 :1:0 
+[s S2188 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -519,36 +508,36 @@ forward 1
 `uc 1 CSRC 1 0 :1:7 
 ]
 "3534
-[s S2203 . 1 `uc 1 . 1 0 :2:0 
+[s S2197 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 BRGH1 1 0 :1:2 
 ]
-[s S2206 . 1 `uc 1 . 1 0 :7:0 
+[s S2200 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 CSRC1 1 0 :1:7 
 ]
-[s S2209 . 1 `uc 1 . 1 0 :3:0 
+[s S2203 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SENDB1 1 0 :1:3 
 ]
-[s S2212 . 1 `uc 1 . 1 0 :4:0 
+[s S2206 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 SYNC1 1 0 :1:4 
 ]
-[s S2215 . 1 `uc 1 . 1 0 :1:0 
+[s S2209 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 TRMT1 1 0 :1:1 
 ]
-[s S2218 . 1 `uc 1 . 1 0 :6:0 
+[s S2212 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX91 1 0 :1:6 
 ]
-[s S2221 . 1 `uc 1 TX9D1 1 0 :1:0 
+[s S2215 . 1 `uc 1 TX9D1 1 0 :1:0 
 ]
-[s S2223 . 1 `uc 1 . 1 0 :5:0 
+[s S2217 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 TXEN1 1 0 :1:5 
 ]
-[s S2226 . 1 `uc 1 . 1 0 :6:0 
+[s S2220 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX8_9 1 0 :1:6 
 ]
-[s S2229 . 1 `uc 1 TXD8 1 0 :1:0 
+[s S2223 . 1 `uc 1 TXD8 1 0 :1:0 
 ]
-[u S2231 . 1 `S2194 1 . 1 0 `S2203 1 . 1 0 `S2206 1 . 1 0 `S2209 1 . 1 0 `S2212 1 . 1 0 `S2215 1 . 1 0 `S2218 1 . 1 0 `S2221 1 . 1 0 `S2223 1 . 1 0 `S2226 1 . 1 0 `S2229 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES2231  1 e 1 @4012 ]
+[u S2225 . 1 `S2188 1 . 1 0 `S2197 1 . 1 0 `S2200 1 . 1 0 `S2203 1 . 1 0 `S2206 1 . 1 0 `S2209 1 . 1 0 `S2212 1 . 1 0 `S2215 1 . 1 0 `S2217 1 . 1 0 `S2220 1 . 1 0 `S2223 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES2225  1 e 1 @4012 ]
 "3793
 [v _SPBRG SPBRG `VEuc  1 e 1 @4015 ]
 "3804
@@ -567,50 +556,50 @@ forward 1
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "4885
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
-[s S1493 . 1 `uc 1 . 1 0 :1:0 
+[s S1487 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_NOT_DONE 1 0 :1:1 
 ]
 "4933
-[s S1496 . 1 `uc 1 ADON 1 0 :1:0 
+[s S1490 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 ]
-[s S1503 . 1 `uc 1 . 1 0 :1:0 
+[s S1497 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
 `uc 1 CHS2 1 0 :1:4 
 `uc 1 CHS3 1 0 :1:5 
 ]
-[s S1510 . 1 `uc 1 . 1 0 :1:0 
+[s S1504 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 DONE 1 0 :1:1 
 ]
-[s S1513 . 1 `uc 1 . 1 0 :1:0 
+[s S1507 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_DONE 1 0 :1:1 
 ]
-[s S1516 . 1 `uc 1 . 1 0 :1:0 
+[s S1510 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S1519 . 1 `uc 1 . 1 0 :1:0 
+[s S1513 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[s S1522 . 1 `uc 1 . 1 0 :1:0 
+[s S1516 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GODONE 1 0 :1:1 
 ]
-[u S1525 . 1 `S1493 1 . 1 0 `S1496 1 . 1 0 `S1493 1 . 1 0 `S1503 1 . 1 0 `S1510 1 . 1 0 `S1513 1 . 1 0 `S1516 1 . 1 0 `S1519 1 . 1 0 `S1522 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES1525  1 e 1 @4034 ]
+[u S1519 . 1 `S1487 1 . 1 0 `S1490 1 . 1 0 `S1487 1 . 1 0 `S1497 1 . 1 0 `S1504 1 . 1 0 `S1507 1 . 1 0 `S1510 1 . 1 0 `S1513 1 . 1 0 `S1516 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES1519  1 e 1 @4034 ]
 "5013
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "5019
 [v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
 "5406
 [v _T2CON T2CON `VEuc  1 e 1 @4042 ]
-[s S1842 . 1 `uc 1 T2CKPS 1 0 :2:0 
+[s S1836 . 1 `uc 1 T2CKPS 1 0 :2:0 
 `uc 1 TMR2ON 1 0 :1:2 
 `uc 1 TOUTPS 1 0 :4:3 
 ]
 "5434
-[s S1846 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+[s S1840 . 1 `uc 1 T2CKPS0 1 0 :1:0 
 `uc 1 T2CKPS1 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 T2OUTPS0 1 0 :1:3 
@@ -618,34 +607,34 @@ forward 1
 `uc 1 T2OUTPS2 1 0 :1:5 
 `uc 1 T2OUTPS3 1 0 :1:6 
 ]
-[s S1854 . 1 `uc 1 . 1 0 :3:0 
+[s S1848 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 TOUTPS0 1 0 :1:3 
 `uc 1 TOUTPS1 1 0 :1:4 
 `uc 1 TOUTPS2 1 0 :1:5 
 `uc 1 TOUTPS3 1 0 :1:6 
 ]
-[u S1860 . 1 `S1842 1 . 1 0 `S1846 1 . 1 0 `S1854 1 . 1 0 ]
-[v _T2CONbits T2CONbits `VES1860  1 e 1 @4042 ]
+[u S1854 . 1 `S1836 1 . 1 0 `S1840 1 . 1 0 `S1848 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES1854  1 e 1 @4042 ]
 "5503
 [v _PR2 PR2 `VEuc  1 e 1 @4043 ]
 "5612
 [v _TMR2 TMR2 `VEuc  1 e 1 @4044 ]
-[s S469 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S484 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "5783
-[s S471 . 1 `uc 1 . 1 0 :1:0 
+[s S486 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
-[s S474 . 1 `uc 1 . 1 0 :2:0 
+[s S489 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_PD 1 0 :1:2 
 ]
-[s S477 . 1 `uc 1 . 1 0 :3:0 
+[s S492 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_TO 1 0 :1:3 
 ]
-[s S480 . 1 `uc 1 . 1 0 :4:0 
+[s S495 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RI 1 0 :1:4 
 ]
-[s S483 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S498 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nPD 1 0 :1:2 
 `uc 1 nTO 1 0 :1:3 
@@ -654,50 +643,50 @@ forward 1
 `uc 1 SBOREN 1 0 :1:6 
 `uc 1 IPEN 1 0 :1:7 
 ]
-[s S492 . 1 `uc 1 BOR 1 0 :1:0 
+[s S507 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 PD 1 0 :1:2 
 `uc 1 TO 1 0 :1:3 
 `uc 1 RI 1 0 :1:4 
 ]
-[u S498 . 1 `S469 1 . 1 0 `S471 1 . 1 0 `S474 1 . 1 0 `S477 1 . 1 0 `S480 1 . 1 0 `S483 1 . 1 0 `S492 1 . 1 0 ]
-[v _RCONbits RCONbits `VES498  1 e 1 @4048 ]
-[s S1066 . 1 `uc 1 HLVDL 1 0 :4:0 
+[u S513 . 1 `S484 1 . 1 0 `S486 1 . 1 0 `S489 1 . 1 0 `S492 1 . 1 0 `S495 1 . 1 0 `S498 1 . 1 0 `S507 1 . 1 0 ]
+[v _RCONbits RCONbits `VES513  1 e 1 @4048 ]
+[s S1070 . 1 `uc 1 HLVDL 1 0 :4:0 
 `uc 1 HLVDEN 1 0 :1:4 
 `uc 1 IVRST 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 VDIRMAG 1 0 :1:7 
 ]
 "5940
-[s S1072 . 1 `uc 1 HLVDL0 1 0 :1:0 
+[s S1076 . 1 `uc 1 HLVDL0 1 0 :1:0 
 `uc 1 HLVDL1 1 0 :1:1 
 `uc 1 HLVDL2 1 0 :1:2 
 `uc 1 HLVDL3 1 0 :1:3 
 ]
-[s S1077 . 1 `uc 1 LVDL0 1 0 :1:0 
+[s S1081 . 1 `uc 1 LVDL0 1 0 :1:0 
 `uc 1 LVDL1 1 0 :1:1 
 `uc 1 LVDL2 1 0 :1:2 
 `uc 1 LVDL3 1 0 :1:3 
 `uc 1 LVDEN 1 0 :1:4 
 `uc 1 IRVST 1 0 :1:5 
 ]
-[s S1084 . 1 `uc 1 LVV0 1 0 :1:0 
+[s S1088 . 1 `uc 1 LVV0 1 0 :1:0 
 `uc 1 LVV1 1 0 :1:1 
 `uc 1 LVV2 1 0 :1:2 
 `uc 1 LVV3 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 BGST 1 0 :1:5 
 ]
-[u S1091 . 1 `S1066 1 . 1 0 `S1072 1 . 1 0 `S1077 1 . 1 0 `S1084 1 . 1 0 ]
-[v _HLVDCONbits HLVDCONbits `VES1091  1 e 1 @4050 ]
-[s S1390 . 1 `uc 1 SCS 1 0 :2:0 
+[u S1095 . 1 `S1070 1 . 1 0 `S1076 1 . 1 0 `S1081 1 . 1 0 `S1088 1 . 1 0 ]
+[v _HLVDCONbits HLVDCONbits `VES1095  1 e 1 @4050 ]
+[s S1384 . 1 `uc 1 SCS 1 0 :2:0 
 `uc 1 IOFS 1 0 :1:2 
 `uc 1 OSTS 1 0 :1:3 
 `uc 1 IRCF 1 0 :3:4 
 `uc 1 IDLEN 1 0 :1:7 
 ]
 "6191
-[s S1396 . 1 `uc 1 SCS0 1 0 :1:0 
+[s S1390 . 1 `uc 1 SCS0 1 0 :1:0 
 `uc 1 SCS1 1 0 :1:1 
 `uc 1 FLTS 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -705,11 +694,11 @@ forward 1
 `uc 1 IRCF1 1 0 :1:5 
 `uc 1 IRCF2 1 0 :1:6 
 ]
-[u S1404 . 1 `S1390 1 . 1 0 `S1396 1 . 1 0 ]
-[v _OSCCONbits OSCCONbits `VES1404  1 e 1 @4051 ]
+[u S1398 . 1 `S1384 1 . 1 0 `S1390 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES1398  1 e 1 @4051 ]
 "6250
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
-[s S2060 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S2054 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -717,19 +706,19 @@ forward 1
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "6272
-[s S2067 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S2061 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 T016BIT 1 0 :1:6 
 ]
-[u S2073 . 1 `S2060 1 . 1 0 `S2067 1 . 1 0 ]
-[v _T0CONbits T0CONbits `VES2073  1 e 1 @4053 ]
+[u S2067 . 1 `S2054 1 . 1 0 `S2061 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES2067  1 e 1 @4053 ]
 "6332
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "6338
 [v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
-[s S536 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S551 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -739,7 +728,7 @@ forward 1
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "6795
-[s S545 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S560 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -748,7 +737,7 @@ forward 1
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S554 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S569 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -757,7 +746,7 @@ forward 1
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[s S563 . 1 `uc 1 . 1 0 :1:0 
+[s S578 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -766,19 +755,19 @@ forward 1
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S572 . 1 `uc 1 . 1 0 :6:0 
+[s S587 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S576 . 1 `S536 1 . 1 0 `S545 1 . 1 0 `S554 1 . 1 0 `S563 1 . 1 0 `S572 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES576  1 e 1 @4082 ]
-[s S1006 . 1 `uc 1 STKPTR 1 0 :5:0 
+[u S591 . 1 `S551 1 . 1 0 `S560 1 . 1 0 `S569 1 . 1 0 `S578 1 . 1 0 `S587 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES591  1 e 1 @4082 ]
+[s S1010 . 1 `uc 1 STKPTR 1 0 :5:0 
 `uc 1 . 1 0 :1:5 
 `uc 1 STKUNF 1 0 :1:6 
 `uc 1 STKFUL 1 0 :1:7 
 ]
 "6991
-[s S1011 . 1 `uc 1 STKPTR0 1 0 :1:0 
+[s S1015 . 1 `uc 1 STKPTR0 1 0 :1:0 
 `uc 1 STKPTR1 1 0 :1:1 
 `uc 1 STKPTR2 1 0 :1:2 
 `uc 1 STKPTR3 1 0 :1:3 
@@ -786,29 +775,24 @@ forward 1
 `uc 1 . 1 0 :2:5 
 `uc 1 STKOVF 1 0 :1:7 
 ]
-[s S1019 . 1 `uc 1 SP0 1 0 :1:0 
+[s S1023 . 1 `uc 1 SP0 1 0 :1:0 
 `uc 1 SP1 1 0 :1:1 
 `uc 1 SP2 1 0 :1:2 
 `uc 1 SP3 1 0 :1:3 
 `uc 1 SP4 1 0 :1:4 
 ]
-[u S1025 . 1 `S1006 1 . 1 0 `S1011 1 . 1 0 `S1019 1 . 1 0 ]
-[v _STKPTRbits STKPTRbits `VES1025  1 e 1 @4092 ]
+[u S1029 . 1 `S1010 1 . 1 0 `S1015 1 . 1 0 `S1023 1 . 1 0 ]
+[v _STKPTRbits STKPTRbits `VES1029  1 e 1 @4092 ]
 "8097
 [v _TMR0IF TMR0IF `VEb  1 e 0 @32658 ]
-"20 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"25 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"22
-[v main@error error `[3]c  1 a 3 60 ]
-"21
-[v main@F4183 F4183 `[3]c  1 s 3 F4183 ]
-"79
-} 0
-"255 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
-[v _set_leds set_leds `(v  1 e 0 0 ]
-{
-"262
+"27
+[v main@error error `[3]c  1 a 3 61 ]
+"26
+[v main@F4192 F4192 `[3]c  1 s 3 F4192 ]
+"85
 } 0
 "47 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/interrupts.c
 [v _lvd_flag_set lvd_flag_set `(uc  1 e 1 0 ]
@@ -827,10 +811,10 @@ forward 1
 [v set_osc_32MHz@i i `i  1 a 2 14 ]
 "31
 } 0
-"281 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
+"282 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
 [v _reset_codes reset_codes `(v  1 e 0 0 ]
 {
-"297
+"298
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\reset\iswdtto.c
 [v _isWDTTO isWDTTO `(uc  1 e 1 0 ]
@@ -847,33 +831,33 @@ forward 1
 {
 "21
 } 0
-"369 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
+"370 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
 [v _WDTtask WDTtask `(v  1 e 0 0 ]
 {
-"378
+"379
 } 0
-"388
+"389
 [v _STKFULtask STKFULtask `(v  1 e 0 0 ]
 {
-"399
+"400
 } 0
-"404
+"405
 [v _RESETtask RESETtask `(v  1 e 0 0 ]
 {
-"414
+"415
 } 0
-"306
+"307
 [v _PORtask PORtask `(v  1 e 0 0 ]
 {
-"308
+"309
 [v PORtask@count2 count2 `ul  1 a 4 23 ]
 [v PORtask@count1 count1 `ul  1 a 4 19 ]
-"334
+"335
 } 0
-"348
+"349
 [v _BORtask BORtask `(v  1 e 0 0 ]
 {
-"359
+"360
 } 0
 "10 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\reset\statrst.c
 [v _StatusReset StatusReset `(v  1 e 0 0 ]
@@ -905,10 +889,10 @@ forward 1
 {
 "153
 } 0
-"427
+"428
 [v _openLVD openLVD `(v  1 e 0 0 ]
 {
-"442
+"443
 } 0
 "73 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\USART\uopen.c
 [v _OpenUSART OpenUSART `(v  1 e 0 0 ]
@@ -963,53 +947,15 @@ forward 1
 [v OpenADC@config config `uc  1 a 1 18 ]
 "89
 } 0
-"241 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
-[v _check_sensors check_sensors `(v  1 e 0 0 ]
-{
-"248
-} 0
-"229
-[v _adc adc `(ui  1 e 2 0 ]
-{
-[v adc@channel channel `uc  1 a 1 wreg ]
-[v adc@channel channel `uc  1 a 1 wreg ]
-"231
-[v adc@channel channel `uc  1 a 1 20 ]
-"236
-} 0
-"30 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcsetch.c
-[v _SetChanADC SetChanADC `(v  1 e 0 0 ]
-{
-[v SetChanADC@channel channel `uc  1 a 1 wreg ]
-[v SetChanADC@channel channel `uc  1 a 1 wreg ]
-"34
-[v SetChanADC@channel channel `uc  1 a 1 15 ]
-"36
-} 0
-"24 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcread.c
-[v _ReadADC ReadADC `(i  1 e 2 0 ]
-{
-"27
-} 0
-"22 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcconv.c
-[v _ConvertADC ConvertADC `(v  1 e 0 0 ]
-{
-"25
-} 0
-"26 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcbusy.c
-[v _BusyADC BusyADC `(uc  1 e 1 0 ]
-{
-"29
-} 0
-"82 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"88 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _PID_LineFollowing PID_LineFollowing `(v  1 e 0 0 ]
 {
-[v PID_LineFollowing@error error `*.39c  1 p 2 51 ]
-"84
+[v PID_LineFollowing@error error `*.39c  1 p 2 52 ]
+"90
 [v PID_LineFollowing@delta_velocity delta_velocity `i  1 s 2 delta_velocity ]
-"86
+"92
 [v PID_LineFollowing@D D `i  1 s 2 D ]
-"118
+"131
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwmod.c
 [v ___lwmod __lwmod `(ui  1 e 2 0 ]
@@ -1046,14 +992,6 @@ forward 1
 [v ___aldiv@divisor divisor `l  1 p 4 18 ]
 "42
 } 0
-"16 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\Timers\t0read.c
-[v _ReadTimer0 ReadTimer0 `(ui  1 e 2 0 ]
-{
-[u S2106 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
-"18
-[v ReadTimer0@timer timer `S2106  1 a 2 16 ]
-"24
-} 0
 "18 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\Timers\t0open.c
 [v _OpenTimer0 OpenTimer0 `(v  1 e 0 0 ]
 {
@@ -1063,10 +1001,10 @@ forward 1
 [v OpenTimer0@config config `uc  1 a 1 14 ]
 "31
 } 0
-"448 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
+"449 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
 [v _LVtrap LVtrap `(v  1 e 0 0 ]
 {
-"458
+"459
 } 0
 "464 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\doprnt.c
 [v _printf printf `(i  1 e 2 0 ]
@@ -1089,61 +1027,118 @@ forward 1
 {
 "173
 } 0
-"463
+"464
 [v _gtrap gtrap `(v  1 e 0 0 ]
 {
-"465
+"466
 [v gtrap@count count `ul  1 a 4 14 ]
-"483
+"484
 } 0
-"216 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"190 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _GetBackonTrack GetBackonTrack `(v  1 e 0 0 ]
 {
-"236
-[v GetBackonTrack@i i `uc  1 a 1 59 ]
-"216
-[v GetBackonTrack@error error `*.39c  1 p 2 55 ]
-"243
+"212
+[v GetBackonTrack@i i `uc  1 a 1 60 ]
+"190
+[v GetBackonTrack@error error `*.39c  1 p 2 56 ]
+"221
+} 0
+"224
+[v _SharpTurn SharpTurn `(v  1 e 0 0 ]
+{
+[v SharpTurn@direction direction `E4173  1 a 1 wreg ]
+"226
+[v SharpTurn@delta_velocity delta_velocity `i  1 a 2 54 ]
+"224
+[v SharpTurn@direction direction `E4173  1 a 1 wreg ]
+"242
+[v SharpTurn@direction direction `E4173  1 a 1 53 ]
+"272
+} 0
+"16 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\Timers\t0read.c
+[v _ReadTimer0 ReadTimer0 `(ui  1 e 2 0 ]
+{
+[u S2100 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+"18
+[v ReadTimer0@timer timer `S2100  1 a 2 16 ]
+"24
+} 0
+"275 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+[v _AllSensorsTriggered AllSensorsTriggered `(v  1 e 0 0 ]
+{
+"292
+} 0
+"256 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
+[v _set_leds set_leds `(v  1 e 0 0 ]
+{
+"263
+} 0
+"219
+[v _motors_brake_all motors_brake_all `(v  1 e 0 0 ]
+{
+"228
+} 0
+"242
+[v _check_sensors check_sensors `(v  1 e 0 0 ]
+{
+"249
+} 0
+"230
+[v _adc adc `(ui  1 e 2 0 ]
+{
+[v adc@channel channel `uc  1 a 1 wreg ]
+[v adc@channel channel `uc  1 a 1 wreg ]
+"232
+[v adc@channel channel `uc  1 a 1 20 ]
+"237
+} 0
+"30 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcsetch.c
+[v _SetChanADC SetChanADC `(v  1 e 0 0 ]
+{
+[v SetChanADC@channel channel `uc  1 a 1 wreg ]
+[v SetChanADC@channel channel `uc  1 a 1 wreg ]
+"34
+[v SetChanADC@channel channel `uc  1 a 1 15 ]
+"36
+} 0
+"24 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcread.c
+[v _ReadADC ReadADC `(i  1 e 2 0 ]
+{
+"27
+} 0
+"22 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcconv.c
+[v _ConvertADC ConvertADC `(v  1 e 0 0 ]
+{
+"25
+} 0
+"26 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\ADC\adcbusy.c
+[v _BusyADC BusyADC `(uc  1 e 1 0 ]
+{
+"29
 } 0
 "16 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\Timers\t0write.c
 [v _WriteTimer0 WriteTimer0 `(v  1 e 0 0 ]
 {
-[u S2106 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
+[u S2100 Timers 2 `ui 1 lt 2 0 `[2]uc 1 bt 2 0 ]
 "18
-[v WriteTimer0@timer timer `S2106  1 a 2 16 ]
+[v WriteTimer0@timer timer `S2100  1 a 2 16 ]
 "16
 [v WriteTimer0@timer0 timer0 `ui  1 p 2 14 ]
 "24
 } 0
-"170 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
-[v _SharpTurn SharpTurn `(v  1 e 0 0 ]
-{
-[v SharpTurn@direction direction `uc  1 a 1 wreg ]
-"172
-[v SharpTurn@delta_velocity delta_velocity `i  1 a 2 53 ]
-"170
-[v SharpTurn@direction direction `uc  1 a 1 wreg ]
-"188
-[v SharpTurn@direction direction `uc  1 a 1 52 ]
-"213
-} 0
-"218 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
-[v _motors_brake_all motors_brake_all `(v  1 e 0 0 ]
-{
-"227
-} 0
-"121 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"134 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _MotorControl MotorControl `(v  1 e 0 0 ]
 {
-"123
-[v MotorControl@right_duty_cycle right_duty_cycle `i  1 a 2 49 ]
-[v MotorControl@left_duty_cycle left_duty_cycle `i  1 a 2 47 ]
-"124
-[v MotorControl@right_dir_modifier right_dir_modifier `E4190  1 a 1 46 ]
-[v MotorControl@left_dir_modifier left_dir_modifier `E4190  1 a 1 45 ]
-"121
+"136
+[v MotorControl@right_duty_cycle right_duty_cycle `i  1 a 2 50 ]
+[v MotorControl@left_duty_cycle left_duty_cycle `i  1 a 2 48 ]
+"137
+[v MotorControl@right_dir_modifier right_dir_modifier `E4173  1 a 1 47 ]
+[v MotorControl@left_dir_modifier left_dir_modifier `E4173  1 a 1 46 ]
+"134
 [v MotorControl@delta_velocity delta_velocity `i  1 p 2 42 ]
-"167
+[v MotorControl@speed_divider speed_divider `uc  1 p 1 44 ]
+"187
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
@@ -1171,9 +1166,9 @@ forward 1
 "7 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\PWM\pw2setdc.c
 [v _SetDCPWM2 SetDCPWM2 `(v  1 e 0 0 ]
 {
-[u S1890 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
+[u S1884 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
 "9
-[v SetDCPWM2@DCycle DCycle `S1890  1 a 2 18 ]
+[v SetDCPWM2@DCycle DCycle `S1884  1 a 2 18 ]
 "7
 [v SetDCPWM2@dutycycle dutycycle `ui  1 p 2 14 ]
 "19
@@ -1181,9 +1176,9 @@ forward 1
 "7 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\PWM\pw1setdc.c
 [v _SetDCPWM1 SetDCPWM1 `(v  1 e 0 0 ]
 {
-[u S1890 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
+[u S1884 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
 "9
-[v SetDCPWM1@DCycle DCycle `S1890  1 a 2 18 ]
+[v SetDCPWM1@DCycle DCycle `S1884  1 a 2 18 ]
 "7
 [v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 14 ]
 "19

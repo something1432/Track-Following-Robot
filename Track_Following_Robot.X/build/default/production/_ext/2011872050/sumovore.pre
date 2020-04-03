@@ -5189,38 +5189,7 @@ TRISE = 0b000;
 
 }
 
-
-
-void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier)
-{
-const static int motor_speeds[] = { -800, -725, -650, 0, 650, 725, 800};
-int duty_cycle;
-enum e_direction {reverse,forward} dir_modifier= forward;
-
-duty_cycle = motor_speeds[ motor_speed ] + speed_modifier;
-if ( duty_cycle < 0 )
-{
-dir_modifier = reverse;
-duty_cycle = -1 * duty_cycle;
-}
-if ( duty_cycle > 800 ) duty_cycle = 800;
-
-if (the_motor == left)
-{
-SetDCPWM2((unsigned int) duty_cycle );
-if ( dir_modifier == reverse ) PORTCbits.RC0 = 0b0;
-else PORTCbits.RC0 = 0b1;
-PORTEbits.RE1 = !PORTCbits.RC0;
-}
-else
-{
-SetDCPWM1((unsigned int) duty_cycle );
-if ( dir_modifier == reverse ) PORTCbits.RC5 = 0b0;
-else PORTCbits.RC5 = 0b1;
-PORTEbits.RE0 = !PORTCbits.RC5;
-}
-}
-
+# 219
 void motors_brake_all( void )
 {
 SetDCPWM1(800u );
@@ -5253,7 +5222,7 @@ SeeLine.b.CntRight = ( adc(0b10011111) > threshold );
 SeeLine.b.Right = ( adc(0b10100111) > threshold );
 }
 
-# 255
+# 256
 void set_leds(void)
 {
 PORTDbits.RD0=!SeeLine.b.Left;
@@ -5263,7 +5232,7 @@ PORTDbits.RD3=!SeeLine.b.CntRight;
 PORTDbits.RD4=!SeeLine.b.Right;
 }
 
-# 281
+# 282
 void reset_codes(void)
 {
 if( isPOR() ) PORtask();
@@ -5282,7 +5251,7 @@ else if(STKPTRbits.STKFUL) STKFULtask();
 else RESETtask();
 }
 
-# 306
+# 307
 void PORtask(void)
 {
 unsigned long count1=0, count2=0;
@@ -5313,7 +5282,7 @@ count2++;
 }
 }
 
-# 348
+# 349
 void BORtask(void)
 {
 StatusReset();
@@ -5327,7 +5296,7 @@ PORTDbits.RD4=!1;
 gtrap();
 }
 
-# 369
+# 370
 void WDTtask(void)
 {
 printf("<WDT TO>");
@@ -5339,7 +5308,7 @@ PORTDbits.RD4=!0;
 gtrap();
 }
 
-# 388
+# 389
 void STKFULtask(void)
 {
 
@@ -5368,7 +5337,7 @@ PORTDbits.RD4=!1;
 gtrap();
 }
 
-# 427
+# 428
 void openLVD(void)
 {
 RCONbits.IPEN = 1;
@@ -5386,7 +5355,7 @@ PIE2bits.HLVDIE = 1;
 INTCONbits.GIEH = 1;
 }
 
-# 448
+# 449
 void LVtrap(void)
 {
 printf("\\<LVD>");

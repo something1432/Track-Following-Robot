@@ -184,7 +184,7 @@ void openPORTE(void)
 }
 
 
-
+/* NOT USED
 void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting motor_speed, int speed_modifier)
 {
     const static int motor_speeds[] = { -800, -725, -650, 0, 650, 725, 800};
@@ -214,6 +214,7 @@ void set_motor_speed(enum motor_selection the_motor, enum motor_speed_setting mo
         RmotorGoFwdCmp = !RmotorGoFwd;   
     }
 }
+*/
 
 void motors_brake_all( void )  // created june 26, 2009
 {
