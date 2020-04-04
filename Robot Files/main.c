@@ -10,10 +10,10 @@ const unsigned int I_CONSTANT = 1250;  //Inversly proportional constant
 const unsigned int D_CONSTANT = 65535;  //Proportional constant
 
 //For when robot need to turn around
-const char TURN_SPEED_DIVIDER = 2;      //Inversly proportional to turn speed
-const unsigned int TURN_TIME_ms = 1000;    //Time it takes to turn around in milliseconds
+const char TURN_SPEED_DIVIDER = 0;      //Inversly proportional to turn speed
+const unsigned int TURN_TIME_ms = 800;    //Time it takes to turn around in milliseconds
 
-enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1};
+enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1} CCW_rotation_flag = 0, CW_rotation_flag = 0;
 int I = 0;  //Integral component of PID
 
 void PID_LineFollowing(signed char error[]);
@@ -34,7 +34,7 @@ void main(void)
                       // threshold
     printf("\n\rKwantlen APSC1299 simple curve follower -- with error codes\n\r"); 
     ClrWdt();         // defined in <p18f4525.h>
-    threshold = 600u; // to change from default value
+    threshold = 575u; // to change from default value
                      // uncomment and change to any unsigned int <1024u -- most usually <512u
     
     //Open timer
@@ -69,10 +69,20 @@ void main(void)
                error[2]=-3;   break;
            case 0b10000u:
                error[2]=-4;   break;
+           case 0b00111u:
+           {
+               CW_rotation_flag = 1;
+               CCW_rotation_flag = 0;
+           }break;
+           case 0b11100u:
+           {
+               CCW_rotation_flag = 1;
+               CW_rotation_flag = 0;
+           }break;
            case 0b00000u:                       //If no sensors triggered
                GetBackonTrack(error);   break;  //Try to find the track
            case 0b11111u:                       //If all sensors triggered
-               AllSensorsTriggered();           //Do all sensors triggered action
+               AllSensorsTriggered();   break;  //Do all sensors triggered action
            default:
                error[2]=0;    break;
          }
@@ -92,7 +102,7 @@ void PID_LineFollowing(signed char error[])
     static int D = 0;   //Derivative
     
     //Calculate I
-    if ((ReadTimer0()%I_CONSTANT) < 5)  //Integral will only increment if Timer reads a multiple of I_CONSTANT with 4*128= 512 cycle tolerance
+    if ((ReadTimer0()%I_CONSTANT) < 2)  //Integral will only increment if Timer reads a multiple of I_CONSTANT with 4*128= 512 cycle tolerance
     {
         if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
             //If motor is saturated Integral will not wind up
@@ -189,9 +199,9 @@ void MotorControl(int delta_velocity, char speed_divider)
 //Function to get robot on track if it is off
 void GetBackonTrack(signed char error[])
 {
-    if((error[2]>1) || (error[1]>1))        //If one of the last two recorded errors is 2 or higher
+    if((error[2]>1) || (error[1]>1) || CW_rotation_flag)        //If one of the last two recorded errors is 2 or higher
         SharpTurn(CW);                       //Do a CW turn
-    else if((error[2]<-1) || (error[1]<-1)) //If one of the last two recorded errors is -2 or lower
+    else if((error[2]<-1) || (error[1]<-1) || CCW_rotation_flag) //If one of the last two recorded errors is -2 or lower
         SharpTurn(CCW);                       //Do a CCW turn
     else
     {
@@ -209,13 +219,16 @@ void GetBackonTrack(signed char error[])
             motors_brake_all();     //Stop
             _delay(50000);
             MotorControl(1600, TURN_SPEED_DIVIDER);     //Start turning CW
-            for(char i=0; i < TURN_TIME_ms; i++)   //Keep spinning until robot turns around
+            
+            for(unsigned int i=0; i < TURN_TIME_ms; i++)   //Keep spinning until robot turns around
                 _delay(7991);           //~1 millisecond delay
 
             while (!SeeLine.B)      //While no sensor triggered
+            {
                 check_sensors();    //Update sensors
                 set_leds();
-                MotorControl(0,0);    //Go forward 
+                MotorControl(0,0);    //Go forward
+            }
         }
     }
 }
@@ -253,6 +266,7 @@ void SharpTurn(enum e_direction direction)
           if (SeeLine.b.Center)     //Start going more and more forward if center triggered
               delta_velocity--;
       }
+        CW_rotation_flag = 0;
     }
     else            //If left side sensors triggered last
     {
@@ -266,6 +280,7 @@ void SharpTurn(enum e_direction direction)
           if (SeeLine.b.Center)     //Start going more and more forward if center triggered
               delta_velocity++;
       }
+        CCW_rotation_flag = 0;
     }
     I = 0;          //Reset Integral term
     //}
@@ -286,7 +301,10 @@ void AllSensorsTriggered()
     {
         motors_brake_all();         //Stop
         while (SeeLine.B=0b11111u)  //While all sensors triggered do nothing
+        {
             check_sensors();
+            set_leds();
+        }
     }
     
 }
