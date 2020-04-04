@@ -5001,7 +5001,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 9 "../../Common\..\Common\osc.h"
+# 9 "../Robot Files/osc.h"
 void set_osc_32MHz(void);
 void set_osc_8MHz(void);
 void set_osc_1MHz(void);

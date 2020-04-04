@@ -5044,6 +5044,7 @@ void MotorControl(int delta_velocity, char speed_divider);
 void GetBackonTrack(signed char error[]);
 void SharpTurn(enum e_direction direction);
 void AllSensorsTriggered();
+void FilterNearbyTrack();
 
 void main(void)
 {
@@ -5069,7 +5070,9 @@ while(1)
 {
 check_sensors();
 
-# 55
+FilterNearbyTrack();
+
+# 58
 switch(SeeLine.B)
 {
 case 0b00110u:
@@ -5189,7 +5192,7 @@ left_duty_cycle += delta_velocity/16;
 right_duty_cycle -= delta_velocity*15/16;
 }
 
-# 178
+# 181
 if (speed_divider)
 {
 left_duty_cycle /= speed_divider;
@@ -5265,7 +5268,6 @@ void SharpTurn(enum e_direction direction)
 {
 int delta_velocity;
 
-# 267
 motors_brake_all();
 _delay(50000);
 if(direction)
@@ -5297,7 +5299,6 @@ delta_velocity++;
 CCW_rotation_flag = 0;
 }
 I = 0;
-
 }
 
 
@@ -5320,5 +5321,18 @@ check_sensors();
 set_leds();
 }
 }
+}
 
+
+void FilterNearbyTrack()
+{
+
+
+if((SeeLine.b.Left && !SeeLine.b.CntLeft) && (SeeLine.b.Center || SeeLine.b.CntRight))
+SeeLine.b.Left = 0;
+
+
+
+if((SeeLine.b.Right && !SeeLine.b.CntRight) && (SeeLine.b.Center || SeeLine.b.CntLeft))
+SeeLine.b.Right = 0;
 }

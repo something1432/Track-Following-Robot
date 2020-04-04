@@ -14,7 +14,7 @@ const char TURN_SPEED_DIVIDER = 0;      //Inversly proportional to turn speed
 const unsigned int TURN_TIME_ms = 800;    //Time it takes to turn around in milliseconds
 
 enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1}
-CCW_rotation_flag = 0, CW_rotation_flag = 0;    //Also using as a boolian
+CCW_rotation_flag = 0, CW_rotation_flag = 0;    //Also using as a general boolian
 int I = 0;  //Integral component of PID
 
 void PID_LineFollowing(signed char error[]);
@@ -22,6 +22,7 @@ void MotorControl(int delta_velocity, char speed_divider);
 void GetBackonTrack(signed char error[]);
 void SharpTurn(enum e_direction direction);
 void AllSensorsTriggered();
+void FilterNearbyTrack();
 
 void main(void)
 {
@@ -45,7 +46,9 @@ void main(void)
     
     while(1)
     {
-        check_sensors();    //Write sensor status to SeeLine.B variable
+        check_sensors();        //Write sensor status to SeeLine.B variable
+        
+        FilterNearbyTrack();    //Disable sensor detecting nearby track
         
         //Set error value based on sensor status or trigger appropriate function based on sensor status
         //The more the robot deviates to the left of the line (right side sensors being triggered)
@@ -249,21 +252,7 @@ void GetBackonTrack(signed char error[])
 void SharpTurn(enum e_direction direction)
 {
     int delta_velocity;
-   /* WriteTimer0(0);
-    TMR0IF = 0;
-    while (SeeLine.B && !TMR0IF) //While any sensor triggered and less than ~ 1 sec elapsed
-    {
-        MotorControl(I*I_CONSTANT);        //Continue on line
-        if (TMR0IF)                             //increment counter
-        {
-            flag_count++;
-            TMR0IF = 0;
-        }
-        
-    }
-    */
-    //if(!SeeLine.B) //If no sensor triggered
-    //{
+    
     motors_brake_all(); //Stop
     _delay(50000);
     if(direction)   //If right side sensors triggered last
@@ -278,7 +267,7 @@ void SharpTurn(enum e_direction direction)
           if (SeeLine.b.Center)     //Start going more and more forward if center triggered
               delta_velocity--;
       }
-        CW_rotation_flag = 0;
+        CW_rotation_flag = 0;       //Clear CW rotation flag after rotation complete
     }
     else            //If left side sensors triggered last
     {
@@ -292,10 +281,9 @@ void SharpTurn(enum e_direction direction)
           if (SeeLine.b.Center)     //Start going more and more forward if center triggered
               delta_velocity++;
       }
-        CCW_rotation_flag = 0;
+        CCW_rotation_flag = 0;      //Clear CCW rotation flag after rotation complete
     }
     I = 0;          //Reset Integral term
-    //}
 }
 
 //Function to deal with if all sensors get triggered
@@ -317,6 +305,19 @@ void AllSensorsTriggered()
             check_sensors();
             set_leds();
         }
-    }
+    }   
+}
+
+//Function to filter out nearby track
+void FilterNearbyTrack()
+{
+    //If far left sensor triggered but center left sensor not triggered
+    //and either center or center right sensor also triggered
+    if((SeeLine.b.Left && !SeeLine.b.CntLeft) && (SeeLine.b.Center || SeeLine.b.CntRight))
+        SeeLine.b.Left = 0;     //Disable far left sensor
     
+    //If far right sensor triggered but center right sensor not triggered
+    //and either center or center left sensor also triggered
+    if((SeeLine.b.Right && !SeeLine.b.CntRight) && (SeeLine.b.Center || SeeLine.b.CntLeft))
+        SeeLine.b.Right = 0;    //Disable far right sensor
 }

@@ -54,7 +54,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S349 . . . . . . ]
 "6795
 [v _INTCONbits `VS349 ~T0 @X0 0 e@4082 ]
-"9 ../../Common\..\Common\osc.h
+"9 ../Robot Files/osc.h
 [v _set_osc_32MHz `(v ~T0 @X0 0 ef ]
 "45 ../Robot Files/sumovore.c
 [v _openPORTCforUSART `(v ~T0 @X0 0 ef ]
@@ -4068,11 +4068,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 207: extern int printf(const char *, ...);
-[; ;Common\..\Common\osc.h: 9: void set_osc_32MHz(void);
-[; ;Common\..\Common\osc.h: 10: void set_osc_8MHz(void);
-[; ;Common\..\Common\osc.h: 11: void set_osc_1MHz(void);
-[; ;Common\..\Common\osc.h: 12: void set_osc_500kHz(void);
-[; ;Common\..\Common\osc.h: 13: void set_osc_4MHz(void);
+[; ;osc.h: 9: void set_osc_32MHz(void);
+[; ;osc.h: 10: void set_osc_8MHz(void);
+[; ;osc.h: 11: void set_osc_1MHz(void);
+[; ;osc.h: 12: void set_osc_500kHz(void);
+[; ;osc.h: 13: void set_osc_4MHz(void);
 [; ;sumovore.h: 65: extern unsigned int threshold;
 [; ;sumovore.h: 75: struct sensors
 [; ;sumovore.h: 76: {
