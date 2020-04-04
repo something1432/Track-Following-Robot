@@ -13,13 +13,14 @@ const unsigned int D_CONSTANT = 65535;  //Proportional constant
 const char TURN_SPEED_DIVIDER = 0;      //Inversly proportional to turn speed
 const unsigned int TURN_TIME_ms = 800;    //Time it takes to turn around in milliseconds
 
-enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1} CCW_rotation_flag = 0, CW_rotation_flag = 0;
+enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1}
+CCW_rotation_flag = 0, CW_rotation_flag = 0;    //Also using as a boolian
 int I = 0;  //Integral component of PID
 
 void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity, char speed_divider);
-void SharpTurn(enum e_direction direction);
 void GetBackonTrack(signed char error[]);
+void SharpTurn(enum e_direction direction);
 void AllSensorsTriggered();
 
 void main(void)
@@ -71,13 +72,17 @@ void main(void)
                error[2]=-4;   break;
            case 0b00111u:
            {
-               CW_rotation_flag = 1;
-               CCW_rotation_flag = 0;
+               WriteTimer0(0);
+               TMR0IF = 0;
+               CW_rotation_flag = 1;    //Set CW rotation flag
+               CCW_rotation_flag = 0;   //Clear CCW rotation flag
            }break;
            case 0b11100u:
            {
-               CCW_rotation_flag = 1;
-               CW_rotation_flag = 0;
+               WriteTimer0(0);
+               TMR0IF = 0;
+               CCW_rotation_flag = 1;   //Set CCW rotation flag
+               CW_rotation_flag = 0;    //Clear CW rotation flag
            }break;
            case 0b00000u:                       //If no sensors triggered
                GetBackonTrack(error);   break;  //Try to find the track
@@ -86,6 +91,13 @@ void main(void)
            default:
                error[2]=0;    break;
          }
+        
+        if(TMR0IF)  //If no turn after ~1 second
+        {
+            CW_rotation_flag = 0;
+            CCW_rotation_flag = 0;
+        }
+        
         set_leds();         // function from sumovore.c
         PID_LineFollowing(error);               //Execute Line following PID
         

@@ -3,7 +3,7 @@
 [d edition pro ]
 [d chip 18F4525 ]
 [d frameptr 4065 ]
-"16 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"17 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [e E4173 e_direction `uc
 reverse 0
 CCW 0
@@ -14,17 +14,17 @@ CW 1
 [v _high_isr high_isr `II(v  1 e 0 0 ]
 "47
 [v _lvd_flag_set lvd_flag_set `(uc  1 e 1 0 ]
-"25 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"26 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _main main `(v  1 e 0 0 ]
-"98
+"110
 [v _PID_LineFollowing PID_LineFollowing `(v  1 e 0 0 ]
-"144
+"156
 [v _MotorControl MotorControl `(v  1 e 0 0 ]
-"200
+"212
 [v _GetBackonTrack GetBackonTrack `(v  1 e 0 0 ]
-"237
+"249
 [v _SharpTurn SharpTurn `(v  1 e 0 0 ]
-"290
+"302
 [v _AllSensorsTriggered AllSensorsTriggered `(v  1 e 0 0 ]
 "18 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/osc.c
 [v _set_osc_32MHz set_osc_32MHz `(v  1 e 0 0 ]
@@ -152,10 +152,10 @@ CW 1
 [v _TURN_SPEED_DIVIDER TURN_SPEED_DIVIDER `Cuc  1 e 1 0 ]
 "14
 [v _TURN_TIME_ms TURN_TIME_ms `Cui  1 e 2 0 ]
-"16
+"17
 [v _CCW_rotation_flag CCW_rotation_flag `E4173  1 e 1 0 ]
 [v _CW_rotation_flag CW_rotation_flag `E4173  1 e 1 0 ]
-"17
+"18
 [v _I I `i  1 e 2 0 ]
 [s S60 . 1 `uc 1 B 1 0 :5:0 
 `uc 1 . 1 0 :3:5 
@@ -788,14 +788,14 @@ CW 1
 [v _STKPTRbits STKPTRbits `VES1031  1 e 1 @4092 ]
 "8097
 [v _TMR0IF TMR0IF `VEb  1 e 0 @32658 ]
-"25 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"26 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"27
+"28
 [v main@error error `[3]c  1 a 3 61 ]
-"26
+"27
 [v main@F4194 F4194 `[3]c  1 s 3 F4194 ]
-"95
+"107
 } 0
 "47 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/interrupts.c
 [v _lvd_flag_set lvd_flag_set `(uc  1 e 1 0 ]
@@ -950,15 +950,15 @@ CW 1
 [v OpenADC@config config `uc  1 a 1 18 ]
 "89
 } 0
-"98 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"110 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _PID_LineFollowing PID_LineFollowing `(v  1 e 0 0 ]
 {
 [v PID_LineFollowing@error error `*.39c  1 p 2 52 ]
-"100
+"112
 [v PID_LineFollowing@delta_velocity delta_velocity `i  1 s 2 delta_velocity ]
-"102
+"114
 [v PID_LineFollowing@D D `i  1 s 2 D ]
-"141
+"153
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwmod.c
 [v ___lwmod __lwmod `(ui  1 e 2 0 ]
@@ -1037,26 +1037,26 @@ CW 1
 [v gtrap@count count `ul  1 a 4 14 ]
 "484
 } 0
-"200 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"212 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _GetBackonTrack GetBackonTrack `(v  1 e 0 0 ]
 {
-"223
+"235
 [v GetBackonTrack@i i `ui  1 a 2 59 ]
-"200
+"212
 [v GetBackonTrack@error error `*.39c  1 p 2 56 ]
-"234
+"246
 } 0
-"237
+"249
 [v _SharpTurn SharpTurn `(v  1 e 0 0 ]
 {
 [v SharpTurn@direction direction `E4173  1 a 1 wreg ]
-"239
+"251
 [v SharpTurn@delta_velocity delta_velocity `i  1 a 2 54 ]
-"237
+"249
 [v SharpTurn@direction direction `E4173  1 a 1 wreg ]
-"255
+"267
 [v SharpTurn@direction direction `E4173  1 a 1 53 ]
-"287
+"299
 } 0
 "16 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\pic18\plib\Timers\t0read.c
 [v _ReadTimer0 ReadTimer0 `(ui  1 e 2 0 ]
@@ -1066,10 +1066,10 @@ CW 1
 [v ReadTimer0@timer timer `S2102  1 a 2 16 ]
 "24
 } 0
-"290 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"302 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _AllSensorsTriggered AllSensorsTriggered `(v  1 e 0 0 ]
 {
-"310
+"322
 } 0
 "256 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/sumovore.c
 [v _set_leds set_leds `(v  1 e 0 0 ]
@@ -1129,19 +1129,19 @@ CW 1
 [v WriteTimer0@timer0 timer0 `ui  1 p 2 14 ]
 "24
 } 0
-"144 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
+"156 C:\Users\Anmol\Documents\APSC 1299\AnmolGillProjects\Robot Project/Robot Files/main.c
 [v _MotorControl MotorControl `(v  1 e 0 0 ]
 {
-"146
+"158
 [v MotorControl@right_duty_cycle right_duty_cycle `i  1 a 2 50 ]
 [v MotorControl@left_duty_cycle left_duty_cycle `i  1 a 2 48 ]
-"147
+"159
 [v MotorControl@right_dir_modifier right_dir_modifier `E4173  1 a 1 47 ]
 [v MotorControl@left_dir_modifier left_dir_modifier `E4173  1 a 1 46 ]
-"144
+"156
 [v MotorControl@delta_velocity delta_velocity `i  1 p 2 42 ]
 [v MotorControl@speed_divider speed_divider `uc  1 p 1 44 ]
-"197
+"209
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]

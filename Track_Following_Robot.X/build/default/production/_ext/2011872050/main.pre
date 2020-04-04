@@ -5035,13 +5035,14 @@ const unsigned int D_CONSTANT = 65535;
 const char TURN_SPEED_DIVIDER = 0;
 const unsigned int TURN_TIME_ms = 800;
 
-enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1} CCW_rotation_flag = 0, CW_rotation_flag = 0;
+enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1}
+CCW_rotation_flag = 0, CW_rotation_flag = 0;
 int I = 0;
 
 void PID_LineFollowing(signed char error[]);
 void MotorControl(int delta_velocity, char speed_divider);
-void SharpTurn(enum e_direction direction);
 void GetBackonTrack(signed char error[]);
+void SharpTurn(enum e_direction direction);
 void AllSensorsTriggered();
 
 void main(void)
@@ -5068,7 +5069,7 @@ while(1)
 {
 check_sensors();
 
-# 54
+# 55
 switch(SeeLine.B)
 {
 case 0b00110u:
@@ -5089,11 +5090,15 @@ case 0b10000u:
 error[2]=-4; break;
 case 0b00111u:
 {
+WriteTimer0(0);
+TMR0IF = 0;
 CW_rotation_flag = 1;
 CCW_rotation_flag = 0;
 }break;
 case 0b11100u:
 {
+WriteTimer0(0);
+TMR0IF = 0;
 CCW_rotation_flag = 1;
 CW_rotation_flag = 0;
 }break;
@@ -5104,6 +5109,13 @@ AllSensorsTriggered(); break;
 default:
 error[2]=0; break;
 }
+
+if(TMR0IF)
+{
+CW_rotation_flag = 0;
+CCW_rotation_flag = 0;
+}
+
 set_leds();
 PID_LineFollowing(error);
 
@@ -5177,7 +5189,7 @@ left_duty_cycle += delta_velocity/16;
 right_duty_cycle -= delta_velocity*15/16;
 }
 
-# 166
+# 178
 if (speed_divider)
 {
 left_duty_cycle /= speed_divider;
@@ -5253,7 +5265,7 @@ void SharpTurn(enum e_direction direction)
 {
 int delta_velocity;
 
-# 255
+# 267
 motors_brake_all();
 _delay(50000);
 if(direction)
