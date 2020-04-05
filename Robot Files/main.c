@@ -74,15 +74,17 @@ void main(void)
            case 0b10000u:
                error[2]=-4;   break;
            case 0b00111u:
+           case 0b01111u:
            {
-               WriteTimer0(0);
+               WriteTimer0(32768);
                TMR0IF = 0;
                CW_rotation_flag = 1;    //Set CW rotation flag
                CCW_rotation_flag = 0;   //Clear CCW rotation flag
            }break;
            case 0b11100u:
+           case 0b11110u:
            {
-               WriteTimer0(0);
+               WriteTimer0(32768);
                TMR0IF = 0;
                CCW_rotation_flag = 1;   //Set CCW rotation flag
                CW_rotation_flag = 0;    //Clear CW rotation flag
@@ -214,9 +216,9 @@ void MotorControl(int delta_velocity, char speed_divider)
 //Function to get robot on track if it is off
 void GetBackonTrack(signed char error[])
 {
-    if((error[2]>1) || (error[1]>1) || CW_rotation_flag)        //If one of the last two recorded errors is 2 or higher
+    if((error[2]>2) || (error[1]>2) || CW_rotation_flag)        //If one of the last two recorded errors is 2 or higher
         SharpTurn(CW);                       //Do a CW turn
-    else if((error[2]<-1) || (error[1]<-1) || CCW_rotation_flag) //If one of the last two recorded errors is -2 or lower
+    else if((error[2]<-2) || (error[1]<-2) || CCW_rotation_flag) //If one of the last two recorded errors is -2 or lower
         SharpTurn(CCW);                       //Do a CCW turn
     else
     {
@@ -291,16 +293,16 @@ void AllSensorsTriggered()
 {
     WriteTimer0(0);
     TMR0IF = 0;
-    while (SeeLine.B=0b11111u && !(TMR0IF)) //While all sensor triggered and less than ~1 sec elapsed
+    while (SeeLine.B==0b11111u && !(TMR0IF)) //While all sensor triggered and less than ~1 sec elapsed
     {
         check_sensors();        //Update sensors
         set_leds();
         MotorControl(0,0);        //go straight
     }
-    if (SeeLine.B=0b11111u)         //If all sensors still triggered
+    if (SeeLine.B==0b11111u)         //If all sensors still triggered
     {
         motors_brake_all();         //Stop
-        while (SeeLine.B=0b11111u)  //While all sensors triggered do nothing
+        while (SeeLine.B==0b11111u)  //While all sensors triggered do nothing
         {
             check_sensors();
             set_leds();

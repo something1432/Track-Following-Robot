@@ -13,8 +13,8 @@ const unsigned int D_CONSTANT = 8000;  //Proportional constant
 const unsigned int TIME_TURN_ms = 800;          //Time in ms, it takes to turn around
 const unsigned int TIME_UPDATE_D_ms = 500;      //Maximum time in ms to wait before updating D term if no change in error occured
 const unsigned int TIME_SHARP_TURN_ms = 500;    //Time in ms, to look for a sharp turn after triggering sharp turn flag
-const unsigned int TIME_OFF_TRACK_ms = 2000;    //Time in ms, off track before robot turns around
-const unsigned int TIME_ON_BLACK_ms = 1000;     //Time in ms, on back before robot stops
+const unsigned int TIME_OFF_TRACK_ms = 1000;    //Time in ms, off track before robot turns around
+const unsigned int TIME_ON_BLACK_ms = 500;     //Time in ms, on back before robot stops
 
 //Global Variables
 enum e_direction {reverse = 0, CCW =0, forward = 1, CW = 1}
@@ -112,7 +112,7 @@ void main(void)
             if(flag_counter_enabled)
             {
                 flag_counter++;
-                if(flag_counter < 16*TIME_SHARP_TURN_ms)  //If no turn after ~500ms
+                if(flag_counter < 4*TIME_SHARP_TURN_ms)  //If no turn after ~500ms
                 {
                     CW_rotation_flag = 0;
                     CCW_rotation_flag = 0;
@@ -152,7 +152,7 @@ void PID_LineFollowing(signed char error[])
     }
     
     //Calculate D
-    if((error[1]!=error[2]) || (D_flag_counter == 16*TIME_UPDATE_D_ms)) //If there is a change in error or TIME_UPDATE_D_ms has passed
+    if((error[1]!=error[2]) || (D_flag_counter == 4*TIME_UPDATE_D_ms)) //If there is a change in error or TIME_UPDATE_D_ms has passed
     {
         D = D_CONSTANT/D_flag_counter*(error[2]-error[1]);    //delta_error/delta_time (error vs time graph derivative)
         
@@ -231,7 +231,7 @@ void GetBackonTrack(signed char error[])
     {
         flag_counter = 0;   //Initialize flag counter
         
-        while (!SeeLine.B && (flag_counter < 16*TIME_OFF_TRACK_ms)) //While no sensor triggered and less than TIME_OFF_TRACK_ms elapsed
+        while (!SeeLine.B && (flag_counter < 4*TIME_OFF_TRACK_ms)) //While no sensor triggered and less than TIME_OFF_TRACK_ms elapsed
         {
             check_sensors();        //Update sensors
             set_leds();
@@ -307,7 +307,7 @@ void AllSensorsTriggered()
 {
     flag_counter = 0;   //Initialize flag counter
     
-    while (SeeLine.B=0b11111u && (flag_counter<16*TIME_ON_BLACK_ms)) //While all sensor triggered and less than TIME_ON_BLACK_ms elapsed
+    while (SeeLine.B==0b11111u && (flag_counter<4*TIME_ON_BLACK_ms)) //While all sensor triggered and less than TIME_ON_BLACK_ms elapsed
     {
         check_sensors();        //Update sensors
         set_leds();
@@ -318,10 +318,10 @@ void AllSensorsTriggered()
             TMR0IF = 0;
         }
     }
-    if (SeeLine.B=0b11111u)         //If all sensors still triggered
+    if (SeeLine.B==0b11111u)         //If all sensors still triggered
     {
         motors_brake_all();         //Stop
-        while (SeeLine.B=0b11111u)  //While all sensors triggered do nothing
+        while (SeeLine.B==0b11111u)  //While all sensors triggered do nothing
         {
             check_sensors();
             set_leds();

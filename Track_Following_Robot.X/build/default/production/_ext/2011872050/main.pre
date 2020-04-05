@@ -5065,14 +5065,15 @@ threshold = 575u;
 OpenTimer0(0b01111111 & 0b11011111 & 0b10111111 & 0b11110110);
 WriteTimer0(0);
 TMR0IF = 0;
-
+OpenTimer3(0b01111111 & 0b11111101 & 0b11111111 & T3_POST_1_8);
+WriteTimer3(0);
 while(1)
 {
 check_sensors();
 
 FilterNearbyTrack();
 
-# 58
+# 59
 switch(SeeLine.B)
 {
 case 0b00110u:
@@ -5092,15 +5093,17 @@ error[2]=-3; break;
 case 0b10000u:
 error[2]=-4; break;
 case 0b00111u:
+case 0b01111u:
 {
-WriteTimer0(0);
+WriteTimer0(32768);
 TMR0IF = 0;
 CW_rotation_flag = 1;
 CCW_rotation_flag = 0;
 }break;
 case 0b11100u:
+case 0b11110u:
 {
-WriteTimer0(0);
+WriteTimer0(32768);
 TMR0IF = 0;
 CCW_rotation_flag = 1;
 CW_rotation_flag = 0;
@@ -5135,13 +5138,15 @@ static int delta_velocity = 0;
 static int D = 0;
 
 
-if ((ReadTimer0()%I_CONSTANT) < 2)
+if (I_CONSTANT < ReadTimer3())
 {
 if(!(delta_velocity>=1600 || delta_velocity<=1600) || (delta_velocity>=1600 && error[2]<0) || (delta_velocity<=-1600 && error[2]>0))
 
 if( !(I>=3273 || I<=-3274) || (I>=3273 && error[2]<0) || (I<=-3274 && error[2]>0))
 
 I += error[2];
+
+WriteTimer3(0);
 }
 
 
@@ -5152,6 +5157,9 @@ D = D_CONSTANT/ReadTimer0()*(error[2]-error[1]);
 
 error[0]=error[1];
 error[1]=error[2];
+
+WriteTimer0(0);
+TMR0IF = 0;
 }
 
 if(TMR0IF)
@@ -5192,7 +5200,7 @@ left_duty_cycle += delta_velocity/16;
 right_duty_cycle -= delta_velocity*15/16;
 }
 
-# 181
+# 189
 if (speed_divider)
 {
 left_duty_cycle /= speed_divider;
@@ -5229,9 +5237,9 @@ PORTEbits.RE0 = !PORTCbits.RC5;
 
 void GetBackonTrack(signed char error[])
 {
-if((error[2]>1) || (error[1]>1) || CW_rotation_flag)
+if((error[2]>2) || (error[1]>2) || CW_rotation_flag)
 SharpTurn(CW);
-else if((error[2]<-1) || (error[1]<-1) || CCW_rotation_flag)
+else if((error[2]<-2) || (error[1]<-2) || CCW_rotation_flag)
 SharpTurn(CCW);
 else
 {
@@ -5306,16 +5314,16 @@ void AllSensorsTriggered()
 {
 WriteTimer0(0);
 TMR0IF = 0;
-while (SeeLine.B=0b11111u && !(TMR0IF))
+while (SeeLine.B==0b11111u && !(TMR0IF))
 {
 check_sensors();
 set_leds();
 MotorControl(0,0);
 }
-if (SeeLine.B=0b11111u)
+if (SeeLine.B==0b11111u)
 {
 motors_brake_all();
-while (SeeLine.B=0b11111u)
+while (SeeLine.B==0b11111u)
 {
 check_sensors();
 set_leds();

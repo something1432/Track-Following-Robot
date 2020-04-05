@@ -71,7 +71,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../Robot Files/main.c" ex="true" overriding="false">
+      <item path="../Robot Files/main.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -80,6 +80,8 @@
         </XC8-CO>
         <XC8-config-global>
         </XC8-config-global>
+      </item>
+      <item path="../Robot Files/main2.c" ex="true" overriding="false">
       </item>
       <HI-TECH-COMP>
         <property key="additional-warnings" value="true"/>
