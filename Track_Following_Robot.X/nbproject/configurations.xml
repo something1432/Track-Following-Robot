@@ -19,6 +19,7 @@
       <itemPath>../Robot Files/sumovore.c</itemPath>
       <itemPath>../Robot Files/interrupts.c</itemPath>
       <itemPath>../Robot Files/osc.c</itemPath>
+      <itemPath>../Robot Files/main2.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -70,7 +71,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../Robot Files/main.c" ex="false" overriding="false">
+      <item path="../Robot Files/main.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
