@@ -20,6 +20,7 @@
       <itemPath>../Robot Files/interrupts.c</itemPath>
       <itemPath>../Robot Files/osc.c</itemPath>
       <itemPath>../Robot Files/main2.c</itemPath>
+      <itemPath>../Robot Files/main3.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -71,7 +72,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../Robot Files/main.c" ex="false" overriding="false">
+      <item path="../Robot Files/main.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -82,6 +83,14 @@
         </XC8-config-global>
       </item>
       <item path="../Robot Files/main2.c" ex="true" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-CO>
+        </XC8-CO>
+        <XC8-config-global>
+        </XC8-config-global>
       </item>
       <HI-TECH-COMP>
         <property key="additional-warnings" value="true"/>
