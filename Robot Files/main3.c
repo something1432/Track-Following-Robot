@@ -133,7 +133,7 @@ void PID_LineFollowing(signed char error[])
     }
     
     //Calculate D
-    if((error[1]!=error[2]) || (D_time == 2000)) //If there is a change in error
+    if((error[1]!=error[2]) || (D_time == 3000)) //If there is a change in error
     {
         D = D_CONSTANT/D_time*(error[2]-error[1]);
         

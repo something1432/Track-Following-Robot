@@ -224,7 +224,7 @@ void GetBackonTrack(signed char error[])
     {
         WriteTimer0(0);
         TMR0IF = 0;
-        while (!SeeLine.B && !(TMR0IF && (ReadTimer0()>59450))) //While no sensor triggered and less than ~2 sec elapsed
+        while (!SeeLine.B && !TMR0IF) //While no sensor triggered and less than ~2 sec elapsed
         {
             check_sensors();        //Update sensors
             set_leds();
@@ -291,7 +291,7 @@ void SharpTurn(enum e_direction direction)
 //Function to deal with if all sensors get triggered
 void AllSensorsTriggered()
 {
-    WriteTimer0(0);
+    WriteTimer0(32768);
     TMR0IF = 0;
     while (SeeLine.B==0b11111u && !(TMR0IF)) //While all sensor triggered and less than ~1 sec elapsed
     {
