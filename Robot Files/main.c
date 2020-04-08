@@ -76,7 +76,7 @@ void main(void)
            case 0b00111u:
            case 0b01111u:
            {
-               WriteTimer0(32768);
+               WriteTimer0(50000);
                TMR0IF = 0;
                CW_rotation_flag = 1;    //Set CW rotation flag
                CCW_rotation_flag = 0;   //Clear CCW rotation flag
@@ -84,7 +84,7 @@ void main(void)
            case 0b11100u:
            case 0b11110u:
            {
-               WriteTimer0(32768);
+               WriteTimer0(50000);
                TMR0IF = 0;
                CCW_rotation_flag = 1;   //Set CCW rotation flag
                CW_rotation_flag = 0;    //Clear CW rotation flag
@@ -216,9 +216,9 @@ void MotorControl(int delta_velocity, char speed_divider)
 //Function to get robot on track if it is off
 void GetBackonTrack(signed char error[])
 {
-    if((error[2]>2) || (error[1]>2) || CW_rotation_flag)        //If one of the last two recorded errors is 2 or higher
+    if((error[2]>2) || (error[1]==4) || CW_rotation_flag)        //If one of the last two recorded errors is 2 or higher
         SharpTurn(CW);                       //Do a CW turn
-    else if((error[2]<-2) || (error[1]<-2) || CCW_rotation_flag) //If one of the last two recorded errors is -2 or lower
+    else if((error[2]<-2) || (error[1]==-4) || CCW_rotation_flag) //If one of the last two recorded errors is -2 or lower
         SharpTurn(CCW);                       //Do a CCW turn
     else
     {
